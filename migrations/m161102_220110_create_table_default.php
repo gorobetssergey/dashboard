@@ -199,6 +199,7 @@ class m161102_220110_create_table_default extends Migration
         $this->dropTable('top_sub');
         $this->dropTable('catalog');
         $this->dropTable('sub_cat');
+        $this->dropTable('users');
 
     }
 }
