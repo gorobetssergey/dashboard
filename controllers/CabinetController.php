@@ -9,5 +9,9 @@ class CabinetController extends \yii\web\Controller
     {
         return $this->render('index');
     }
+    public function actionModeration()
+    {
+        return $this->render('moderation');
+    }
 
 }
