@@ -47,6 +47,19 @@ $config = [
             'rules' => [
             ],
         ],
+        'i18n' => [
+            'translations' => [
+                '*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+                    'fileMap' => [
+                        'site' => 'site.php',
+                        'cabinet' => 'cabinet.php',
+                        'admin' => 'admin.php'
+                    ]
+                ],
+            ],
+        ],
     ],
     'params' => $params,
 ];

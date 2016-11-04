@@ -48,16 +48,6 @@ class DbseedController extends Controller
                 ['exchange'],
             ])->execute();
 
-            Yii::$app->db->createCommand()->batchInsert('submenu', ['title'], [
-                ['tires_and_wheels'],
-                ['spare_parts_for_speciale'],
-                ['cars'],
-                ['motozapchastey_and_accessories'],
-                ['motorcycles'],
-                ['agriculture'],
-                ['trucks'],
-            ])->execute();
-
             $transaction->commit();
 
         } catch(\Exception $e) {

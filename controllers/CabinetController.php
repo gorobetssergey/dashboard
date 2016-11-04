@@ -14,4 +14,9 @@ class CabinetController extends \yii\web\Controller
         return $this->render('moderation');
     }
 
+    public function actionNewItems()
+    {
+        return $this->render('newItem');
+    }
+
 }
