@@ -266,7 +266,7 @@ jQuery.extend( {
 			typeof obj;
 	},
 
-	// Evaluates a script in a global context
+	// Evaluates a script in a globals context
 	globalEval: function( code ) {
 		var script,
 			indirect = eval;
@@ -285,7 +285,7 @@ jQuery.extend( {
 			} else {
 
 				// Otherwise, avoid the DOM node creation, insertion
-				// and removal by using an indirect global eval
+				// and removal by using an indirect globals eval
 
 				indirect( code );
 			}
@@ -418,7 +418,7 @@ jQuery.extend( {
 		return concat.apply( [], ret );
 	},
 
-	// A global GUID counter for objects
+	// A globals GUID counter for objects
 	guid: 1,
 
 	// Bind a function to a context, optionally partially applying any
@@ -458,7 +458,7 @@ jQuery.extend( {
 } );
 
 // JSHint would error on this code due to the Symbol not being defined in ES5.
-// Defining this global in .jshintrc would create a danger of using the global
+// Defining this globals in .jshintrc would create a danger of using the globals
 // unguarded in another place, it seems safer to just disable JSHint for these
 // three lines.
 /* jshint ignore: start */

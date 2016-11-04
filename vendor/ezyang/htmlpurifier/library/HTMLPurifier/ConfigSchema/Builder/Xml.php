@@ -49,7 +49,7 @@ class HTMLPurifier_ConfigSchema_Builder_Xml extends XMLWriter
      */
     public function build($interchange)
     {
-        // global access, only use as last resort
+        // globals access, only use as last resort
         $this->interchange = $interchange;
 
         $this->setIndent(true);

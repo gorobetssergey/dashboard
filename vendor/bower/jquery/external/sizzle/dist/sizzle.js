@@ -499,7 +499,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 		return document;
 	}
 
-	// Update global variables
+	// Update globals variables
 	document = doc;
 	docElem = document.documentElement;
 	documentIsHTML = !isXML( document );
@@ -2132,7 +2132,7 @@ if ( !assert(function( div ) {
 // EXPOSE
 if ( typeof define === "function" && define.amd ) {
 	define(function() { return Sizzle; });
-// Sizzle requires that there be a global window in Common-JS like environments
+// Sizzle requires that there be a globals window in Common-JS like environments
 } else if ( typeof module !== "undefined" && module.exports ) {
 	module.exports = Sizzle;
 } else {

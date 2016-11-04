@@ -35,7 +35,7 @@ class ContextTest extends \PHPUnit_Framework_TestCase
      */
     public function testInterpretsNamespaceNamedGlobalAsRootNamespace()
     {
-        $fixture = new Context('global');
+        $fixture = new Context('globals');
         $this->assertSame('', $fixture->getNamespace());
     }
 

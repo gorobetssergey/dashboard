@@ -701,7 +701,7 @@ class HTMLPurifier_Config
      * namespaces/directives list.
      *
      * @param array $allowed List of allowed namespaces/directives
-     * @param HTMLPurifier_ConfigSchema $schema Schema to use, if not global copy
+     * @param HTMLPurifier_ConfigSchema $schema Schema to use, if not globals copy
      *
      * @return array
      */
@@ -761,7 +761,7 @@ class HTMLPurifier_Config
      * @param string|bool $index Index/name that the config variables are in
      * @param array|bool $allowed List of allowed namespaces/directives
      * @param bool $mq_fix Boolean whether or not to enable magic quotes fix
-     * @param HTMLPurifier_ConfigSchema $schema Schema to use, if not global copy
+     * @param HTMLPurifier_ConfigSchema $schema Schema to use, if not globals copy
      *
      * @return mixed
      */
@@ -794,7 +794,7 @@ class HTMLPurifier_Config
      * @param string|bool $index Index/name that the config variables are in
      * @param array|bool $allowed List of allowed namespaces/directives
      * @param bool $mq_fix Boolean whether or not to enable magic quotes fix
-     * @param HTMLPurifier_ConfigSchema $schema Schema to use, if not global copy
+     * @param HTMLPurifier_ConfigSchema $schema Schema to use, if not globals copy
      *
      * @return array
      */

@@ -10,7 +10,7 @@ use \Codeception\Event\TestEvent;
  *
  * INSTALLATION:
  *
- * To use this group extension, include it to "extensions" option of global Codeception config.
+ * To use this group extension, include it to "extensions" option of globals Codeception config.
  */
 class CountEvents extends \Codeception\Platform\Group
 {

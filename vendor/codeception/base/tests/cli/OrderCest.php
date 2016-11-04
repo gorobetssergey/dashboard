@@ -6,7 +6,7 @@ class OrderCest
     {
         $I->amInPath('tests/data/sandbox');
         $I->executeCommand('run order LoadingOrderCept.php');
-        $I->expect('global bootstrap, initialization, beforeSuite, before, bootstrap(B), test(T), after, afterSuite');
+        $I->expect('globals bootstrap, initialization, beforeSuite, before, bootstrap(B), test(T), after, afterSuite');
         $I->seeFileFound('order.txt', 'tests/_output');
         $I->seeFileContentsEqual("BIB([ST])");
     }
@@ -16,7 +16,7 @@ class OrderCest
         $I->amInPath('tests/data/sandbox');
         $I->executeCommand('run order FailedCept.php --no-exit');
         $I->seeFileFound('order.txt', 'tests/_output');
-        $I->expect('global bootstrap, initialization, beforeSuite, before, bootstrap, test, fail, after, afterSuite');
+        $I->expect('globals bootstrap, initialization, beforeSuite, before, bootstrap, test, fail, after, afterSuite');
         $I->seeFileContentsEqual("BIB([STF])");
     }
 
@@ -26,7 +26,7 @@ class OrderCest
         $I->executeCommand('run order CanCantFailCept.php --no-exit');
         $I->seeFileFound('order.txt', 'tests/_output');
         $I->expect(
-            'global bootstrap, initialization, beforeSuite, before, bootstrap, test,'
+            'globals bootstrap, initialization, beforeSuite, before, bootstrap, test,'
             . ' fail, fail, test, after, afterSuite'
         );
         $I->seeFileContentsEqual("BIB([STFFT])");
@@ -38,7 +38,7 @@ class OrderCest
         $I->executeCommand('run order CanCantFailCest.php --no-exit');
         $I->seeFileFound('order.txt', 'tests/_output');
         $I->expect(
-            'global bootstrap, initialization, beforeSuite, before, bootstrap, test,'
+            'globals bootstrap, initialization, beforeSuite, before, bootstrap, test,'
             . ' fail, fail, test, test, fail, fail, test, after, afterSuite'
         );
         $I->seeFileContentsEqual("BIB([TFT][TFT])");
@@ -74,7 +74,7 @@ class OrderCest
         $I->executeCommand('run order CodeTest.php --no-exit');
         $I->seeFileFound('order.txt', 'tests/_output');
         $I->expect('
-            global bootstrap,
+            globals bootstrap,
             initialization,
             beforeSuite,
             beforeClass,

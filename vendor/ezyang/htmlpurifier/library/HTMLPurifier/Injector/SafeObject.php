@@ -113,7 +113,7 @@ class HTMLPurifier_Injector_SafeObject extends HTMLPurifier_Injector
     {
         // This is the WRONG way of handling the object and param stacks;
         // we should be inserting them directly on the relevant object tokens
-        // so that the global stack handling handles it.
+        // so that the globals stack handling handles it.
         if ($token->name == 'object') {
             array_pop($this->objectStack);
             array_pop($this->paramStack);

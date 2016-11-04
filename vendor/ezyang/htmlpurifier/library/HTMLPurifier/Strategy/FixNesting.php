@@ -8,7 +8,7 @@
  * much more rigorous definitions: tables, for instance, require a specific
  * order for their elements.  There are also constraints not expressible by
  * document type definitions, such as the chameleon nature of ins/del
- * tags and global child exclusions.
+ * tags and globals child exclusions.
  *
  * The first major objective of this strategy is to iterate through all
  * the nodes and determine whether or not their children conform to the

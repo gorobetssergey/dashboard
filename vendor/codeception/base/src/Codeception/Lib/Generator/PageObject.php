@@ -76,7 +76,7 @@ EOF;
     protected function produceActions()
     {
         if (!isset($this->settings['class_name'])) {
-            return ''; // global pageobject
+            return ''; // globals pageobject
         }
 
         $actor = lcfirst($this->settings['class_name']);

@@ -43,7 +43,7 @@ final class Context
      */
     public function __construct($namespace, array $namespaceAliases = [])
     {
-        $this->namespace = ('global' !== $namespace && 'default' !== $namespace)
+        $this->namespace = ('globals' !== $namespace && 'default' !== $namespace)
             ? trim((string)$namespace, '\\')
             : '';
 

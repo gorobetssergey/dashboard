@@ -55,7 +55,7 @@ class ClassNotFoundFatalErrorHandler implements FatalErrorHandlerInterface
                 $tail = ' for another namespace?';
             } else {
                 $className = $fullyQualifiedClassName;
-                $message = sprintf('Attempted to load %s "%s" from the global namespace.', $typeName, $className);
+                $message = sprintf('Attempted to load %s "%s" from the globals namespace.', $typeName, $className);
                 $tail = '?';
             }
 

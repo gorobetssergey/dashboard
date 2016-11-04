@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\globals\GlobalTables;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -60,8 +61,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-
-
+        $data = new GlobalTables(['catalog' => 1]);
+        var_dump($data->getParams());die();
         return $this->render('index');
     }
 

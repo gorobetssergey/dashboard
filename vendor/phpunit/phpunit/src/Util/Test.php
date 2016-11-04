@@ -829,7 +829,7 @@ class PHPUnit_Util_Test
     }
 
     /**
-     * Returns the preserve global state settings for a test.
+     * Returns the preserve globals state settings for a test.
      *
      * @param string $className
      * @param string $methodName

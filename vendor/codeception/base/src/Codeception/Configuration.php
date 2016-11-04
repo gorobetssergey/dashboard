@@ -111,7 +111,7 @@ class Configuration
     protected static $params;
 
     /**
-     * Loads global config file which is `codeception.yml` by default.
+     * Loads globals config file which is `codeception.yml` by default.
      * When config is already loaded - returns it.
      *
      * @param null $configFile
@@ -246,7 +246,7 @@ class Configuration
     }
 
     /**
-     * Returns suite configuration. Requires suite name and global config used (Configuration::config)
+     * Returns suite configuration. Requires suite name and globals config used (Configuration::config)
      *
      * @param string $suite
      * @param array $config
@@ -264,7 +264,7 @@ class Configuration
             throw new ConfigurationException("Suite $suite was not loaded");
         }
 
-        // load global config
+        // load globals config
         $globalConf = $config['settings'];
         foreach (['modules', 'coverage', 'namespace', 'groups', 'env', 'gherkin'] as $key) {
             if (isset($config[$key])) {
@@ -457,7 +457,7 @@ class Configuration
     public static function outputDir()
     {
         if (!self::$logDir) {
-            throw new ConfigurationException("Path for output not specified. Please, set output path in global config");
+            throw new ConfigurationException("Path for output not specified. Please, set output path in globals config");
         }
 
         $dir = self::$logDir . DIRECTORY_SEPARATOR;

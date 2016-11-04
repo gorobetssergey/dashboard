@@ -52,7 +52,7 @@ class FixtureController extends Controller
      */
     public $namespace = 'tests\unit\fixtures';
     /**
-     * @var array global fixtures that should be applied when loading and unloading. By default it is set to `InitDbFixture`
+     * @var array globals fixtures that should be applied when loading and unloading. By default it is set to `InitDbFixture`
      * that disables and enables integrity check, so your data can be safely loaded.
      */
     public $globalFixtures = [

@@ -62,7 +62,7 @@ class Tabs extends Widget
      *
      * - label: string, required, the tab header label.
      * - encode: boolean, optional, whether this label should be HTML-encoded. This param will override
-     *   global `$this->encodeLabels` param.
+     *   globals `$this->encodeLabels` param.
      * - headerOptions: array, optional, the HTML attributes of the tab header.
      * - linkOptions: array, optional, the HTML attributes of the tab header link tags.
      * - content: string, optional, the content (HTML) of the tab pane.

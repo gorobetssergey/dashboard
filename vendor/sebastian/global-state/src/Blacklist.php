@@ -13,7 +13,7 @@ namespace SebastianBergmann\GlobalState;
 use ReflectionClass;
 
 /**
- * A blacklist for global state elements that should not be snapshotted.
+ * A blacklist for globals state elements that should not be snapshotted.
  */
 class Blacklist
 {

@@ -79,7 +79,7 @@ final class MyTag extends BaseTag implements StaticMethod
      * @param DescriptionFactory $descriptionFactory
      * @param Context|null       $context The Context is used to resolve Types and FQSENs, although optional
      *                                    it is highly recommended to pass it. If you omit it then it is assumed that
-     *                                    the DocBlock is in the global namespace and has no `use` statements.
+     *                                    the DocBlock is in the globals namespace and has no `use` statements.
      *
      * @see Tag for the interface declaration of the `create` method.
      * @see Tag::create() for more information on this method's workings.

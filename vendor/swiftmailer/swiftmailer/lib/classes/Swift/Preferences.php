@@ -9,7 +9,7 @@
  */
 
 /**
- * Changes some global preference settings in Swift Mailer.
+ * Changes some globals preference settings in Swift Mailer.
  *
  * @author Chris Corbyn
  */

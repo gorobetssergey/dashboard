@@ -102,7 +102,7 @@ abstract class PHPUnit_Framework_TestCase extends PHPUnit_Framework_Assert imple
     protected $runTestInSeparateProcess = null;
 
     /**
-     * Whether or not this test should preserve the global state when
+     * Whether or not this test should preserve the globals state when
      * running in a separate PHP process.
      *
      * @var bool
@@ -2508,7 +2508,7 @@ abstract class PHPUnit_Framework_TestCase extends PHPUnit_Framework_Assert imple
             $this->compareGlobalStateSnapshotPart(
                 $before->superGlobalVariables(),
                 $after->superGlobalVariables(),
-                "--- Super-global variables before the test\n+++ Super-global variables after the test\n"
+                "--- Super-globals variables before the test\n+++ Super-globals variables after the test\n"
             );
         }
 

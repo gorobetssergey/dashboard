@@ -47,7 +47,7 @@ namespace Symfony\Polyfill\Mbstring;
  * - mb_decode_numericentity - Decode HTML numeric string reference to character
  * - mb_encode_numericentity - Encode character to HTML numeric string reference
  * - mb_ereg_*               - Regular expression with multibyte support
- * - mb_parse_str            - Parse GET/POST/COOKIE data and set global variable
+ * - mb_parse_str            - Parse GET/POST/COOKIE data and set globals variable
  * - mb_preferred_mime_name  - Get MIME charset string
  * - mb_regex_encoding       - Returns current encoding for multibyte regex as string
  * - mb_regex_set_options    - Set/Get the default options for mbregex functions

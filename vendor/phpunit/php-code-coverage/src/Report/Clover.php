@@ -60,7 +60,7 @@ class Clover
             $classes   = $item->getClassesAndTraits();
             $coverage  = $item->getCoverageData();
             $lines     = [];
-            $namespace = 'global';
+            $namespace = 'globals';
 
             foreach ($classes as $className => $class) {
                 $classStatements        = 0;
@@ -203,7 +203,7 @@ class Clover
             $xmlMetrics->setAttribute('coveredelements', $item->getNumTestedMethods() + $item->getNumExecutedLines() /* + coveredconditionals */);
             $xmlFile->appendChild($xmlMetrics);
 
-            if ($namespace == 'global') {
+            if ($namespace == 'globals') {
                 $xmlProject->appendChild($xmlFile);
             } else {
                 if (!isset($packages[$namespace])) {

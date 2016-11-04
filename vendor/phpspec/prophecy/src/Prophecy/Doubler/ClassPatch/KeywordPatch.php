@@ -98,7 +98,7 @@ class KeywordPatch implements ClassPatchInterface
             'for',
             'foreach',
             'function',
-            'global',
+            'globals',
             'goto',
             'if',
             'implements',

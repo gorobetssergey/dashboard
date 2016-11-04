@@ -445,7 +445,7 @@ abstract class Generator extends Model
             'for',
             'foreach',
             'function',
-            'global',
+            'globals',
             'goto',
             'if',
             'implements',

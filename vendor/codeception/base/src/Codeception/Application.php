@@ -104,7 +104,7 @@ class Application extends BaseApplication
     }
 
     /**
-     * Add global a --config option.
+     * Add globals a --config option.
      *
      * @return InputDefinition
      */

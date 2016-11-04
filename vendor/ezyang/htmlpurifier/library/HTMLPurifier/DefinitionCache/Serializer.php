@@ -290,7 +290,7 @@ class HTMLPurifier_DefinitionCache_Serializer extends HTMLPurifier_DefinitionCac
                 $chmod = $chmod | 0070;
             } else {
                 // PHP's probably running as nobody, so we'll
-                // need to give global permissions
+                // need to give globals permissions
                 $chmod = $chmod | 0777;
             }
             trigger_error(

@@ -84,7 +84,7 @@ class PHPUnit_TextUI_Command
         'fail-on-risky'           => null,
         'strict-coverage'         => null,
         'disable-coverage-ignore' => null,
-        'strict-global-state'     => null,
+        'strict-globals-state'     => null,
         'tap'                     => null,
         'teamcity'                => null,
         'testdox'                 => null,
@@ -588,7 +588,7 @@ class PHPUnit_TextUI_Command
                     $this->arguments['disableCodeCoverageIgnore'] = true;
                     break;
 
-                case '--strict-global-state':
+                case '--strict-globals-state':
                     $this->arguments['beStrictAboutChangesToGlobalState'] = true;
                     break;
 
@@ -1059,7 +1059,7 @@ Test Execution Options:
 
   --report-useless-tests    Be strict about tests that do not test anything.
   --strict-coverage         Be strict about @covers annotation usage.
-  --strict-global-state     Be strict about changes to global state
+  --strict-globals-state     Be strict about changes to globals state
   --disallow-test-output    Be strict about output during tests.
   --disallow-resource-usage Be strict about resource usage during small tests.
   --enforce-time-limit      Enforce time limit based on test size.

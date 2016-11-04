@@ -126,7 +126,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
     }
 
     /**
-     * Resets potentially incompatible global settings done in app config.
+     * Resets potentially incompatible globals settings done in app config.
      */
     protected function resetGlobalSettings()
     {

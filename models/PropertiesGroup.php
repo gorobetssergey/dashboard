@@ -16,12 +16,18 @@ use Yii;
  */
 class PropertiesGroup extends \yii\db\ActiveRecord
 {
+    private $group;
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return 'properties_group';
+    }
+
+    public function __construct($config)
+    {
+        $this->group = 100;
     }
 
     /**
@@ -62,5 +68,10 @@ class PropertiesGroup extends \yii\db\ActiveRecord
     public function getProp()
     {
         return $this->hasOne(Properties::className(), ['id' => 'prop_id']);
+    }
+
+    public function getAllProp()
+    {
+        return $this->group;
     }
 }
