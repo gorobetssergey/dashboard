@@ -48,6 +48,52 @@ class DbseedController extends Controller
                 ['exchange'],
             ])->execute();
 
+            Yii::$app->db->createCommand()->batchInsert('submenu', ['title'], [
+                ['tires_and_wheels'],
+                ['spare_parts_for_speciale'],
+                ['cars'],
+                ['motozapchastey_and_accessories'],
+                ['motorcycles'],
+                ['agriculture'],
+                ['trucks'],
+                ['buses'],
+                ['spesial_tehnik'],
+                ['air_transport'],
+                ['woter_transpotr'],
+                ['other_transport'] ,
+                ['trailers'],
+                ['spec_acessories'],
+                ['spare_parts'],
+            ])->execute();
+
+            $submenu = (new \yii\db\Query())
+                ->select('id')
+                ->from('submenu')
+                ->all();
+
+            $top_cab = [];
+            foreach ($submenu as $item) {
+                $top_cab[] = [1,(int)$item['id']];
+            }
+            Yii::$app->db->createCommand()->batchInsert('top_sub', ['id_top','id_sub'], $top_cab)->execute();;
+
+            Yii::$app->db->createCommand()->batchInsert('catalog', ['title'], [
+                ['Tires'],
+                ['Discs'],
+                ['Complete_wheels'],
+                ['Covers'],
+                ['motorcycle_tires'],
+            ])->execute();
+            $catalog = (new \yii\db\Query())
+                ->select('id')
+                ->from('catalog')
+                ->all();
+            $cat_cab = [];
+            foreach ($catalog as $item) {
+                $cat_cab[] = [1,(int)$item['id']];
+            }
+            Yii::$app->db->createCommand()->batchInsert('sub_cat', ['id_sub','id_cat'], $cat_cab)->execute();;
+
             $transaction->commit();
 
         } catch(\Exception $e) {
