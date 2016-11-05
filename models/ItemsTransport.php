@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Properties;
 
 /**
  * This is the model class for table "items_transport".
@@ -119,17 +120,35 @@ class ItemsTransport extends \yii\db\ActiveRecord
             $this->prop_group = $attributeNames['prop_group'];
             $this->created_at = $attributeNames['created_at'];
             $this->updated_at = $attributeNames['updated_at'];
-            $this->description = $attributeNames['description'];
             $this->status = $attributeNames['status'];
             $this->description = $_POST["Items"]["descriptions_tires"];
-
             $res1 = parent::save();
+
             $attributeNames["dataitems"]['model']->items_id = $this->id;
             $attributeNames["dataitems"]['model']->topmenu_id = $attributeNames["dataitems"]['topmenu_id'];
             $attributeNames["dataitems"]['model']->name = $attributeNames["dataitems"]['name'];
             $res2 = $attributeNames["dataitems"]['model']->save();
 
-            if($res1 && $res2)
+            $properties = [
+                [$this->id, 1 , $_POST['Items']['price_tires']],
+                [$this->id, 2 , Properties::BREND_TIRES[$_POST['Items']['brand_name_tires']]],
+                [$this->id, 3 , Properties::SEASON_TIRES[$_POST['Items']['season_tires']]],
+                [$this->id, 4 , Properties::WIDTH_TIRES[$_POST['Items']['width_tires']]],
+                [$this->id, 5 , Properties::SIDE_VIEW_TIRES[$_POST['Items']['side_view_tires']]],
+                [$this->id, 6 , Properties::DIAMETER_TIRES[$_POST['Items']['diameter_tires']]],
+                [$this->id, 7 , Properties::CAR_TYPE_TIRES[$_POST['Items']['car_type_tires']]],
+                [$this->id, 8 , Properties::THORNS_TIRES[$_POST['Items']['thorns_tires']]],
+                [$this->id, 9 , Properties::CAN_THORNS_TIRES[$_POST['Items']['can_thorns_tires']]],
+                [$this->id, 10 , $_POST['Items']['descriptions_tires']],
+                [$this->id, 11 , $_POST['Items']['name_tires']],
+            ];
+            
+            $res3 = Yii::$app->db->createCommand()->batchInsert($attributeNames['table_properties'], ['items_id','prop_id','value'], $properties)->execute();
+
+            $moderators = new Moderation();
+            $moderators->attributes = ['topmenu_id' => $attributeNames['topmenu_id'],'items_id' => $this->id];
+            $res4 = $moderators->save();
+            if($res1 && $res2 && $res3 && $res4)
             {
                 $transaction->commit();
                 return true;

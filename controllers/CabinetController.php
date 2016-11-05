@@ -39,17 +39,21 @@ class CabinetController extends \yii\web\Controller
                     'updated_at' => $date,
                     'status' => Items::STATUS_DEFAULT,
                     'description' => 'test',
-                    'dataitems' => ['model'=>$items,'topmenu_id'=>$params['topmenu'],'name'=>$post["Items"]["name_tires"]]
+                    'dataitems' => ['model'=>$items,'topmenu_id'=>$params['topmenu'],'name'=>$post["Items"]["name_tires"]],
+                    'table_properties' => $params['table_properties']
                 ];
                 if($params['table']->save(true,$attributeNames))
                 {
-                    var_dump('ok');die();
+                    Yii::$app->getSession()->setFlash('add_new_items_ok', 'Товар успешно направлен на модерацию.');
+                    return $this->refresh();
                 }
                 else{
-                    var_dump($params['table']->errors);die();
+                    Yii::$app->getSession()->setFlash('add_new_items_err', 'Ошибка данных.');
+                    return $this->refresh();
                 }
             }else{
-                var_dump(99);die();
+                Yii::$app->getSession()->setFlash('add_new_items_err', 'Ошибка данных.');
+                return $this->refresh();
             }
         }
 

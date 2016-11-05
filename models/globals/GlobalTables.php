@@ -53,7 +53,7 @@ class GlobalTables extends Modal
             case self::TIRES :
                                     $this->topmenu = self::TRANSPORT;
                                     $this->table = new ItemsTransport();
-                                    $this->table_properties = new TransportProp();
+                                    $this->table_properties = 'transport_prop';
                                     $this->properties = (new PropertiesGroup($this->catalog))->getAllProp();
                                     $this->view = self::VIEWS[$this->catalog];
                                     $this->scenaries = self::SCENARIES[$this->catalog];

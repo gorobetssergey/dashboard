@@ -104,7 +104,8 @@ class DbseedController extends Controller
                 ['car_type_tires'],
                 ['thorns_tires'],
                 ['can_thorns_tires'],
-                ['descriptions_tires']
+                ['descriptions_tires'],
+                ['name_tires']
             ])->execute();
 
             $properties = (new \yii\db\Query())
@@ -117,6 +118,17 @@ class DbseedController extends Controller
             }
             Yii::$app->db->createCommand()->batchInsert('properties_group', ['groups','prop_id'], $prop_group)->execute();
 
+
+            Yii::$app->db->createCommand()->batchInsert('role', ['value'], [['user']])->execute();
+
+            /*
+             * test data to table user
+             */
+
+
+            Yii::$app->db->createCommand()->batchInsert('users', ['email','role','active','password','repassword','token','created','auth'], [
+                ['user@user.net',1,1,'qqqqqqqq','wwwwwwww','eeeeeeee','2016-10-12 23:00:00',1]
+            ])->execute();
             $transaction->commit();
 
         } catch(\Exception $e) {

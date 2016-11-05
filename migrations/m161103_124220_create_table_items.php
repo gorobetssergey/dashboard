@@ -219,6 +219,29 @@ class m161103_124220_create_table_items extends Migration
             'id',//topmenu.id
             'CASCADE'
         );
+
+        /**
+         *create table moderators - All items to moderators in site
+         */
+        $this->createTable('moderation', [
+            'id' => $this->primaryKey(),
+            'topmenu_id' => $this->integer(),//referense to table topmenu //tommenu.id
+            'items_id' => $this->integer()->notNull(),//referense to table_items this topmenu //tommenu.id
+        ]);
+        $this->createIndex(
+            'idx-topmenu_id_moderation',
+            'moderation',
+            'topmenu_id'//items.top_id
+        );
+
+        $this->addForeignKey(
+            'fk-topmenu_id_moderation',
+            'moderation',//table items
+            'topmenu_id',//items.top_id
+            'topmenu',//table topmenu
+            'id',//topmenu.id
+            'CASCADE'
+        );
     }
 
     public function safeDown()
