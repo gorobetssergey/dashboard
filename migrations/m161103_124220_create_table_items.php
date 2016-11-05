@@ -71,7 +71,7 @@ class m161103_124220_create_table_items extends Migration
 
         $this->createTable('properties_group',[
             'id' => $this->primaryKey(),
-            'group' => $this->integer(),
+            'groups' => $this->integer(),
             'prop_id' => $this->integer()->notNull()
         ]);
         $this->createIndex(
@@ -82,7 +82,7 @@ class m161103_124220_create_table_items extends Migration
         $this->createIndex(
             'idx-group_properties_group',
             'properties_group',
-            'group'//items.top_id
+            'groups'//items.top_id
         );
         $this->addForeignKey(
             'fk-items_id_properties_group',
@@ -155,7 +155,7 @@ class m161103_124220_create_table_items extends Migration
             'items_transport',//table items
             'prop_group',//items.top_id
             'properties_group',//table topmenu
-            'group',//topmenu.id
+            'groups',//topmenu.id
             'CASCADE'
         );
 

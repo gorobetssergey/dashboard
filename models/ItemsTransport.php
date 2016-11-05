@@ -41,10 +41,10 @@ class ItemsTransport extends \yii\db\ActiveRecord
         return [
             [['user_id', 'catalog_id', 'topmenu_id', 'prop_group', 'created_at', 'updated_at', 'description'], 'required'],
             [['user_id', 'catalog_id', 'topmenu_id', 'prop_group', 'status'], 'integer'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['user_id', 'catalog_id', 'topmenu_id', 'prop_group', 'created_at', 'updated_at', 'description'], 'safe'],
             [['description'], 'string', 'max' => 255],
             [['catalog_id'], 'exist', 'skipOnError' => true, 'targetClass' => Catalog::className(), 'targetAttribute' => ['catalog_id' => 'id']],
-            [['prop_group'], 'exist', 'skipOnError' => true, 'targetClass' => PropertiesGroup::className(), 'targetAttribute' => ['prop_group' => 'group']],
+            [['prop_group'], 'exist', 'skipOnError' => true, 'targetClass' => PropertiesGroup::className(), 'targetAttribute' => ['prop_group' => 'groups']],
             [['topmenu_id'], 'exist', 'skipOnError' => true, 'targetClass' => Topmenu::className(), 'targetAttribute' => ['topmenu_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -106,5 +106,37 @@ class ItemsTransport extends \yii\db\ActiveRecord
     public function getTransportProps()
     {
         return $this->hasMany(TransportProp::className(), ['items_id' => 'id']);
+    }
+
+    public function save($runValidation = true, $attributeNames = null)
+    {
+        $transaction = Yii::$app->db->beginTransaction();
+
+        try{
+            $this->user_id = $attributeNames['user_id'];
+            $this->catalog_id = $attributeNames['catalog_id'];
+            $this->topmenu_id = $attributeNames['topmenu_id'];
+            $this->prop_group = $attributeNames['prop_group'];
+            $this->created_at = $attributeNames['created_at'];
+            $this->updated_at = $attributeNames['updated_at'];
+            $this->description = $attributeNames['description'];
+            $this->status = $attributeNames['status'];
+            $this->description = $_POST["Items"]["descriptions_tires"];
+
+            $res1 = parent::save();
+            $attributeNames["dataitems"]['model']->items_id = $this->id;
+            $attributeNames["dataitems"]['model']->topmenu_id = $attributeNames["dataitems"]['topmenu_id'];
+            $attributeNames["dataitems"]['model']->name = $attributeNames["dataitems"]['name'];
+            $res2 = $attributeNames["dataitems"]['model']->save();
+
+            if($res1 && $res2)
+            {
+                $transaction->commit();
+                return true;
+            }
+        }catch (Exception $ex) {
+            $transaction->rollBack();
+            return false;
+        }
     }
 }

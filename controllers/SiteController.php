@@ -61,8 +61,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $data = new GlobalTables(['catalog' => 1]);
-        var_dump($data->getParams());die();
         return $this->render('index');
     }
 

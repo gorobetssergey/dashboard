@@ -17,6 +17,21 @@ use Yii;
 class PropertiesGroup extends \yii\db\ActiveRecord
 {
     private $group;
+
+    const PROPERTIES = [
+        '1' => [
+            'price_tires',/*price*/
+            'brand_name_tires',/*brand*/
+            'season_tires',/*season*/
+            'width_tires',/*width (205)*/
+            'side_view_tires',/*side_view (65)*/
+            'diameter_tires',/*diameter (16)*/
+            'car_type_tires',/*car_type (cards trucks)*/
+            'thorns_tires',/*thorns*/
+            'can_thorns_tires',/*can_thorns*/
+            'description_tires'
+        ]
+    ];
     /**
      * @inheritdoc
      */
@@ -27,7 +42,7 @@ class PropertiesGroup extends \yii\db\ActiveRecord
 
     public function __construct($config)
     {
-        $this->group = 100;
+        $this->group = $config;
     }
 
     /**
@@ -72,6 +87,6 @@ class PropertiesGroup extends \yii\db\ActiveRecord
 
     public function getAllProp()
     {
-        return $this->group;
+        return self::PROPERTIES[$this->group];
     }
 }

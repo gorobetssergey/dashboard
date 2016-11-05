@@ -92,7 +92,30 @@ class DbseedController extends Controller
             foreach ($catalog as $item) {
                 $cat_cab[] = [1,(int)$item['id']];
             }
-            Yii::$app->db->createCommand()->batchInsert('sub_cat', ['id_sub','id_cat'], $cat_cab)->execute();;
+            Yii::$app->db->createCommand()->batchInsert('sub_cat', ['id_sub','id_cat'], $cat_cab)->execute();
+
+            Yii::$app->db->createCommand()->batchInsert('properties', ['name'], [
+                ['price_tires'],
+                ['brand_name_tires'],
+                ['season_tires'],
+                ['width_tires'],
+                ['side_view_tires'],
+                ['diameter_tires'],
+                ['car_type_tires'],
+                ['thorns_tires'],
+                ['can_thorns_tires'],
+                ['descriptions_tires']
+            ])->execute();
+
+            $properties = (new \yii\db\Query())
+                ->select('id')
+                ->from('properties')
+                ->all();
+            $prop_group = [];
+            foreach ($properties as $item) {
+                $prop_group[] = [1,(int)$item['id']];
+            }
+            Yii::$app->db->createCommand()->batchInsert('properties_group', ['groups','prop_id'], $prop_group)->execute();
 
             $transaction->commit();
 

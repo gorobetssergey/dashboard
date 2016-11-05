@@ -27,6 +27,19 @@ return [
      */
     'transport' => 'Траспорт',
     'transport_items' => [
+        'transport_tires_items' => [
+            'name_tires' => 'Название',
+            'price_tires' => 'Цена',
+            'brand_name_tires' => 'Бренд',
+            'season_tires' => 'Сезон',
+            'width_tires' => 'Ширина',
+            'side_view_tires' => 'Профиль',
+            'diameter_tires' => 'Диаметер',
+            'car_type_tires' => 'Тип',
+            'thorns_tires' => 'Шипы',
+            'can_thorns_tires' => 'Возможность ошиповки',
+            'descriptions_tires' => 'Описание',
+        ],
         'tires_and_wheels'=>'Шины, диски, колеса',
         'tires_and_wheels_items'=>[
             'Tires'=>'Автошины',

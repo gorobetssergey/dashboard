@@ -23,7 +23,7 @@
                                 <div id="collapserealTransportTires" class="panel-collapse collapse" role="tabpanel" aria-labelledby="transporTires">
                                     <div class="panel-body">
                                         <ul class="dropdown-inside">
-                                            <li><a class="dropdown-top" href="#">Автошины</a></li>
+                                            <li><a class="dropdown-top" href="add-new-items?catalog=1">Автошины</a></li>
                                             <li><a class="dropdown-top" href="">Диски</a></li>
                                             <li><a class="dropdown-top" href="">Колеса в сборе</a></li>
                                             <li><a class="dropdown-top" href="">Колпаки</a></li>

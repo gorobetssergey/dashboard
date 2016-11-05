@@ -316,7 +316,7 @@ return [
   'yii\web\UrlNormalizerRedirectException' => YII2_PATH . '/web/UrlNormalizerRedirectException.php',
   'yii\web\UrlRule' => YII2_PATH . '/web/UrlRule.php',
   'yii\web\UrlRuleInterface' => YII2_PATH . '/web/UrlRuleInterface.php',
-  'yii\web\User' => YII2_PATH . '/web/User.php',
+  'yii\web\Users' => YII2_PATH . '/web/Users.php',
   'yii\web\UserEvent' => YII2_PATH . '/web/UserEvent.php',
   'yii\web\View' => YII2_PATH . '/web/View.php',
   'yii\web\ViewAction' => YII2_PATH . '/web/ViewAction.php',
