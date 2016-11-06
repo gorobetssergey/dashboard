@@ -67,7 +67,7 @@ class Crap4j
         $fullCrap            = 0;
 
         foreach ($report as $item) {
-            $namespace = 'global';
+            $namespace = 'globals';
 
             if (!$item instanceof File) {
                 continue;

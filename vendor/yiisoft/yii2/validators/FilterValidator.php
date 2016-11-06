@@ -34,7 +34,7 @@ use yii\base\InvalidConfigException;
 class FilterValidator extends Validator
 {
     /**
-     * @var callable the filter. This can be a global function name, anonymous function, etc.
+     * @var callable the filter. This can be a globals function name, anonymous function, etc.
      * The function signature must be as follows,
      *
      * ```php

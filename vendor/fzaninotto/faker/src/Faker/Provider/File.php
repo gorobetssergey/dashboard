@@ -218,7 +218,7 @@ class File extends Base
         'application/vnd.sun.xml.impress.template'                                  => 'sti',
         'application/vnd.sun.xml.math'                                              => 'sxm',
         'application/vnd.sun.xml.writer'                                            => 'sxw',
-        'application/vnd.sun.xml.writer.global'                                     => 'sxg',
+        'application/vnd.sun.xml.writer.globals'                                     => 'sxg',
         'application/vnd.sun.xml.writer.template'                                   => 'stw',
         'application/vnd.sus-calendar'                                              => array('sus', 'susp'),
         'application/vnd.svd'                                                       => 'svd',

@@ -135,7 +135,7 @@ class MigrateController extends BaseMigrateController
     {
         return array_merge(
             parent::options($actionID),
-            ['migrationTable', 'db'], // global for all actions
+            ['migrationTable', 'db'], // globals for all actions
             $actionID === 'create'
                 ? ['templateFile', 'fields', 'useTablePrefix']
                 : []

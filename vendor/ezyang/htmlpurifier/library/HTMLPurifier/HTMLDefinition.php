@@ -35,7 +35,7 @@ class HTMLPurifier_HTMLDefinition extends HTMLPurifier_Definition
     public $info = array();
 
     /**
-     * Associative array of global attribute name to attribute definition.
+     * Associative array of globals attribute name to attribute definition.
      * @type array
      */
     public $info_global_attr = array();
@@ -317,7 +317,7 @@ class HTMLPurifier_HTMLDefinition extends HTMLPurifier_Definition
         $allowed_attributes_mutable = $allowed_attributes; // by copy!
         if (is_array($allowed_attributes)) {
             // This actually doesn't do anything, since we went away from
-            // global attributes. It's possible that userland code uses
+            // globals attributes. It's possible that userland code uses
             // it, but HTMLModuleManager doesn't!
             foreach ($this->info_global_attr as $attr => $x) {
                 $keys = array($attr, "*@$attr", "*.$attr");

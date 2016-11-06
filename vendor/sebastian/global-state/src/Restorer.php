@@ -13,7 +13,7 @@ namespace SebastianBergmann\GlobalState;
 use ReflectionProperty;
 
 /**
- * Restorer of snapshots of global state.
+ * Restorer of snapshots of globals state.
  */
 class Restorer
 {
@@ -38,7 +38,7 @@ class Restorer
     }
 
     /**
-     * Restores all global and super-global variables from a snapshot.
+     * Restores all globals and super-globals variables from a snapshot.
      *
      * @param Snapshot $snapshot
      */
@@ -110,7 +110,7 @@ class Restorer
     }
 
     /**
-     * Restores a super-global variable array from this snapshot.
+     * Restores a super-globals variable array from this snapshot.
      *
      * @param Snapshot $snapshot
      * @param $superGlobalArray

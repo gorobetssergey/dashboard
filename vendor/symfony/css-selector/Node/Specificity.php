@@ -69,7 +69,7 @@ class Specificity
     }
 
     /**
-     * Returns global specificity value.
+     * Returns globals specificity value.
      *
      * @return int
      */

@@ -13,7 +13,7 @@ use Codeception\TestInterface;
  * Works with SQL database.
  *
  * The most important function of this module is to clean a database before each test.
- * That's why this module was added to the global configuration file `codeception.yml`.
+ * That's why this module was added to the globals configuration file `codeception.yml`.
  * To have your database properly cleaned you should configure it to access the database.
  * This module also provides actions to perform checks in a database.
  *

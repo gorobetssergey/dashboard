@@ -14,7 +14,7 @@ use ReflectionClass;
 use Serializable;
 
 /**
- * A snapshot of global state.
+ * A snapshot of globals state.
  */
 class Snapshot
 {
@@ -79,7 +79,7 @@ class Snapshot
     private $traits = array();
 
     /**
-     * Creates a snapshot of the current global state.
+     * Creates a snapshot of the current globals state.
      *
      * @param Blacklist $blacklist
      * @param bool      $includeGlobalVariables
@@ -163,7 +163,7 @@ class Snapshot
     }
 
     /**
-     * Returns a list of all super-global variable arrays.
+     * Returns a list of all super-globals variable arrays.
      *
      * @return array
      */
@@ -295,7 +295,7 @@ class Snapshot
     }
 
     /**
-     * Creates a snapshot of all global and super-global variables.
+     * Creates a snapshot of all globals and super-globals variables.
      */
     private function snapshotGlobals()
     {
@@ -316,7 +316,7 @@ class Snapshot
     }
 
     /**
-     * Creates a snapshot a super-global variable array.
+     * Creates a snapshot a super-globals variable array.
      *
      * @param $superGlobalArray
      */
@@ -364,7 +364,7 @@ class Snapshot
     }
 
     /**
-     * Returns a list of all super-global variable arrays.
+     * Returns a list of all super-globals variable arrays.
      *
      * @return array
      */

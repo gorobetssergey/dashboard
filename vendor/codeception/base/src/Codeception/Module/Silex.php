@@ -100,7 +100,7 @@ class Silex extends Framework implements DoctrineProvider
             });
         }
 
-        // some silex apps (like bolt) may rely on global $app variable
+        // some silex apps (like bolt) may rely on globals $app variable
         $GLOBALS['app'] = $this->app;
     }
 

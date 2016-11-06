@@ -166,7 +166,7 @@ class Table
     /**
      * Gets the current style for a column.
      *
-     * If style was not set, it returns the global table style.
+     * If style was not set, it returns the globals table style.
      *
      * @param int $columnIndex Column index
      *

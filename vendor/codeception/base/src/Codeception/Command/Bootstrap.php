@@ -86,7 +86,7 @@ class Bootstrap extends Command
         );
 
         $this->createGlobalConfig();
-        $output->writeln("File codeception.yml created       <- global configuration");
+        $output->writeln("File codeception.yml created       <- globals configuration");
 
         $this->createDirs();
 
@@ -111,8 +111,8 @@ class Bootstrap extends Command
         $output->writeln(" --- ");
         $this->ignoreFolderContent('tests/_output');
 
-        file_put_contents('tests/_bootstrap.php', "<?php\n// This is global bootstrap for autoloading\n");
-        $output->writeln("tests/_bootstrap.php written <- global bootstrap file");
+        file_put_contents('tests/_bootstrap.php', "<?php\n// This is globals bootstrap for autoloading\n");
+        $output->writeln("tests/_bootstrap.php written <- globals bootstrap file");
 
         $output->writeln("<info>Building initial {$this->actorSuffix} classes</info>");
         $this->getApplication()->find('build')->run(

@@ -39,7 +39,7 @@ use Yii;
  * - anonymous function: `function ($event) { ... }`
  * - object method: `[$object, 'handleAdd']`
  * - static class method: `['Page', 'handleAdd']`
- * - global function: `'handleAdd'`
+ * - globals function: `'handleAdd'`
  *
  * The signature of an event handler should be like the following:
  *
@@ -453,7 +453,7 @@ class Component extends Object
      * function ($event) { ... }         // anonymous function
      * [$object, 'handleClick']          // $object->handleClick()
      * ['Page', 'handleClick']           // Page::handleClick()
-     * 'handleClick'                     // global function handleClick()
+     * 'handleClick'                     // globals function handleClick()
      * ```
      *
      * The event handler must be defined with the following signature,

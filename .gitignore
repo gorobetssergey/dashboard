@@ -15,7 +15,8 @@ Thumbs.db
 # composer vendor dir
 
 # composer assets input folder
-assets/**
+/assets/*
+!*.php
 
 # composer itself is not needed
 composer.phar

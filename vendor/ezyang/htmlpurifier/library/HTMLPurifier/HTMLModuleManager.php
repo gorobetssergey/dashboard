@@ -321,7 +321,7 @@ class HTMLPurifier_HTMLModuleManager
         );
         $this->attrCollections = new HTMLPurifier_AttrCollections(
             $this->attrTypes,
-            // there is no way to directly disable a global attribute,
+            // there is no way to directly disable a globals attribute,
             // but using AllowedAttributes or simply not including
             // the module in your custom doctype should be sufficient
             $this->modules
@@ -387,7 +387,7 @@ class HTMLPurifier_HTMLModuleManager
             return false;
         }
 
-        // setup global state variables
+        // setup globals state variables
         $def = false;
         if ($trusted === null) {
             $trusted = $this->trusted;

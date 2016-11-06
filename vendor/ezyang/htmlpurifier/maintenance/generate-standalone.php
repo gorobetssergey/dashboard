@@ -19,7 +19,7 @@ $GLOBALS['loaded'] = array();
 
 /**
  * Custom FSTools for this script that overloads some behavior
- * @warning The overloading of copy() is not necessarily global for
+ * @warning The overloading of copy() is not necessarily globals for
  *          this script. Watch out!
  */
 class MergeLibraryFSTools extends FSTools

@@ -2,7 +2,7 @@
 namespace Codeception\Util;
 
 /**
- * Really basic class to store data in global array and use it in Cests/Tests.
+ * Really basic class to store data in globals array and use it in Cests/Tests.
  *
  * ```php
  * <?php

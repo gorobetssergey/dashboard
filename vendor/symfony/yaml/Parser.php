@@ -467,7 +467,7 @@ class Parser
                 // remember ignored comment lines (they are used later in nested
                 // parser calls to determine real line numbers)
                 //
-                // CAUTION: beware to not populate the global property here as it
+                // CAUTION: beware to not populate the globals property here as it
                 // will otherwise influence the getRealCurrentLineNb() call here
                 // for consecutive comment lines and subsequent embedded blocks
                 $this->locallySkippedLineNumbers[] = $this->getRealCurrentLineNb();

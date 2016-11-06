@@ -77,7 +77,7 @@ class PHPUnit_Framework_MockObject_Generator
         'for'             => true,
         'foreach'         => true,
         'function'        => true,
-        'global'          => true,
+        'globals'          => true,
         'goto'            => true,
         'if'              => true,
         'implements'      => true,

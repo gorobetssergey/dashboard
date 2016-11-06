@@ -441,7 +441,7 @@ class Application
     /**
      * Returns an array of all unique namespaces used by currently registered commands.
      *
-     * It does not return the global namespace which always exists.
+     * It does not return the globals namespace which always exists.
      *
      * @return string[] An array of namespaces
      */

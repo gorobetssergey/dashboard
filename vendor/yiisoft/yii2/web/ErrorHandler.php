@@ -297,8 +297,8 @@ class ErrorHandler extends \yii\base\ErrorHandler
     }
 
     /**
-     * Renders the global variables of the request.
-     * List of global variables is defined in [[displayVars]].
+     * Renders the globals variables of the request.
+     * List of globals variables is defined in [[displayVars]].
      * @return string the rendering result
      * @see displayVars
      */

@@ -45,7 +45,7 @@ abstract class Extension implements EventSubscriberInterface
     }
 
     /**
-     * Pass config variables that should be injected into global config.
+     * Pass config variables that should be injected into globals config.
      *
      * @param array $config
      */

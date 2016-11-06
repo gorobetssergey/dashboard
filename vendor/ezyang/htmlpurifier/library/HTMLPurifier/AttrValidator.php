@@ -39,14 +39,14 @@ class HTMLPurifier_AttrValidator
             return;
         }
 
-        // create alias to global definition array, see also $defs
+        // create alias to globals definition array, see also $defs
         // DEFINITION CALL
         $d_defs = $definition->info_global_attr;
 
         // don't update token until the very end, to ensure an atomic update
         $attr = $token->attr;
 
-        // do global transformations (pre)
+        // do globals transformations (pre)
         // nothing currently utilizes this
         foreach ($definition->info_attr_transform_pre as $transform) {
             $attr = $transform->transform($o = $attr, $config, $context);
@@ -69,7 +69,7 @@ class HTMLPurifier_AttrValidator
         }
 
         // create alias to this element's attribute definition array, see
-        // also $d_defs (global attribute definition array)
+        // also $d_defs (globals attribute definition array)
         // DEFINITION CALL
         $defs = $definition->info[$token->name]->attr;
 
@@ -85,7 +85,7 @@ class HTMLPurifier_AttrValidator
                 // there is a local definition defined
                 if ($defs[$attr_key] === false) {
                     // We've explicitly been told not to allow this element.
-                    // This is usually when there's a global definition
+                    // This is usually when there's a globals definition
                     // that must be overridden.
                     // Theoretically speaking, we could have a
                     // AttrDef_DenyAll, but this is faster!
@@ -99,8 +99,8 @@ class HTMLPurifier_AttrValidator
                     );
                 }
             } elseif (isset($d_defs[$attr_key])) {
-                // there is a global definition defined, validate according
-                // to the global definition
+                // there is a globals definition defined, validate according
+                // to the globals definition
                 $result = $d_defs[$attr_key]->validate(
                     $value,
                     $config,
@@ -143,7 +143,7 @@ class HTMLPurifier_AttrValidator
 
         // post transforms
 
-        // global (error reporting untested)
+        // globals (error reporting untested)
         foreach ($definition->info_attr_transform_post as $transform) {
             $attr = $transform->transform($o = $attr, $config, $context);
             if ($e) {

@@ -24,5 +24,5 @@ require __DIR__.'/dependency_maps/mime_deps.php';
 require __DIR__.'/dependency_maps/message_deps.php';
 require __DIR__.'/dependency_maps/transport_deps.php';
 
-// Load in global library preferences
+// Load in globals library preferences
 require __DIR__.'/preferences.php';

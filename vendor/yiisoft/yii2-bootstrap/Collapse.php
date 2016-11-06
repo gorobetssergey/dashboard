@@ -59,7 +59,7 @@ class Collapse extends Widget
      *
      * - label: string, required, the group header label.
      * - encode: boolean, optional, whether this label should be HTML-encoded. This param will override
-     *   global `$this->encodeLabels` param.
+     *   globals `$this->encodeLabels` param.
      * - content: array|string|object, required, the content (HTML) of the group
      * - options: array, optional, the HTML attributes of the group
      * - contentOptions: optional, the HTML attributes of the group's content

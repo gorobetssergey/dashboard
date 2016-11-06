@@ -13,7 +13,7 @@ class FSTools
     private static $singleton;
 
     /**
-     * Returns a global instance of FSTools
+     * Returns a globals instance of FSTools
      */
     public static function singleton()
     {
@@ -22,7 +22,7 @@ class FSTools
     }
 
     /**
-     * Sets our global singleton to something else; useful for overloading
+     * Sets our globals singleton to something else; useful for overloading
      * functions.
      */
     public static function setSingleton($singleton)
