@@ -23,6 +23,11 @@ class Moderation extends \yii\db\ActiveRecord
         return 'moderation';
     }
 
+    public function __construct(array $config)
+    {
+        $this->attributes = $config;
+    }
+
     /**
      * @inheritdoc
      */

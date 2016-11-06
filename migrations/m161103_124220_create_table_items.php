@@ -11,6 +11,7 @@ class m161103_124220_create_table_items extends Migration
          */
         $this->createTable('items', [
             'id' => $this->primaryKey(),
+            'user_id' => $this->integer()->notNull(),//referense to table topmenu //tommenu.id
             'topmenu_id' => $this->integer()->notNull(),//referense to table topmenu //tommenu.id
             'items_id' => $this->integer()->notNull(),//referense to table_items this topmenu //tommenu.id
             'name' => $this->string(50)->notNull()//equally table_items this topmenu namepropperty
@@ -26,6 +27,19 @@ class m161103_124220_create_table_items extends Migration
             'items',//table items
             'topmenu_id',//items.top_id
             'topmenu',//table topmenu
+            'id',//topmenu.id
+            'CASCADE'
+        );
+        $this->createIndex(
+            'idx-user_id_items',
+            'items',
+            'user_id'//items.top_id
+        );
+        $this->addForeignKey(
+            'fk-user_id_items',
+            'items',//table items
+            'user_id',//items.top_id
+            'users',//table topmenu
             'id',//topmenu.id
             'CASCADE'
         );
@@ -239,6 +253,38 @@ class m161103_124220_create_table_items extends Migration
             'moderation',//table items
             'topmenu_id',//items.top_id
             'topmenu',//table topmenu
+            'id',//topmenu.id
+            'CASCADE'
+        );
+        $this->createTable('serviseitems', [
+            'id' => $this->primaryKey(),
+            'user_id' => $this->integer(),
+            'transport' => $this->integer(),
+            'real_estate' => $this->integer(),
+            'child_world' => $this->integer(),
+            'job' => $this->integer(),
+            'animals' => $this->integer(),
+            'house_garden' => $this->integer(),
+            'electronics' => $this->integer(),
+            'business_and_services' => $this->integer(),
+            'fashion_style' => $this->integer(),
+            'sport' => $this->integer(),
+            'helping' => $this->integer(),
+            'giveAwey' => $this->integer(),
+            'exchange' => $this->integer(),
+        ]);
+
+        $this->createIndex(
+            'idx-user_id_serviseitems',
+            'serviseitems',
+            'user_id'//items.top_id
+        );
+
+        $this->addForeignKey(
+            'fk-user_id_serviseitems',
+            'serviseitems',//table items
+            'user_id',//items.top_id
+            'users',//table topmenu
             'id',//topmenu.id
             'CASCADE'
         );

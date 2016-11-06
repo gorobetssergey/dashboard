@@ -127,6 +127,7 @@ class ItemsTransport extends \yii\db\ActiveRecord
             $attributeNames["dataitems"]['model']->items_id = $this->id;
             $attributeNames["dataitems"]['model']->topmenu_id = $attributeNames["dataitems"]['topmenu_id'];
             $attributeNames["dataitems"]['model']->name = $attributeNames["dataitems"]['name'];
+            $attributeNames["dataitems"]['model']->user_id = $attributeNames['user_id'];
             $res2 = $attributeNames["dataitems"]['model']->save();
 
             $properties = [
@@ -145,9 +146,7 @@ class ItemsTransport extends \yii\db\ActiveRecord
             
             $res3 = Yii::$app->db->createCommand()->batchInsert($attributeNames['table_properties'], ['items_id','prop_id','value'], $properties)->execute();
 
-            $moderators = new Moderation();
-            $moderators->attributes = ['topmenu_id' => $attributeNames['topmenu_id'],'items_id' => $this->id];
-            $res4 = $moderators->save();
+            $res4 = (new Moderation(['topmenu_id' => $attributeNames['topmenu_id'],'items_id' => $this->id]))->save();
             if($res1 && $res2 && $res3 && $res4)
             {
                 $transaction->commit();

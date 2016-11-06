@@ -9,11 +9,13 @@ use Yii;
  * This is the model class for table "items".
  *
  * @property integer $id
+ * @property integer $user_id
  * @property integer $topmenu_id
  * @property integer $items_id
  * @property string $name
  *
  * @property Topmenu $topmenu
+ * @property Users $user
  */
 class Items extends \yii\db\ActiveRecord
 {
@@ -45,10 +47,11 @@ class Items extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['topmenu_id', 'items_id', 'name'], 'required'],
-            [['topmenu_id', 'items_id'], 'integer'],
+            [['user_id', 'topmenu_id', 'items_id', 'name'], 'required'],
+            [['user_id', 'topmenu_id', 'items_id'], 'integer'],
             [['name'], 'string', 'max' => 50],
             [['topmenu_id'], 'exist', 'skipOnError' => true, 'targetClass' => Topmenu::className(), 'targetAttribute' => ['topmenu_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
             /**
              * rulles for transport_tires
              */
@@ -67,6 +70,7 @@ class Items extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
+            'user_id' => Yii::t('app', 'User ID'),
             'topmenu_id' => Yii::t('app', 'Topmenu ID'),
             'items_id' => Yii::t('app', 'Items ID'),
             'name' => Yii::t('app', 'Name'),
@@ -100,5 +104,12 @@ class Items extends \yii\db\ActiveRecord
     public function getTopmenu()
     {
         return $this->hasOne(Topmenu::className(), ['id' => 'topmenu_id']);
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
 }
