@@ -8,7 +8,6 @@ use yii\helpers\Html;
 
 <div class="row">
     <div class="col-lg-12">
-        <a href=""><div class="well well-lg">55</div></a>
         <?= GridView::widget([
             'dataProvider' => $dataProvider,
             'columns' => [
