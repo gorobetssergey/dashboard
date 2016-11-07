@@ -40,10 +40,13 @@ class GlobalTables extends Modal
      */
     const TIRES = 1;
 
-    public function __construct(array $config)
+    public function __construct(array $config = [])
     {
         $this->catalog = $config['catalog'];
-        $this->setParams();
+        if($this->catalog)
+        {
+            return $this->setParams();
+        }
     }
 
     private function setParams()
@@ -74,5 +77,13 @@ class GlobalTables extends Modal
         ];
 
         return $params;
+    }
+
+    public function getModel($model,$id)
+    {
+        switch($model)
+        {
+            case self::TRANSPORT : return (ItemsTransport::find()->with(['transportProps'])->where(['id' => $id])->one());break;
+        }
     }
 }

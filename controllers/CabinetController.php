@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\globals\GlobalTables;
 use app\models\Items;
+use app\models\Moderation;
 use Yii;
 
 class CabinetController extends \yii\web\Controller
@@ -11,7 +12,11 @@ class CabinetController extends \yii\web\Controller
     public $layout = 'cabinet_layout';
     public function actionIndex()
     {
-        return $this->render('index');
+
+        return $this->render('index',[
+            'items_moderation' => (new Moderation([]))->getItems(),
+            'all_items' => (new Items())->getItems(),
+        ]);
     }
 
     public function actionNewItems()
@@ -39,7 +44,7 @@ class CabinetController extends \yii\web\Controller
                     'updated_at' => $date,
                     'status' => Items::STATUS_DEFAULT,
                     'description' => 'test',
-                    'dataitems' => ['model'=>$items,'topmenu_id'=>$params['topmenu'],'name'=>$post["Items"]["name_tires"]],
+                    'dataitems' => ['topmenu_id'=>$params['topmenu'],'name'=>$post["Items"]["name_tires"]],
                     'table_properties' => $params['table_properties']
                 ];
                 if($params['table']->save(true,$attributeNames))

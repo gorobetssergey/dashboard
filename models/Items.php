@@ -112,4 +112,9 @@ class Items extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
+
+    public function getItems()
+    {
+        return self::find()->where(['user_id' => 1])->count();
+    }
 }

@@ -239,6 +239,7 @@ class m161103_124220_create_table_items extends Migration
          */
         $this->createTable('moderation', [
             'id' => $this->primaryKey(),
+            'user_id' => $this->integer()->notNull(),
             'topmenu_id' => $this->integer(),//referense to table topmenu //tommenu.id
             'items_id' => $this->integer()->notNull(),//referense to table_items this topmenu //tommenu.id
         ]);
@@ -256,22 +257,35 @@ class m161103_124220_create_table_items extends Migration
             'id',//topmenu.id
             'CASCADE'
         );
+        $this->createIndex(
+            'idx-user_id_moderation',
+            'moderation',
+            'user_id'//items.top_id
+        );
+        $this->addForeignKey(
+            'fk-user_id_moderation',
+            'moderation',//table items
+            'user_id',//items.top_id
+            'users',//table topmenu
+            'id',//topmenu.id
+            'CASCADE'
+        );
         $this->createTable('serviseitems', [
             'id' => $this->primaryKey(),
-            'user_id' => $this->integer(),
-            'transport' => $this->integer(),
-            'real_estate' => $this->integer(),
-            'child_world' => $this->integer(),
-            'job' => $this->integer(),
-            'animals' => $this->integer(),
-            'house_garden' => $this->integer(),
-            'electronics' => $this->integer(),
-            'business_and_services' => $this->integer(),
-            'fashion_style' => $this->integer(),
-            'sport' => $this->integer(),
-            'helping' => $this->integer(),
-            'giveAwey' => $this->integer(),
-            'exchange' => $this->integer(),
+            'user_id' => $this->integer()->notNull(),
+            'transport' => $this->integer()->notNull()->defaultValue(0),
+            'real_estate' => $this->integer()->notNull()->defaultValue(0),
+            'child_world' => $this->integer()->notNull()->defaultValue(0),
+            'job' => $this->integer()->notNull()->defaultValue(0),
+            'animals' => $this->integer()->notNull()->defaultValue(0),
+            'house_garden' => $this->integer()->notNull()->defaultValue(0),
+            'electronics' => $this->integer()->notNull()->defaultValue(0),
+            'business_and_services' => $this->integer()->notNull()->defaultValue(0),
+            'fashion_style' => $this->integer()->notNull()->defaultValue(0),
+            'sport' => $this->integer()->notNull()->defaultValue(0),
+            'helping' => $this->integer()->notNull()->defaultValue(0),
+            'giveAwey' => $this->integer()->notNull()->defaultValue(0),
+            'exchange' => $this->integer()->notNull()->defaultValue(0),
         ]);
 
         $this->createIndex(
