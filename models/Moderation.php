@@ -113,8 +113,10 @@ class Moderation extends \yii\db\ActiveRecord
                 ];
                 $res2 = $newItems->save();
 
-                $res3 = $model->delete();
-                if($res1 && $res2 && $res3)
+                $res3 = (new Serviseitems())->defaultData($modelTable['itemsTable']->user_id,$modelTable['itemsTable']->topmenu_id);
+
+                $res4 = $model->delete();
+                if($res1 && $res2 && $res3 && $res4)
                 {
                     $transaction->commit();
                     return true;
@@ -124,6 +126,8 @@ class Moderation extends \yii\db\ActiveRecord
                 return false;
             }
             var_dump($model->status);die();
+        }else{
+            return false;
         }
     }
 }

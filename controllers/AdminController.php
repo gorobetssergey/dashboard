@@ -5,6 +5,7 @@ namespace app\controllers;
 
 use app\models\globals\GlobalTables;
 use app\models\Moderation;
+use yii\web\NotFoundHttpException;
 use Yii;
 
 class AdminController extends \yii\web\Controller

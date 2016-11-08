@@ -98,7 +98,7 @@ class GlobalTables extends Modal
 
         return [
             'itemsTable' => $this->table,
-            'itemsName' => $this->table->getPropGroup()->with(['prop','prop.transportProps'])->orderBy(['id' => SORT_DESC])->one()->prop->transportProps[0]['value']
+            'itemsName' => $this->table->getPropGroup()->with(['prop'])->orderBy(['id' => SORT_DESC])->one()->prop->getTransportProps()->orderBy(['id' => SORT_DESC])->one()->value
         ];
     }
 }

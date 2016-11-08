@@ -141,13 +141,11 @@ class ItemsTransport extends \yii\db\ActiveRecord
                 [$this->id, 11 , $_POST['Items']['name_tires']],
             ];
             
-            $res3 = Yii::$app->db->createCommand()->batchInsert($attributeNames['table_properties'], ['items_id','prop_id','value'], $properties)->execute();
+            $res2 = Yii::$app->db->createCommand()->batchInsert($attributeNames['table_properties'], ['items_id','prop_id','value'], $properties)->execute();
 
-            $res4 = (new Moderation(['user_id' => $attributeNames['user_id'],'topmenu_id' => $attributeNames['topmenu_id'],'items_id' => $this->id]))->save();
+            $res3 = (new Moderation(['user_id' => $attributeNames['user_id'],'topmenu_id' => $attributeNames['topmenu_id'],'items_id' => $this->id]))->save();
 
-            $res5 = (new Serviseitems())->defaultData($attributeNames['user_id'],$attributeNames['topmenu_id']);
-
-            if($res1 && $res3 && $res4 && $res5)
+            if($res1 && $res2 && $res3)
             {
                 $transaction->commit();
                 return true;
