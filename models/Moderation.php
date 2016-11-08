@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\globals\GlobalTables;
 use Yii;
 use yii\data\ActiveDataProvider;
 
@@ -89,5 +90,40 @@ class Moderation extends \yii\db\ActiveRecord
             ],
         ]);
         return $dataProvider;
+    }
+
+    public function ok($model)
+    {
+        $modelTable = (new GlobalTables([]))->getItemsTable($model->topmenu->id,$model->items_id);
+
+        if(!$modelTable['itemsTable']->status)
+        {
+            $transaction = Yii::$app->db->beginTransaction();
+
+            try
+            {
+                $res1 = $modelTable['itemsTable']->updateAll(['status' => 1]);
+                $newItems = new Items(['scenario' => 'after_moderation']);
+
+                $newItems->attributes = [
+                        'user_id' => $modelTable['itemsTable']->user_id,
+                        'topmenu_id' => $modelTable['itemsTable']->topmenu_id,
+                        'items_id' => $modelTable['itemsTable']->id,
+                        'name' => $modelTable['itemsName']
+                ];
+                $res2 = $newItems->save();
+
+                $res3 = $model->delete();
+                if($res1 && $res2 && $res3)
+                {
+                    $transaction->commit();
+                    return true;
+                }
+            }catch (Exception $ex) {
+                $transaction->rollBack();
+                return false;
+            }
+            var_dump($model->status);die();
+        }
     }
 }

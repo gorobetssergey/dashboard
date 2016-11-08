@@ -7,6 +7,7 @@ use app\models\PropertiesGroup;
 use app\models\TransportProp;
 use yii\bootstrap\Modal;
 use app\models\Submenu;
+use yii\db\Query;
 
 class GlobalTables extends Modal
 {
@@ -85,5 +86,19 @@ class GlobalTables extends Modal
         {
             case self::TRANSPORT : return (ItemsTransport::find()->with(['transportProps'])->where(['id' => $id])->one());break;
         }
+    }
+
+    public function getItemsTable($top,$id_items)
+    {
+        switch($top)
+        {
+            case self::TRANSPORT :
+                $this->table = ItemsTransport::findOne($id_items);break;
+        }
+
+        return [
+            'itemsTable' => $this->table,
+            'itemsName' => $this->table->getPropGroup()->with(['prop','prop.transportProps'])->orderBy(['id' => SORT_DESC])->one()->prop->transportProps[0]['value']
+        ];
     }
 }

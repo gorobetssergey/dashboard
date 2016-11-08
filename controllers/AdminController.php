@@ -28,7 +28,10 @@ class AdminController extends \yii\web\Controller
             $post = Yii::$app->request->post()["ItemsTransport"];
             if($post['solve'] == 'solve')
             {
-                var_dump('OK');die();
+                if($data->ok($this->findModelItems($post['id'])))
+                {
+                    var_dump('+++++');die();
+                }
             }elseif($post['rejection_reason']){
                 var_dump('Запрещено');die();
             }
