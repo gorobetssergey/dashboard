@@ -97,6 +97,7 @@ class Items extends \yii\db\ActiveRecord
         return [
             'transport_tires' => ['name_tires','price_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires','descriptions_tires'],
             'after_moderation' => ['user_id', 'topmenu_id', 'items_id', 'name'],
+            'get_self_active_items' => ['user_id'],//перевырити щоб преданий юзер був тим хто даэ запрос
         ];
     }
 
@@ -118,5 +119,15 @@ class Items extends \yii\db\ActiveRecord
     public function getItems()
     {
         return self::find()->where(['user_id' => 1])->count();
+    }
+
+    public function getItemsLive($user)
+    {
+        return self::find()
+            ->where([
+                'user_id' => $user
+            ])
+            ->orderBy(['id' => SORT_DESC])
+            ->all();
     }
 }

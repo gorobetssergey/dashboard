@@ -66,4 +66,24 @@ class CabinetController extends \yii\web\Controller
             'items' => $items
         ]);
     }
+
+    public function actionGetMyActiveItems()
+    {
+        $active = new Items(['scenario' => 'get_self_active_items']);
+        $itemsLive = $active->getItemsLive(1);
+
+        return $this->render('itemsActive',[
+            'items' => $itemsLive
+        ]);
+    }
+
+    public function actionGetMyModerationItems()
+    {
+        $active = new Moderation();
+        $itemsModeration = $active->getItemsModeration(1);
+
+        return $this->render('itemsModeration',[
+            'items' => $itemsModeration
+        ]);
+    }
 }

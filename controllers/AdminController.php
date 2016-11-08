@@ -28,14 +28,14 @@ class AdminController extends \yii\web\Controller
         if(Yii::$app->request->isPost)
         {
             $post = Yii::$app->request->post()["ItemsTransport"];
-            if($post['solve'] == 'solve')
+            if(isset($post['solve']) && $post['solve'] == 'solve')
             {
                 if($data->ok($this->findModelItems($post['id'])))
                 {
                     Yii::$app->getSession()->setFlash('moderation_ok', 'Использование товара разрешено.');
                     return $this->refresh();
                 }
-            }elseif($post['rejection_reason']){
+            }elseif(!empty($post['rejection_reason'])){
                 Yii::$app->getSession()->setFlash('moderation_no', 'Товар запрещен.');
                 return $this->refresh();
             }

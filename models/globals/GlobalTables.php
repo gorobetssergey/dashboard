@@ -43,7 +43,8 @@ class GlobalTables extends Modal
 
     public function __construct(array $config = [])
     {
-        $this->catalog = $config['catalog'];
+        $this->catalog = (isset($config['catalog'])) ? $config['catalog'] : null;
+
         if($this->catalog)
         {
             return $this->setParams();

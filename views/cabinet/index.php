@@ -4,8 +4,8 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="btn-group" role="group" aria-label="...">
-            <button type="button" class="btn btn-warning">Товары на модерации (<?=$items_moderation?>)</button>
-            <button type="button" class="btn btn-success">Активные товары (<?=$all_items?>)</button>
+            <a href="<?=\yii\helpers\Url::toRoute('get-my-moderation-items')?>" class="btn btn-warning">Товары на модерации (<?=$items_moderation?>)</a>
+            <a href="<?=\yii\helpers\Url::toRoute('get-my-active-items')?>" class="btn btn-success">Активные товары (<?=$all_items?>)</a>
         </div>
     </div>
 </div>

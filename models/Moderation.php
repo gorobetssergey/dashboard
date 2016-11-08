@@ -130,4 +130,19 @@ class Moderation extends \yii\db\ActiveRecord
             return false;
         }
     }
+
+    public function no($model)
+    {
+        var_dump('отказ товара');die();
+    }
+
+    public function getItemsModeration($user)
+    {
+        return self::find()
+            ->where([
+                'user_id' => $user
+            ])
+            ->orderBy(['id' => SORT_DESC])
+            ->all();
+    }
 }
