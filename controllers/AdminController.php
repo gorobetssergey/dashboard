@@ -5,6 +5,7 @@ namespace app\controllers;
 
 use app\models\globals\GlobalTables;
 use app\models\Moderation;
+use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use Yii;
 
@@ -31,10 +32,12 @@ class AdminController extends \yii\web\Controller
             {
                 if($data->ok($this->findModelItems($post['id'])))
                 {
-                    var_dump('+++++');die();
+                    Yii::$app->getSession()->setFlash('moderation_ok', 'Использование товара разрешено.');
+                    return $this->refresh();
                 }
             }elseif($post['rejection_reason']){
-                var_dump('Запрещено');die();
+                Yii::$app->getSession()->setFlash('moderation_no', 'Товар запрещен.');
+                return $this->refresh();
             }
         }
 
