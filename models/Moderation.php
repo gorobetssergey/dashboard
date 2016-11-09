@@ -81,7 +81,7 @@ class Moderation extends \yii\db\ActiveRecord
 
     public function getProvider()
     {
-        $query = self::find()->with(['topmenu','topmenu.items']);
+        $query = self::find()->with(['topmenu']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -16,6 +16,7 @@ class CabinetController extends \yii\web\Controller
         return $this->render('index',[
             'items_moderation' => (new Moderation([]))->getItems(),
             'all_items' => (new Items())->getItems(),
+            'moderation_er' => 0
         ]);
     }
 
