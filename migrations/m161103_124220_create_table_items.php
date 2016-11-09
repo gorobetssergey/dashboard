@@ -7,6 +7,13 @@ class m161103_124220_create_table_items extends Migration
     public function safeUp()
     {
         /**
+         * status items top/vip/standart
+         */
+        $this->createTable('status_items', [
+            'id' => $this->primaryKey(),
+            'status' => $this->string(20)->notNull(),
+        ]);
+        /**
          *create table items - All items in site
          */
         $this->createTable('items', [
@@ -14,7 +21,9 @@ class m161103_124220_create_table_items extends Migration
             'user_id' => $this->integer()->notNull(),//referense to table topmenu //tommenu.id
             'topmenu_id' => $this->integer()->notNull(),//referense to table topmenu //tommenu.id
             'items_id' => $this->integer()->notNull(),//referense to table_items this topmenu //tommenu.id
-            'name' => $this->string(50)->notNull()//equally table_items this topmenu namepropperty
+            'name' => $this->string(50)->notNull(),//equally table_items this topmenu namepropperty
+            'status' => $this->integer()->notNull(),//referense to status_items status_items.id
+            'queue' => $this->integer()->notNull()//output queue items
         ]);
         $this->createIndex(
             'idx-items_id_top_id',
@@ -40,6 +49,19 @@ class m161103_124220_create_table_items extends Migration
             'items',//table items
             'user_id',//items.top_id
             'users',//table topmenu
+            'id',//topmenu.id
+            'CASCADE'
+        );
+        $this->createIndex(
+            'idx-items_status',
+            'items',
+            'status'//items.top_id
+        );
+        $this->addForeignKey(
+            'fk-items_status',
+            'items',//table items
+            'status',//items.status
+            'status_items',//table status_items
             'id',//topmenu.id
             'CASCADE'
         );
@@ -189,6 +211,13 @@ class m161103_124220_create_table_items extends Migration
             'id' => $this->primaryKey(),
             'value' => $this->string(50)
         ]);
+        /**
+         * table ownership
+         */
+        $this->createTable('ownership',[
+            'id' => $this->primaryKey(),
+            'value' => $this->string(50)->notNull(),
+        ]);
 
         /***
          *
@@ -196,7 +225,8 @@ class m161103_124220_create_table_items extends Migration
 
         $this->createTable('profile',[
             'id' => $this->primaryKey(),
-            'user_id' => $this->integer(),
+            'user_id' => $this->integer()->notNull(),
+            'ownership' => $this->integer()->notNull(),
             'tel_first' => $this->string(20)->notNull(),
             'tel_sec' => $this->string(20)->defaultValue(''),
             'tel_next' => $this->string(20)->defaultValue(''),
@@ -230,6 +260,19 @@ class m161103_124220_create_table_items extends Migration
             'profile',//table items
             'level',//items.top_id
             'level',//table topmenu
+            'id',//topmenu.id
+            'CASCADE'
+        );
+        $this->createIndex(
+            'idx-ownership_profile',
+            'profile',
+            'ownership'
+        );
+        $this->addForeignKey(
+            'fk-ownership_profile',
+            'profile',//table items
+            'ownership',//items.top_id
+            'ownership',//table topmenu
             'id',//topmenu.id
             'CASCADE'
         );

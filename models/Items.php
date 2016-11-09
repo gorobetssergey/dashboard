@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\models\Topmenu;
+use app\models\StatusItems;
 use Yii;
 
 /**
@@ -13,13 +14,20 @@ use Yii;
  * @property integer $topmenu_id
  * @property integer $items_id
  * @property string $name
+ * @property integer $status
+ * @property integer $queue
  *
  * @property Topmenu $topmenu
+ * @property StatusItems $status0
  * @property Users $user
  */
 class Items extends \yii\db\ActiveRecord
 {
     const STATUS_DEFAULT = 0;
+
+    const STATUS_VIP = 1;
+    const STATUS_TOP = 2;
+    const STATUS_STANDART = 3;
 
     public $name_tires;
     public $price_tires;
@@ -32,6 +40,7 @@ class Items extends \yii\db\ActiveRecord
     public $thorns_tires;
     public $can_thorns_tires;
     public $descriptions_tires;
+
 
     /**
      * @inheritdoc
@@ -47,11 +56,12 @@ class Items extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'topmenu_id', 'items_id', 'name'], 'required'],
-            [['user_id', 'topmenu_id', 'items_id', 'name', 'id'], 'safe'],
-            [['user_id', 'topmenu_id', 'items_id'], 'integer'],
+            [['user_id', 'topmenu_id', 'items_id', 'name', 'status', 'queue'], 'required'],
+            [['user_id', 'topmenu_id', 'items_id', 'name'], 'safe'],
+            [['user_id', 'topmenu_id', 'items_id', 'status', 'queue'], 'integer'],
             [['name'], 'string', 'max' => 50],
             [['topmenu_id'], 'exist', 'skipOnError' => true, 'targetClass' => Topmenu::className(), 'targetAttribute' => ['topmenu_id' => 'id']],
+            [['status'], 'exist', 'skipOnError' => true, 'targetClass' => StatusItems::className(), 'targetAttribute' => ['status' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
             /**
              * rulles for transport_tires
@@ -75,6 +85,8 @@ class Items extends \yii\db\ActiveRecord
             'topmenu_id' => Yii::t('app', 'Topmenu ID'),
             'items_id' => Yii::t('app', 'Items ID'),
             'name' => Yii::t('app', 'Name'),
+            'status' => Yii::t('app', 'Status'),
+            'queue' => Yii::t('app', 'Queue'),
             /**
              * atributes for transport_tires
              */
@@ -96,7 +108,7 @@ class Items extends \yii\db\ActiveRecord
     {
         return [
             'transport_tires' => ['name_tires','price_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires','descriptions_tires'],
-            'after_moderation' => ['user_id', 'topmenu_id', 'items_id', 'name'],
+            'after_moderation' => ['user_id', 'topmenu_id', 'items_id', 'name', 'status', 'queue'],
             'get_self_active_items' => ['user_id'],//перевырити щоб преданий юзер був тим хто даэ запрос
         ];
     }
@@ -116,6 +128,14 @@ class Items extends \yii\db\ActiveRecord
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStatus0()
+    {
+        return $this->hasOne(StatusItems::className(), ['id' => 'status']);
+    }
+
     public function getItems()
     {
         return self::find()->where(['user_id' => 1])->count();
@@ -129,5 +149,15 @@ class Items extends \yii\db\ActiveRecord
             ])
             ->orderBy(['id' => SORT_DESC])
             ->all();
+    }
+
+    public function getLastQueue()
+    {
+        $queue = self::find()->orderBy(['queue'=>SORT_DESC])->one()->queue;
+        if($queue)
+        {
+            return $queue++;
+        }
+        return self::STATUS_DEFAULT;
     }
 }
