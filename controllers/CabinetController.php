@@ -70,31 +70,22 @@ class CabinetController extends \yii\web\Controller
 
     public function actionGetMyActiveItems()
     {
-        $active = new Items(['scenario' => 'get_self_active_items']);
-        $itemsLive = $active->getItemsLive(1);
-
-        return $this->render('itemsActive',[
-            'items' => $itemsLive
+        return $this->render('transport/itemsActive',[
+            'items' => (new GlobalTables())->getActivItems()
         ]);
     }
 
     public function actionGetMyModerationItems()
     {
-        $active = new Moderation();
-        $itemsModeration = $active->getItemsModeration(1);
-
-        return $this->render('itemsModeration',[
-            'items' => $itemsModeration
+        return $this->render('transport/itemsModeration',[
+            'items' => (new GlobalTables())->getUserItemsInModeration(1)
         ]);
     }
 
     public function actionGetMyMistakeItems()
     {
-        $active = new ModerationMistake();
-        $itemsModeration = $active->getItemsModeration(1);
-
-        return $this->render('itemsModerationMistake',[
-            'items' => $itemsModeration
+        return $this->render('transport/itemsModerationMistake',[
+            'items' =>(new GlobalTables())->getMistakeItems()
         ]);
     }
 }
