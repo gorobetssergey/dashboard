@@ -1,14 +1,14 @@
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     <?php foreach ($items as $item):?>
         <div class="panel panel-default">
-            <div class="panel-heading" role="tab" id="heading<?=$item->id?>">
+            <div class="panel-heading" role="tab" id="heading<?=$item['model']->id?>">
                 <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?=$item->id?>" aria-expanded="true" aria-controls="collapse<?=$item->id?>">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<?=$item['model']->id?>" aria-expanded="true" aria-controls="collapse<?=$item['model']->id?>">
                         <h4><?=$item['model']->transportProps[count($item['model']->transportProps)-1]->value.' ('?>Сообщение модератора: <?=$item['name'].' )'?></h4>
                     </a>
                 </h4>
             </div>
-            <div id="collapse<?=$item->id?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?=$item->id?>">
+            <div id="collapse<?=$item['model']->id?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?=$item['model']->id?>">
                 <div class="panel-body">
                     <div class="col-lg-12">
                         <table class="table">
