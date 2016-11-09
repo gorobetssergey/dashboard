@@ -26,6 +26,8 @@ use app\models\Properties;
  */
 class ItemsTransport extends \yii\db\ActiveRecord
 {
+    public $rejection_reason;
+    public $solve = 'solve';
     /**
      * @inheritdoc
      */
@@ -66,6 +68,7 @@ class ItemsTransport extends \yii\db\ActiveRecord
             'updated_at' => Yii::t('app', 'Updated At'),
             'description' => Yii::t('app', 'Description'),
             'status' => Yii::t('app', 'Status'),
+            'rejection_reason' => 'Причина отказа'
         ];
     }
 
@@ -82,7 +85,7 @@ class ItemsTransport extends \yii\db\ActiveRecord
      */
     public function getPropGroup()
     {
-        return $this->hasOne(PropertiesGroup::className(), ['group' => 'prop_group']);
+        return $this->hasMany(PropertiesGroup::className(), ['groups' => 'prop_group']);
     }
 
     /**
@@ -124,11 +127,6 @@ class ItemsTransport extends \yii\db\ActiveRecord
             $this->description = $_POST["Items"]["descriptions_tires"];
             $res1 = parent::save();
 
-            $attributeNames["dataitems"]['model']->items_id = $this->id;
-            $attributeNames["dataitems"]['model']->topmenu_id = $attributeNames["dataitems"]['topmenu_id'];
-            $attributeNames["dataitems"]['model']->name = $attributeNames["dataitems"]['name'];
-            $res2 = $attributeNames["dataitems"]['model']->save();
-
             $properties = [
                 [$this->id, 1 , $_POST['Items']['price_tires']],
                 [$this->id, 2 , Properties::BREND_TIRES[$_POST['Items']['brand_name_tires']]],
@@ -143,12 +141,11 @@ class ItemsTransport extends \yii\db\ActiveRecord
                 [$this->id, 11 , $_POST['Items']['name_tires']],
             ];
             
-            $res3 = Yii::$app->db->createCommand()->batchInsert($attributeNames['table_properties'], ['items_id','prop_id','value'], $properties)->execute();
+            $res2 = Yii::$app->db->createCommand()->batchInsert($attributeNames['table_properties'], ['items_id','prop_id','value'], $properties)->execute();
 
-            $moderators = new Moderation();
-            $moderators->attributes = ['topmenu_id' => $attributeNames['topmenu_id'],'items_id' => $this->id];
-            $res4 = $moderators->save();
-            if($res1 && $res2 && $res3 && $res4)
+            $res3 = (new Moderation(['user_id' => $attributeNames['user_id'],'topmenu_id' => $attributeNames['topmenu_id'],'items_id' => $this->id]))->save();
+
+            if($res1 && $res2 && $res3)
             {
                 $transaction->commit();
                 return true;

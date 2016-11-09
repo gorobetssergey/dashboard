@@ -11,6 +11,7 @@ class m161103_124220_create_table_items extends Migration
          */
         $this->createTable('items', [
             'id' => $this->primaryKey(),
+            'user_id' => $this->integer()->notNull(),//referense to table topmenu //tommenu.id
             'topmenu_id' => $this->integer()->notNull(),//referense to table topmenu //tommenu.id
             'items_id' => $this->integer()->notNull(),//referense to table_items this topmenu //tommenu.id
             'name' => $this->string(50)->notNull()//equally table_items this topmenu namepropperty
@@ -26,6 +27,19 @@ class m161103_124220_create_table_items extends Migration
             'items',//table items
             'topmenu_id',//items.top_id
             'topmenu',//table topmenu
+            'id',//topmenu.id
+            'CASCADE'
+        );
+        $this->createIndex(
+            'idx-user_id_items',
+            'items',
+            'user_id'//items.top_id
+        );
+        $this->addForeignKey(
+            'fk-user_id_items',
+            'items',//table items
+            'user_id',//items.top_id
+            'users',//table topmenu
             'id',//topmenu.id
             'CASCADE'
         );
@@ -225,6 +239,7 @@ class m161103_124220_create_table_items extends Migration
          */
         $this->createTable('moderation', [
             'id' => $this->primaryKey(),
+            'user_id' => $this->integer()->notNull(),
             'topmenu_id' => $this->integer(),//referense to table topmenu //tommenu.id
             'items_id' => $this->integer()->notNull(),//referense to table_items this topmenu //tommenu.id
         ]);
@@ -239,6 +254,51 @@ class m161103_124220_create_table_items extends Migration
             'moderation',//table items
             'topmenu_id',//items.top_id
             'topmenu',//table topmenu
+            'id',//topmenu.id
+            'CASCADE'
+        );
+        $this->createIndex(
+            'idx-user_id_moderation',
+            'moderation',
+            'user_id'//items.top_id
+        );
+        $this->addForeignKey(
+            'fk-user_id_moderation',
+            'moderation',//table items
+            'user_id',//items.top_id
+            'users',//table topmenu
+            'id',//topmenu.id
+            'CASCADE'
+        );
+        $this->createTable('serviseitems', [
+            'id' => $this->primaryKey(),
+            'user_id' => $this->integer()->notNull(),
+            'transport' => $this->integer()->notNull()->defaultValue(0),
+            'real_estate' => $this->integer()->notNull()->defaultValue(0),
+            'child_world' => $this->integer()->notNull()->defaultValue(0),
+            'job' => $this->integer()->notNull()->defaultValue(0),
+            'animals' => $this->integer()->notNull()->defaultValue(0),
+            'house_garden' => $this->integer()->notNull()->defaultValue(0),
+            'electronics' => $this->integer()->notNull()->defaultValue(0),
+            'business_and_services' => $this->integer()->notNull()->defaultValue(0),
+            'fashion_style' => $this->integer()->notNull()->defaultValue(0),
+            'sport' => $this->integer()->notNull()->defaultValue(0),
+            'helping' => $this->integer()->notNull()->defaultValue(0),
+            'giveAwey' => $this->integer()->notNull()->defaultValue(0),
+            'exchange' => $this->integer()->notNull()->defaultValue(0),
+        ]);
+
+        $this->createIndex(
+            'idx-user_id_serviseitems',
+            'serviseitems',
+            'user_id'//items.top_id
+        );
+
+        $this->addForeignKey(
+            'fk-user_id_serviseitems',
+            'serviseitems',//table items
+            'user_id',//items.top_id
+            'users',//table topmenu
             'id',//topmenu.id
             'CASCADE'
         );
