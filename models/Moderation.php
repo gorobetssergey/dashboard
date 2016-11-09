@@ -135,9 +135,34 @@ class Moderation extends \yii\db\ActiveRecord
         }
     }
 
-    public function no($model)
+    public function no($model, $description)
     {
-        var_dump('отказ товара');die();
+        $transaction = Yii::$app->db->beginTransaction();
+        try
+        {
+            $mistake = new ModerationMistake();
+            $mistake->attributes = [
+                'user_id' => $model->user_id,
+                'topmenu_id' => $model->topmenu_id,
+                'items_id' => $model->id,
+                'descriptions' => $description,
+            ];
+
+            $res1 = $model->delete();
+            $res2 = $mistake->save();
+
+            if($res1 && $res2)
+            {
+                $transaction->commit();
+                return true;
+            }else{
+                $transaction->rollBack();
+                return false;
+            }
+        }catch (Exception $ex) {
+            $transaction->rollBack();
+            return false;
+        }
     }
 
     public function getItemsModeration($user)
@@ -149,4 +174,6 @@ class Moderation extends \yii\db\ActiveRecord
             ->orderBy(['id' => SORT_DESC])
             ->all();
     }
+
+
 }

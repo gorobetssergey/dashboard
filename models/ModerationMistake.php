@@ -34,6 +34,7 @@ class ModerationMistake extends \yii\db\ActiveRecord
         return [
             [['user_id', 'items_id', 'descriptions'], 'required'],
             [['user_id', 'topmenu_id', 'items_id'], 'integer'],
+            [['user_id', 'topmenu_id', 'items_id', 'descriptions'], 'safe'],
             [['descriptions'], 'string', 'max' => 255],
             [['topmenu_id'], 'exist', 'skipOnError' => true, 'targetClass' => Topmenu::className(), 'targetAttribute' => ['topmenu_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -68,5 +69,24 @@ class ModerationMistake extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
+    }
+
+    public function getItems($user)
+    {
+        return self::find()
+            ->where([
+                'user_id' => $user
+            ])
+            ->count();
+    }
+
+    public function getItemsModeration($user)
+    {
+        return self::find()
+            ->where([
+                'user_id' => $user
+            ])
+            ->orderBy(['id' => SORT_DESC])
+            ->all();
     }
 }

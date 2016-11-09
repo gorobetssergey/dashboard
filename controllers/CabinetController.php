@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\globals\GlobalTables;
 use app\models\Items;
 use app\models\Moderation;
+use app\models\ModerationMistake;
 use Yii;
 
 class CabinetController extends \yii\web\Controller
@@ -12,11 +13,10 @@ class CabinetController extends \yii\web\Controller
     public $layout = 'cabinet_layout';
     public function actionIndex()
     {
-
         return $this->render('index',[
             'items_moderation' => (new Moderation([]))->getItems(),
             'all_items' => (new Items())->getItems(),
-            'moderation_er' => 0
+            'moderation_er' => (new ModerationMistake())->getItems(1)
         ]);
     }
 
@@ -84,6 +84,16 @@ class CabinetController extends \yii\web\Controller
         $itemsModeration = $active->getItemsModeration(1);
 
         return $this->render('itemsModeration',[
+            'items' => $itemsModeration
+        ]);
+    }
+
+    public function actionGetMyMistakeItems()
+    {
+        $active = new ModerationMistake();
+        $itemsModeration = $active->getItemsModeration(1);
+
+        return $this->render('itemsModerationMistake',[
             'items' => $itemsModeration
         ]);
     }
