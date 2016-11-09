@@ -41,7 +41,7 @@ class PropertiesGroup extends \yii\db\ActiveRecord
         return 'properties_group';
     }
 
-    public function __construct($config)
+    public function __construct($config = null)
     {
         $this->group = $config;
     }

@@ -119,7 +119,30 @@ class DbseedController extends Controller
             Yii::$app->db->createCommand()->batchInsert('properties_group', ['groups','prop_id'], $prop_group)->execute();
 
 
-            Yii::$app->db->createCommand()->batchInsert('role', ['value'], [['user']])->execute();
+            Yii::$app->db->createCommand()->batchInsert('role', ['value'], [
+                ['user'],
+                ['admin'],
+                ['moderator']
+            ])->execute();
+
+            /**
+             * status items
+             */
+
+            Yii::$app->db->createCommand()->batchInsert('status_items', ['status'], [
+                ['vip'],
+                ['top'],
+                ['standart']
+            ])->execute();
+
+            /**
+             * ounership user
+             */
+
+            Yii::$app->db->createCommand()->batchInsert('ownership', ['value'], [
+                ['entity'],
+                ['individual']
+            ])->execute();
 
             /*
              * test data to table user
@@ -129,6 +152,7 @@ class DbseedController extends Controller
             Yii::$app->db->createCommand()->batchInsert('users', ['email','role','active','password','repassword','token','created','auth'], [
                 ['user@user.net',1,1,'qqqqqqqq','wwwwwwww','eeeeeeee','2016-10-12 23:00:00',1]
             ])->execute();
+
             $transaction->commit();
 
         } catch(\Exception $e) {

@@ -7,6 +7,7 @@ use app\models\PropertiesGroup;
 use app\models\TransportProp;
 use yii\bootstrap\Modal;
 use app\models\Submenu;
+use yii\db\Query;
 
 class GlobalTables extends Modal
 {
@@ -40,10 +41,14 @@ class GlobalTables extends Modal
      */
     const TIRES = 1;
 
-    public function __construct(array $config)
+    public function __construct(array $config = [])
     {
-        $this->catalog = $config['catalog'];
-        $this->setParams();
+        $this->catalog = (isset($config['catalog'])) ? $config['catalog'] : null;
+
+        if($this->catalog)
+        {
+            return $this->setParams();
+        }
     }
 
     private function setParams()
@@ -74,5 +79,32 @@ class GlobalTables extends Modal
         ];
 
         return $params;
+    }
+
+    public function getModel($model,$id)
+    {
+        switch($model)
+        {
+            case self::TRANSPORT : return (ItemsTransport::find()->with(['transportProps'])->where(['id' => $id])->one());break;
+        }
+    }
+
+    public function getItemsTable($top,$id_items)
+    {
+        switch($top)
+        {
+            case self::TRANSPORT :
+                $this->table = ItemsTransport::findOne($id_items);break;
+        }
+
+        return [
+            'itemsTable' => $this->table,
+            'itemsName' => $this->table->getPropGroup()
+                ->with(['prop'])
+                ->orderBy(['id' => SORT_DESC])->one()
+                ->prop->getTransportProps()
+                ->orderBy(['id' => SORT_DESC])
+                ->one()->value
+        ];
     }
 }
