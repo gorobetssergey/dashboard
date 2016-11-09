@@ -36,8 +36,14 @@ class AdminController extends \yii\web\Controller
                     return $this->refresh();
                 }
             }elseif(!empty($post['rejection_reason'])){
-                Yii::$app->getSession()->setFlash('moderation_no', 'Товар запрещен.');
-                return $this->refresh();
+                if($data->no($this->findModelItems($post['id']), $post["rejection_reason"]))
+                {
+                    Yii::$app->getSession()->setFlash('moderation_no', 'Товар запрещен и отправлен на доработку пользователю.');
+                    return $this->refresh();
+                }else{
+                    Yii::$app->getSession()->setFlash('moderation_err', 'Что-то пошло не так.');
+                    return $this->refresh();
+                }
             }
         }
 

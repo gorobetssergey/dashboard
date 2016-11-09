@@ -345,6 +345,43 @@ class m161103_124220_create_table_items extends Migration
             'id',//topmenu.id
             'CASCADE'
         );
+        /**
+         * table moderation_mistake - return to user
+         */
+        $this->createTable('moderation_mistake', [
+            'id' => $this->primaryKey(),
+            'user_id' => $this->integer()->notNull(),
+            'topmenu_id' => $this->integer(),//referense to table topmenu //tommenu.id
+            'items_id' => $this->integer()->notNull(),//referense to table_items this topmenu //tommenu.id
+            'descriptions' => $this->string()->notNull(),
+        ]);
+        $this->createIndex(
+            'idx-topmenu_id_moderation_mistake',
+            'moderation_mistake',
+            'topmenu_id'//items.top_id
+        );
+
+        $this->addForeignKey(
+            'fk-topmenu_id_moderation_mistake',
+            'moderation_mistake',//table items
+            'topmenu_id',//items.top_id
+            'topmenu',//table topmenu
+            'id',//topmenu.id
+            'CASCADE'
+        );
+        $this->createIndex(
+            'idx-user_id_moderation_mistake',
+            'moderation',
+            'user_id'//items.top_id
+        );
+        $this->addForeignKey(
+            'fk-user_id_moderation_mistake',
+            'moderation_mistake',//table items
+            'user_id',//items.top_id
+            'users',//table topmenu
+            'id',//topmenu.id
+            'CASCADE'
+        );
     }
 
     public function safeDown()

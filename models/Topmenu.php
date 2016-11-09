@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\globals\GlobalTables;
 use Yii;
 
 /**
@@ -68,5 +69,14 @@ class Topmenu extends \yii\db\ActiveRecord
     public function getTopSubs()
     {
         return $this->hasMany(TopSub::className(), ['id_top' => 'id']);
+    }
+
+    public function getItemsTable($topmenu)
+    {
+        switch($topmenu->topmenu_id)
+        {
+            case GlobalTables::TRANSPORT :
+                                            return $this->itemsTransports;break;
+        }
     }
 }

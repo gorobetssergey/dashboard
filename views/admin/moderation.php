@@ -5,6 +5,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 $result = Yii::$app->getSession()->getFlash('moderation_ok');
 $result1 = Yii::$app->getSession()->getFlash('moderation_no');
+$result2 = Yii::$app->getSession()->getFlash('moderation_err');
 ?>
 
 <div class="row">
@@ -19,6 +20,12 @@ $result1 = Yii::$app->getSession()->getFlash('moderation_no');
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <strong><?=$result1?></strong>
+            </div>
+        <?php endif;?>
+        <?php if($result2):?>
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong><?=$result2?></strong>
             </div>
         <?php endif;?>
         <?= GridView::widget([
@@ -37,7 +44,7 @@ $result1 = Yii::$app->getSession()->getFlash('moderation_no');
                     'label' => 'Описание товара',
                     'format' => 'raw',
                     'value' => function ($model, $key, $index) {
-                         return ($model->topmenu->itemsTransports[$index]['description']);
+                         return ($model->topmenu->getItemsTable($model)[$key-1]->description);
                     },
                 ],
 
