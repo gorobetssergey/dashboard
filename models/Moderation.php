@@ -109,13 +109,18 @@ class Moderation extends \yii\db\ActiveRecord
                         'user_id' => $modelTable['itemsTable']->user_id,
                         'topmenu_id' => $modelTable['itemsTable']->topmenu_id,
                         'items_id' => $modelTable['itemsTable']->id,
-                        'name' => $modelTable['itemsName']
+                        'name' => $modelTable['itemsName'],
+                        'status' => Items::STATUS_STANDART,
+                        'queue' => $newItems->getLastQueue(),
                 ];
+
+
                 $res2 = $newItems->save();
 
                 $res3 = (new Serviseitems())->defaultData($modelTable['itemsTable']->user_id,$modelTable['itemsTable']->topmenu_id);
 
                 $res4 = $model->delete();
+
                 if($res1 && $res2 && $res3 && $res4)
                 {
                     $transaction->commit();
@@ -125,7 +130,6 @@ class Moderation extends \yii\db\ActiveRecord
                 $transaction->rollBack();
                 return false;
             }
-            var_dump($model->status);die();
         }else{
             return false;
         }
