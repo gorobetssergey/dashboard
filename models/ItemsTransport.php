@@ -155,4 +155,9 @@ class ItemsTransport extends \yii\db\ActiveRecord
             return false;
         }
     }
+
+    public function editPrice()
+    {
+
+    }
 }

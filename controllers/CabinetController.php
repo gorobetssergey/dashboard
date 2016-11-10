@@ -7,6 +7,7 @@ use app\models\Items;
 use app\models\Moderation;
 use app\models\ModerationMistake;
 use Yii;
+use yii\helpers\Url;
 
 class CabinetController extends \yii\web\Controller
 {
@@ -87,5 +88,44 @@ class CabinetController extends \yii\web\Controller
         return $this->render('transport/itemsModerationMistake',[
             'items' =>(new GlobalTables())->getMistakeItems()
         ]);
+    }
+
+    /**
+     * @param $tompenu - id tipmenu in table tomenu
+     * @param $id - id items in specific table concrete
+     */
+    public function actionEditItems($tompenu, $id)
+    {
+        $propreliation = (new GlobalTables([]))->getTableProperties($tompenu);
+        $model = (new GlobalTables([]))->getModel($tompenu, $id, 1);
+        if(Yii::$app->request->isPost)
+        {
+            $post = Yii::$app->request->post();
+            $data_model = $model[$propreliation][0];
+            if($data_model->load($post) && $data_model->validate())
+            {
+                if($data_model->update())
+                {
+                    Yii::$app->getSession()->setFlash('edit_items_price_ok', 'Цена успешно изенена.');
+                    return $this->refresh();
+                }else{
+                    Yii::$app->getSession()->setFlash('edit_items_price_err', 'Что то пошло не тьак. Цена не изенена.');
+                    return $this->refresh();
+                }
+            }else{
+                Yii::$app->getSession()->setFlash('edit_items_price_err', 'Что то пошло не тьак. Цена не изенена.');
+                return $this->refresh();
+            }
+        }else{
+            if($model)
+            {
+                return $this->render('editPrice',[
+                    'model' => $model[$propreliation][0]
+                ]);
+            }else{
+                Yii::$app->getSession()->setFlash('edit_items_find_err', 'Товар не найден.');
+                return $this->redirect(Url::toRoute('get-my-moderation-items'));
+            }
+        }
     }
 }
