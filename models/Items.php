@@ -160,4 +160,18 @@ class Items extends \yii\db\ActiveRecord
         }
         return self::STATUS_DEFAULT;
     }
+    /* Index */
+    public function showItems($status)
+    {
+        $items = self::find()
+            ->where([
+                'status' => $status
+            ])
+            ->orderBy(['queue'=>SORT_ASC])
+            ->all();
+        return $items;
+    }
+    /* Index End*/
+
+
 }

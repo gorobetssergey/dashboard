@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\globals\GlobalTables;
+use app\models\Items;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -15,6 +16,11 @@ class SiteController extends Controller
     /**
      * @inheritdoc
      */
+    public $layout = 'site_layout';
+
+    const VIP       = 1;
+    const TOP       = 2;
+    const STANDARD  = 3;
     public function behaviors()
     {
         return [
@@ -61,7 +67,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $modelItems = new Items();
+        return $this->render('index',[
+            'ItemsVip' => $modelItems->showItems(self::VIP),
+            'ItemsTop' => $modelItems->showItems(self::TOP),
+            'ItemsStandard' => $modelItems->showItems(self::STANDARD),
+        ]);
     }
 
     /**
