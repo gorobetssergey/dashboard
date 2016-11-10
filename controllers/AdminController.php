@@ -48,7 +48,7 @@ class AdminController extends \yii\web\Controller
         }
 
         return $this->render('moderation',[
-            'items_moderation' => (new Moderation([]))->getAllItems(false),
+            //'items_moderation' => (new Moderation([]))->getAllItems(false),
             'dataProvider' => $data->getProvider()
         ]);
     }
@@ -57,7 +57,8 @@ class AdminController extends \yii\web\Controller
     {
         $model = $this->findModelItems($id);
         return $this->render('view_items',[
-            'model' => (new GlobalTables())->getModel($model->topmenu_id,$model->items_id)
+            'model' => (new GlobalTables())->getModel($model->topmenu_id,$model->items_id),
+            'id' => $model->id
         ]);
     }
 

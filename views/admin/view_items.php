@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 
+
 ?>
 <div class="row">
     <div class="col-lg-12">
@@ -27,7 +28,7 @@ use yii\helpers\Url;
 
         ]); ?>
 
-        <?= $form->field($model, 'id')->textInput()->hiddenInput()->label(false) ?>
+        <?= $form->field($model, 'id')->hiddenInput(['value'=>$id])->label(false) ?>
         <?= $form->field($model, 'solve')->textInput()->hiddenInput()->label(false) ?>
         <?= Html::submitButton('Разрешить', ['class' => 'btn btn-success btn-block']) ?>
 
@@ -39,7 +40,7 @@ use yii\helpers\Url;
 
         ]); ?>
 
-        <?= $form->field($model, 'id')->textInput()->hiddenInput()->label(false) ?>
+        <?= $form->field($model, 'id')->hiddenInput(['value'=>$id])->label(false) ?>
         <?= $form->field($model, 'rejection_reason')->textInput(['required ' => 'required '])->label('Причина отказа') ?>
 
         <?= Html::submitButton('Запретить', ['class' => 'btn btn-danger btn-block']) ?>

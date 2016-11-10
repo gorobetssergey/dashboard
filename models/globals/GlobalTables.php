@@ -22,7 +22,9 @@ class GlobalTables extends Modal
     private $table_properties;//table a specific directory property
     private $view;//specific view of items
     private $scenaries;
+    private $query;
 
+    const TRANSPORTPROPS = 'transportProps';
     /**
      * return views specific of items
      */
@@ -84,14 +86,57 @@ class GlobalTables extends Modal
         return $params;
     }
 
-    public function getModel($model,$id)
+    /**
+     * @param $model - id tompenu
+     */
+
+    public function getTableProperties($model)
     {
         switch($model)
         {
-            case self::TRANSPORT : return (ItemsTransport::find()->with(['transportProps'])->where(['id' => $id])->one());break;
+            case self::TRANSPORT :
+                                    $this->query = ItemsTransport::find();
+                                    return self::TRANSPORTPROPS;break;
         }
     }
 
+    /**
+     * @param $model
+     * @param $id
+     * @param $user
+     * @return array|null|\yii\db\ActiveRecord
+     */
+    private function getTablePropertiesModel($model,$id, $user)
+    {
+        if(!$user)
+        {
+            return ($this->query->with([$model])->where(['id' => $id])->one());
+        }else{
+            return ($this->query->with([$model])->where([
+                'id' => $id,
+                'user_id' => $user
+            ])->one());
+        }
+    }
+
+    /**
+     * @param $model - id tompenu
+     * @param $id
+     * @return array|null|\yii\db\ActiveRecord
+     */
+    public function getModel($model,$id, $user = null)
+    {
+        switch($model)
+        {
+            case self::TRANSPORT : return $this->getTablePropertiesModel($this->getTableProperties($model),$id, $user);break;
+        }
+    }
+
+    /**
+     * @param $top
+     * @param $id_items
+     * @return array
+     */
     public function getItemsTable($top,$id_items)
     {
         switch($top)

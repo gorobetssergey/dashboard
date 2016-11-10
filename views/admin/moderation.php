@@ -44,7 +44,7 @@ $result2 = Yii::$app->getSession()->getFlash('moderation_err');
                     'label' => 'Описание товара',
                     'format' => 'raw',
                     'value' => function ($model, $key, $index) {
-                         return ($model->topmenu->getItemsTable($model)[$key-1]->description);
+                         return ($model->topmenu->getItemsTable($model)[$model->items_id - 1]->description);
                     },
                 ],
 

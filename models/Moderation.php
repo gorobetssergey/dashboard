@@ -102,7 +102,8 @@ class Moderation extends \yii\db\ActiveRecord
 
             try
             {
-                $res1 = $modelTable['itemsTable']->updateAll(['status' => 1]);
+                $modelTable['itemsTable']->status = 1;
+                $res1 = $modelTable['itemsTable']->update();
                 $newItems = new Items(['scenario' => 'after_moderation']);
 
                 $newItems->attributes = [

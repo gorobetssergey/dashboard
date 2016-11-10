@@ -1,3 +1,20 @@
+<?php
+
+use yii\helpers\Url;
+
+$result = Yii::$app->getSession()->getFlash('edit_items_find_err');
+?>
+<div class="row">
+    <div class="col-lg-12">
+        <?php if($result):?>
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong><?=$result?></strong>
+            </div>
+        <?php endif;?>
+    </div>
+</div>
+
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     <?php foreach ($items as $item):?>
         <div class="panel panel-default">
@@ -23,7 +40,7 @@
                                 </tr>
                             <?php endforeach;?>
                         </table>
-                        <a href="#" class = 'btn btn-info btn-block'>Редактировать даныне</a>
+                        <a href="<?=Url::toRoute('edit-items?tompenu='.$item->topmenu_id.'&id='.$item->id)?>" class = 'btn btn-info btn-block'>Редактировать цену</a>
                     </div>
                 </div>
             </div>

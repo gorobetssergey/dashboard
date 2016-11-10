@@ -48,7 +48,7 @@ class TransportProp extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'items_id' => Yii::t('app', 'Items ID'),
             'prop_id' => Yii::t('app', 'Prop ID'),
-            'value' => Yii::t('app', 'Value'),
+            'value' => 'Значение',
         ];
     }
 
