@@ -174,6 +174,4 @@ class Moderation extends \yii\db\ActiveRecord
             ->orderBy(['id' => SORT_DESC])
             ->all();
     }
-
-
 }

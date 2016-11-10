@@ -8,6 +8,9 @@ use app\models\TransportProp;
 use yii\bootstrap\Modal;
 use app\models\Submenu;
 use yii\db\Query;
+use app\models\Moderation;
+use app\models\Items;
+use app\models\ModerationMistake;
 
 class GlobalTables extends Modal
 {
@@ -106,5 +109,45 @@ class GlobalTables extends Modal
                 ->orderBy(['id' => SORT_DESC])
                 ->one()->value
         ];
+    }
+    
+    public function getUserItemsInModeration($user)
+    {
+        $model = new Moderation();
+        $itemsModeration = $model->getItemsModeration($user);
+
+        $arr = [];
+
+        foreach ($itemsModeration as $item) {
+            $arr[] = $this->getModel($item->topmenu_id,$item->items_id);
+        }
+        return $arr;
+    }
+    
+    public function getActivItems()
+    {
+        $active = new Items(['scenario' => 'get_self_active_items']);
+        $itemsLive = $active->getItemsLive(1);
+        $arr = [];
+
+        foreach ($itemsLive as $item) {
+            $arr[] = $this->getModel($item->topmenu_id,$item->items_id);
+        }
+        return $arr;
+    }
+
+    public function getMistakeItems()
+    {
+        $active = new ModerationMistake();
+        $itemsModeration = $active->getItemsModeration(1);
+        $arr = [];
+
+        foreach ($itemsModeration as $item) {
+            $arr[] = [
+                'model' => $this->getModel($item->topmenu_id,$item->items_id),
+                'name' => $item->descriptions
+                ];
+        }
+        return $arr;
     }
 }
