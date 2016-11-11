@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\globals\UploadForm;
 use app\models\Topmenu;
 use app\models\StatusItems;
 use Yii;
@@ -40,9 +41,12 @@ class Items extends \yii\db\ActiveRecord
     public $thorns_tires;
     public $can_thorns_tires;
     public $descriptions_tires;
-    public $title_tires;
 
+    public $titleImage;
 
+    const TITLE_IMAGE_PATH = [
+      '1' => 'transport'
+    ];
     /**
      * @inheritdoc
      */
@@ -67,10 +71,12 @@ class Items extends \yii\db\ActiveRecord
             /**
              * rulles for transport_tires
              */
-            [['name_tires','price_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires','descriptions_tires'],'required','on' => 'transport_tires'],
+            [['titleImage', 'name_tires','price_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires','descriptions_tires'],'required','on' => 'transport_tires'],
             [['price_tires'], 'integer','max'=>10000000,'min'=>1, 'on' => 'transport_tires'],
             [['name_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires'],'string','max'=>50,'on' => 'transport_tires'],
-            [['descriptions_tires'],'string','max'=>2000,'on' => 'transport_tires']
+            [['descriptions_tires'],'string','max'=>2000,'on' => 'transport_tires'],
+            [['titleImage'], 'image', 'skipOnEmpty' => false, 'enableClientValidation'=>true,
+                'extensions' => 'jpg', 'mimeTypes'=>['image/jpeg'], 'maxSize'=>512000, 'maxWidth'=>800, 'maxHeight'=>600, 'on' => 'transport_tires']
         ];
     }
 
@@ -88,6 +94,7 @@ class Items extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'Name'),
             'status' => Yii::t('app', 'Status'),
             'queue' => Yii::t('app', 'Queue'),
+            'titleImage' => Yii::t('cabinet', 'titleImage'),
             /**
              * atributes for transport_tires
              */
@@ -109,7 +116,7 @@ class Items extends \yii\db\ActiveRecord
     public function scenarios()
     {
         return [
-            'transport_tires' => ['name_tires','price_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires','descriptions_tires'],
+            'transport_tires' => ['name_tires','price_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires','descriptions_tires', 'titleImage'],
             'after_moderation' => ['user_id', 'topmenu_id', 'items_id', 'name', 'status', 'queue'],
             'get_self_active_items' => ['user_id'],//перевырити щоб преданий юзер був тим хто даэ запрос
         ];
@@ -141,6 +148,30 @@ class Items extends \yii\db\ActiveRecord
     public function getItems()
     {
         return self::find()->where(['user_id' => 1])->count();
+    }
+
+    private function setPath($topmenu)
+    {
+        return __DIR__.'/../images/items/'.self::TITLE_IMAGE_PATH[$topmenu] . '/';
+    }
+
+    public function getPath($topmenu)
+    {
+        return self::TITLE_IMAGE_PATH[$topmenu] . '/';
+    }
+    
+    public function setName($topmenu, $time)
+    {
+        return self::TITLE_IMAGE_PATH[$topmenu].'_1_'.$time.'.' . $this->titleImage->extension;
+    }
+    
+    public function uploadTitle($topmenu,$image, $time)
+    {        
+        if ($this->validate()) {
+            return (new UploadForm())->upload($image, $this->setPath($topmenu) . $this->setName($topmenu,$time));
+        } else {
+            return false;
+        }
     }
 
     public function getItemsLive($user)

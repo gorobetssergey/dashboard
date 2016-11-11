@@ -48,9 +48,8 @@ $this->title = 'Главная';
                 <?php foreach ($ItemsStandard as $item) :?>
                     <a href="<?=Url::toRoute('view?items='.$item->id)?>">
                         <div class="items_block">
-                            <label class="text-muted text-left">Standard</label>
-                            <img src="<?=Url::home(true)?>images/site/no_image.png" class="items_img">
-                            <h4><?= $item->name ?></h4>
+                            <h4 class="text-muted text-center"><?= $item->name ?></h4>
+                            <img src="<?=Url::home(true)?>images/items/<?=$modelStandard[$item->id]?>" class="items_img">
                             <h3 class="text-center"><?= $item->topmenu->itemsTransports[$item->items_id-1]->transportProps[0]->value.'грн' ?></h3>
                         </div>
                     </a>

@@ -130,10 +130,11 @@ class ItemsTransport extends \yii\db\ActiveRecord
         $transaction = Yii::$app->db->beginTransaction();
 
         try{
+
             $photo = new PhotoTransport();
             $photo->user_id = 1;
             $photo->topmenu_id = 1;
-            $photo->title = $attributeNames['title_photo'];
+            $photo->title = $attributeNames['items']->setName($photo->topmenu_id, $attributeNames['time']);
             $res4 = $photo->save();
 
             $this->user_id = $attributeNames['user_id'];
@@ -169,6 +170,7 @@ class ItemsTransport extends \yii\db\ActiveRecord
             $res2 = Yii::$app->db->createCommand()->batchInsert($attributeNames['table_properties'], ['items_id','prop_id','value'], $properties)->execute();
 
             $res3 = (new Moderation(['user_id' => $attributeNames['user_id'],'topmenu_id' => $attributeNames['topmenu_id'],'items_id' => $this->id]))->save();
+
 
             if($res1 && $res2 && $res3 && $res4 && $res5)
             {

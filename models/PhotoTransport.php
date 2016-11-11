@@ -98,4 +98,9 @@ class PhotoTransport extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
+
+    public function getPhoto($query)
+    {
+        return self::find()->where($query)->one();
+    }
 }

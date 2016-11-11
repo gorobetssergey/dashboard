@@ -3,12 +3,14 @@
 namespace app\controllers;
 
 use app\models\globals\GlobalTables;
+use app\models\globals\UploadForm;
 use app\models\Items;
 use app\models\Moderation;
 use app\models\ModerationMistake;
 use Yii;
 use yii\helpers\Url;
 use app\models\Profile;
+use yii\web\UploadedFile;
 
 class CabinetController extends \yii\web\Controller
 {
@@ -35,13 +37,16 @@ class CabinetController extends \yii\web\Controller
     {
         $params = (new GlobalTables(['catalog' => $catalog]))->getParams();
         $items = new Items(['scenario' =>$params['scenario']]);
-
         if(Yii::$app->request->isPost)
         {
             $post = Yii::$app->request->post();
-
+            $upload = new UploadForm();
+            $upload->titleImage = UploadedFile::getInstance($items, 'titleImage');
+            
+            $post['Items']['titleImage'] = $upload->titleImage;
             if($items->load($post) && $items->validate())
             {
+                $time = time();
                 $date = date('Y-m-d H:i:s',strtotime('now'));
                 $attributeNames = [
                     'user_id' => 1,//Yii::$app->user->identity->id,
@@ -53,18 +58,21 @@ class CabinetController extends \yii\web\Controller
                     'status' => Items::STATUS_DEFAULT,
                     'dataitems' => ['topmenu_id'=>$params['topmenu'],'name'=>$post["Items"]["name_tires"]],
                     'table_properties' => $params['table_properties'],
-                    'title_photo' => $post["Items"]['title_tires']
+                    'title_photo' => $upload->titleImage,
+                    'items' => $items,
+                    'time' => $time
                 ];
-                if($params['table']->save(true,$attributeNames))
+                if($params['table']->save(true,$attributeNames) && $items->uploadTitle($params['topmenu'], $upload->titleImage, $time))
                 {
                     Yii::$app->getSession()->setFlash('add_new_items_ok', 'Товар успешно направлен на модерацию.');
                     return $this->refresh();
                 }
                 else{
+
                     Yii::$app->getSession()->setFlash('add_new_items_err', 'Ошибка данных.');
                     return $this->refresh();
                 }
-            }else{
+            }else{var_dump($items->errors);die();
                 Yii::$app->getSession()->setFlash('add_new_items_err', 'Ошибка данных.');
                 return $this->refresh();
             }

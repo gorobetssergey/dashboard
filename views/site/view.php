@@ -6,7 +6,7 @@ use yii\helpers\Url;
     <div class="col-lg-9">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <img src="<?=Url::home(true)?>images/site/no_image.png" class="items_img img-rounded">
+                <img src="<?=Url::home(true)?>images/items/<?=$photo[1].'/'.$photo[0]->title?>" class="items_img img-rounded">
             </div>
             <div class="col-lg-12">
                 <table class="table">

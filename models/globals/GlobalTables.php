@@ -3,6 +3,7 @@
 namespace app\models\globals;
 
 use app\models\ItemsTransport;
+use app\models\PhotoTransport;
 use app\models\PropertiesGroup;
 use app\models\TransportProp;
 use yii\bootstrap\Modal;
@@ -194,5 +195,21 @@ class GlobalTables extends Modal
                 ];
         }
         return $arr;
+    }
+    
+    public function getPhoto($topmenu,$items)
+    {
+        $qery = [
+            'topmenu_id'=>$topmenu,
+            'item_id' =>$items
+        ];
+
+        switch ($topmenu)
+        {
+            case self::TRANSPORT : return [
+                        (new PhotoTransport())->getPhoto($qery),
+                        Items::TITLE_IMAGE_PATH[$topmenu]
+                ];break;
+        }
     }
 }

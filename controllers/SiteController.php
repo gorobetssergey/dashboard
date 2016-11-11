@@ -66,10 +66,16 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $modelItems = new Items();
+        $ItemsStandard = $modelItems->showItems(Items::STATUS_STANDART);
+        $modelStandard = [];
+        foreach ($ItemsStandard as $item) {
+            $modelStandard[$item->id] = $modelItems->getPath($item->topmenu_id).'/'.$item->topmenu->getPhotoTransports()->where(['item_id'=>$item->items_id])->one()->title;
+        }
         return $this->render('index',[
             'ItemsVip' => $modelItems->showItems(Items::STATUS_VIP),
             'ItemsTop' => $modelItems->showItems(Items::STATUS_TOP),
-            'ItemsStandard' => $modelItems->showItems(Items::STATUS_STANDART),
+            'ItemsStandard' => $ItemsStandard,
+            'modelStandard'=> $modelStandard
         ]);
     }
 
@@ -138,8 +144,10 @@ class SiteController extends Controller
         $model = $this->findModel($items);
         $data = (new GlobalTables())->getModel($model->topmenu_id,$model->items_id);
 
+        $modelStandard = (new GlobalTables())->getPhoto($model->topmenu_id,$model->items_id);
         return $this->render('view',[
-           'model' => $data
+            'model' => $data,
+            'photo' => $modelStandard
         ]);
     }
 

@@ -153,6 +153,19 @@ class DbseedController extends Controller
                 ['user@user.net',1,1,'qqqqqqqq','wwwwwwww','eeeeeeee','2016-10-12 23:00:00',1]
             ])->execute();
 
+            Yii::$app->db->createCommand()->batchInsert('level', ['value'], [
+                ['bonus'],
+                ['user'],
+                ['junior'],
+                ['middle'],
+                ['senior'],
+                ['top'],
+                ['vip'],
+                ['menedger'],
+                ['boss'],
+                ['prezident'],
+            ])->execute();
+
             $transaction->commit();
 
         } catch(\Exception $e) {
