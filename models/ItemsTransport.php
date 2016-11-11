@@ -13,15 +13,18 @@ use app\models\Properties;
  * @property integer $catalog_id
  * @property integer $topmenu_id
  * @property integer $prop_group
+ * @property integer $photo_id
  * @property string $created_at
  * @property string $updated_at
  * @property string $description
  * @property integer $status
  *
  * @property Catalog $catalog
+ * @property PhotoTransport $photo
  * @property PropertiesGroup $propGroup
  * @property Topmenu $topmenu
  * @property Users $user
+ * @property PhotoTransport[] $photoTransports
  * @property TransportProp[] $transportProps
  */
 class ItemsTransport extends \yii\db\ActiveRecord
@@ -43,10 +46,11 @@ class ItemsTransport extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'catalog_id', 'topmenu_id', 'prop_group', 'created_at', 'updated_at', 'description'], 'required'],
-            [['user_id', 'catalog_id', 'topmenu_id', 'prop_group', 'status'], 'integer'],
-            [['user_id', 'catalog_id', 'topmenu_id', 'prop_group', 'created_at', 'updated_at', 'description'], 'safe'],
+            [['user_id', 'catalog_id', 'topmenu_id', 'prop_group', 'status' ,'photo_id'], 'integer'],
+            [['user_id', 'catalog_id', 'topmenu_id', 'prop_group', 'created_at', 'updated_at', 'description', 'photo_id'], 'safe'],
             [['description'], 'string', 'max' => 255],
             [['catalog_id'], 'exist', 'skipOnError' => true, 'targetClass' => Catalog::className(), 'targetAttribute' => ['catalog_id' => 'id']],
+            [['photo_id'], 'exist', 'skipOnError' => true, 'targetClass' => PhotoTransport::className(), 'targetAttribute' => ['photo_id' => 'id']],
             [['prop_group'], 'exist', 'skipOnError' => true, 'targetClass' => PropertiesGroup::className(), 'targetAttribute' => ['prop_group' => 'groups']],
             [['topmenu_id'], 'exist', 'skipOnError' => true, 'targetClass' => Topmenu::className(), 'targetAttribute' => ['topmenu_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -62,6 +66,7 @@ class ItemsTransport extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'user_id' => Yii::t('app', 'User ID'),
             'catalog_id' => Yii::t('app', 'Catalog ID'),
+            'photo_id' => Yii::t('app', 'Photo ID'),
             'topmenu_id' => Yii::t('app', 'Topmenu ID'),
             'prop_group' => Yii::t('app', 'Prop Group'),
             'created_at' => Yii::t('app', 'Created At'),
@@ -78,6 +83,14 @@ class ItemsTransport extends \yii\db\ActiveRecord
     public function getCatalog()
     {
         return $this->hasOne(Catalog::className(), ['id' => 'catalog_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPhoto()
+    {
+        return $this->hasOne(PhotoTransport::className(), ['id' => 'photo_id']);
     }
 
     /**
@@ -117,6 +130,12 @@ class ItemsTransport extends \yii\db\ActiveRecord
         $transaction = Yii::$app->db->beginTransaction();
 
         try{
+            $photo = new PhotoTransport();
+            $photo->user_id = 1;
+            $photo->topmenu_id = 1;
+            $photo->title = $attributeNames['title_photo'];
+            $res4 = $photo->save();
+
             $this->user_id = $attributeNames['user_id'];
             $this->catalog_id = $attributeNames['catalog_id'];
             $this->topmenu_id = $attributeNames['topmenu_id'];
@@ -125,7 +144,13 @@ class ItemsTransport extends \yii\db\ActiveRecord
             $this->updated_at = $attributeNames['updated_at'];
             $this->status = $attributeNames['status'];
             $this->description = $_POST["Items"]["descriptions_tires"];
+            $this->photo_id = $photo->id;
+
             $res1 = parent::save();
+
+            $rephoto = PhotoTransport::findOne($photo->id);
+            $rephoto->item_id = $this->id;
+            $res5 = $rephoto->update();
 
             $properties = [
                 [$this->id, 1 , $_POST['Items']['price_tires']],
@@ -145,7 +170,7 @@ class ItemsTransport extends \yii\db\ActiveRecord
 
             $res3 = (new Moderation(['user_id' => $attributeNames['user_id'],'topmenu_id' => $attributeNames['topmenu_id'],'items_id' => $this->id]))->save();
 
-            if($res1 && $res2 && $res3)
+            if($res1 && $res2 && $res3 && $res4 && $res5)
             {
                 $transaction->commit();
                 return true;

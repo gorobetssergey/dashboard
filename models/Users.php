@@ -17,8 +17,13 @@ use Yii;
  * @property string $created
  * @property integer $auth
  *
+ * @property Items[] $items
  * @property ItemsTransport[] $itemsTransports
+ * @property Moderation[] $moderations
+ * @property ModerationMistake[] $moderationMistakes
+ * @property PhotoTransport[] $photoTransports
  * @property Profile[] $profiles
+ * @property Serviseitems[] $serviseitems
  * @property Role $role0
  */
 class Users extends \yii\db\ActiveRecord
@@ -67,6 +72,14 @@ class Users extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getItems()
+    {
+        return $this->hasMany(Items::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getItemsTransports()
     {
         return $this->hasMany(ItemsTransport::className(), ['user_id' => 'id']);
@@ -75,9 +88,41 @@ class Users extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getModerations()
+    {
+        return $this->hasMany(Moderation::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getModerationMistakes()
+    {
+        return $this->hasMany(ModerationMistake::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPhotoTransports()
+    {
+        return $this->hasMany(PhotoTransport::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getProfiles()
     {
         return $this->hasMany(Profile::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getServiseitems()
+    {
+        return $this->hasMany(Serviseitems::className(), ['user_id' => 'id']);
     }
 
     /**

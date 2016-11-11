@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\web\NotFoundHttpException;
 
 class SiteController extends Controller
 {
@@ -130,5 +131,25 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionView($items)
+    {
+        $model = $this->findModel($items);
+        $data = (new GlobalTables())->getModel($model->topmenu_id,$model->items_id);
+
+        return $this->render('view',[
+           'model' => $data
+        ]);
+    }
+
+    protected function findModel($id)
+    {
+        $model = Items::findOne($id);
+        if ($model !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 }
