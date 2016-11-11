@@ -13,17 +13,18 @@ use app\models\Properties;
  * @property integer $catalog_id
  * @property integer $topmenu_id
  * @property integer $prop_group
- * @property integer $photo
+ * @property integer $photo_id
  * @property string $created_at
  * @property string $updated_at
  * @property string $description
  * @property integer $status
  *
  * @property Catalog $catalog
- * @property Photo $photo0
+ * @property PhotoTransport $photo
  * @property PropertiesGroup $propGroup
  * @property Topmenu $topmenu
  * @property Users $user
+ * @property PhotoTransport[] $photoTransports
  * @property TransportProp[] $transportProps
  */
 class ItemsTransport extends \yii\db\ActiveRecord
@@ -45,11 +46,11 @@ class ItemsTransport extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'catalog_id', 'topmenu_id', 'prop_group', 'created_at', 'updated_at', 'description'], 'required'],
-            [['user_id', 'catalog_id', 'topmenu_id', 'prop_group', 'status' ,'photo'], 'integer'],
-            [['user_id', 'catalog_id', 'topmenu_id', 'prop_group', 'created_at', 'updated_at', 'description', 'photo'], 'safe'],
+            [['user_id', 'catalog_id', 'topmenu_id', 'prop_group', 'status' ,'photo_id'], 'integer'],
+            [['user_id', 'catalog_id', 'topmenu_id', 'prop_group', 'created_at', 'updated_at', 'description', 'photo_id'], 'safe'],
             [['description'], 'string', 'max' => 255],
             [['catalog_id'], 'exist', 'skipOnError' => true, 'targetClass' => Catalog::className(), 'targetAttribute' => ['catalog_id' => 'id']],
-            [['photo'], 'exist', 'skipOnError' => true, 'targetClass' => Photo::className(), 'targetAttribute' => ['photo' => 'id']],
+            [['photo_id'], 'exist', 'skipOnError' => true, 'targetClass' => PhotoTransport::className(), 'targetAttribute' => ['photo_id' => 'id']],
             [['prop_group'], 'exist', 'skipOnError' => true, 'targetClass' => PropertiesGroup::className(), 'targetAttribute' => ['prop_group' => 'groups']],
             [['topmenu_id'], 'exist', 'skipOnError' => true, 'targetClass' => Topmenu::className(), 'targetAttribute' => ['topmenu_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -65,7 +66,7 @@ class ItemsTransport extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'user_id' => Yii::t('app', 'User ID'),
             'catalog_id' => Yii::t('app', 'Catalog ID'),
-            'photo' => Yii::t('app', 'Photo'),
+            'photo_id' => Yii::t('app', 'Photo ID'),
             'topmenu_id' => Yii::t('app', 'Topmenu ID'),
             'prop_group' => Yii::t('app', 'Prop Group'),
             'created_at' => Yii::t('app', 'Created At'),
@@ -87,9 +88,9 @@ class ItemsTransport extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPhoto0()
+    public function getPhoto()
     {
-        return $this->hasOne(Photo::className(), ['id' => 'photo']);
+        return $this->hasOne(PhotoTransport::className(), ['id' => 'photo_id']);
     }
 
     /**
@@ -115,6 +116,15 @@ class ItemsTransport extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPhotoTransports()
+    {
+        return $this->hasMany(PhotoTransport::className(), ['item_id' => 'id']);
+    }
+
 
     /**
      * @return \yii\db\ActiveQuery

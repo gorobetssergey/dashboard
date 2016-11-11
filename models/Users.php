@@ -21,7 +21,7 @@ use Yii;
  * @property ItemsTransport[] $itemsTransports
  * @property Moderation[] $moderations
  * @property ModerationMistake[] $moderationMistakes
- * @property Photo[] $photos
+ * @property PhotoTransport[] $photoTransports
  * @property Profile[] $profiles
  * @property Serviseitems[] $serviseitems
  * @property Role $role0
@@ -104,9 +104,9 @@ class Users extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPhotos()
+    public function getPhotoTransports()
     {
-        return $this->hasMany(Photo::className(), ['user_id' => 'id']);
+        return $this->hasMany(PhotoTransport::className(), ['user_id' => 'id']);
     }
 
     /**

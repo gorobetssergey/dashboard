@@ -131,7 +131,7 @@ class m161103_124220_create_table_items extends Migration
         /**
          *
          */
-        $this->createTable('photo', [
+        $this->createTable('photo_transport', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
             'topmenu_id' => $this->integer()->notNull(),
@@ -149,26 +149,26 @@ class m161103_124220_create_table_items extends Migration
             'photo_10' => $this->string(100)->null(),
         ]);
         $this->createIndex(
-            'idx-user_id_photo',
-            'photo',
+            'idx-user_id_photo_transport',
+            'photo_transport',
             'user_id'
         );
         $this->addForeignKey(
-            'fk-user_id_photo',
-            'photo',//table items
+            'fk-user_id_photo_transport',
+            'photo_transport',//table items
             'user_id',//items.top_id
             'users',//table topmenu
             'id',//topmenu.id
             'CASCADE'
         );
         $this->createIndex(
-            'idx-topmenu_id_photo',
-            'photo',
+            'idx-topmenu_id_photo_transport',
+            'photo_transport',
             'topmenu_id'
         );
         $this->addForeignKey(
-            'fk-topmenu_id_photo',
-            'photo',//table items
+            'fk-topmenu_id_photo_transport',
+            'photo_transport',//table items
             'topmenu_id',//items.top_id
             'topmenu',//table topmenu
             'id',//topmenu.id
@@ -183,22 +183,22 @@ class m161103_124220_create_table_items extends Migration
             'catalog_id' => $this->integer()->notNull(),
             'topmenu_id' => $this->integer()->notNull(),
             'prop_group' => $this->integer()->notNull(),
-            'photo' => $this->integer()->notNull(),
+            'photo_id' => $this->integer()->notNull(),
             'created_at' => $this->dateTime()->notNull(),
             'updated_at' => $this->dateTime()->notNull(),
             'description' => $this->string()->notNull(),
             'status' => $this->smallInteger()->defaultValue(0),
         ]);
         $this->createIndex(
-            'idx-photo_items_transport',
+            'idx-photo_id_items_transport',
             'items_transport',
-            'photo'
+            'photo_id'
         );
         $this->addForeignKey(
             'fk-photo_items_transport',
             'items_transport',//table items
-            'photo',//items.top_id
-            'photo',//table topmenu
+            'photo_id',//items.top_id
+            'photo_transport',//table topmenu
             'id',//topmenu.id
             'CASCADE'
         );
@@ -260,6 +260,20 @@ class m161103_124220_create_table_items extends Migration
             'fk-items_id_transport_prop',
             'transport_prop',//table items
             'items_id',//items.top_id
+            'items_transport',//table topmenu
+            'id',//topmenu.id
+            'CASCADE'
+        );
+
+        $this->createIndex(
+            'idx-item_id_photo_transport',
+            'photo_transport',
+            'item_id'
+        );
+        $this->addForeignKey(
+            'fk-item_id_photo_transport',
+            'photo_transport',//table items
+            'item_id',//items.top_id
             'items_transport',//table topmenu
             'id',//topmenu.id
             'CASCADE'
