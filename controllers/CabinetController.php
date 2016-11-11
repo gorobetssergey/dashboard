@@ -8,6 +8,7 @@ use app\models\Moderation;
 use app\models\ModerationMistake;
 use Yii;
 use yii\helpers\Url;
+use app\models\Profile;
 
 class CabinetController extends \yii\web\Controller
 {
@@ -131,5 +132,32 @@ class CabinetController extends \yii\web\Controller
                 return $this->redirect(Url::toRoute('get-my-moderation-items'));
             }
         }
+    }
+
+    public function actionProfile()
+    {
+        $modelProfile = new Profile();
+        $id = 1;
+
+        if(Yii::$app->request->post()){
+            $model = Yii::$app->request->post();
+            $res = $modelProfile->updateProfile($model['Profile']);
+            if($res == true){
+                Yii::$app->getSession()->setFlash('profile_successfully', 'Успешно. Профиль успешно отредактирован');
+                Yii::$app->getSession()->setFlash('profile_color', 'alert-success');
+            }
+            else{
+                Yii::$app->getSession()->setFlash('profile_successfully', 'Ошибка!!! редактирования не сохранено или нет изменений');
+                Yii::$app->getSession()->setFlash('profile_color', 'alert-danger');
+            }
+            return $this->redirect('/cabinet');
+        }
+        else{
+            $model = $modelProfile->getForm($id);
+            $model->setScenario('edit');
+        }
+        return $this->render('profile',[
+            'model' => $model
+        ]);
     }
 }

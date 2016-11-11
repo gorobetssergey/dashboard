@@ -8,6 +8,7 @@
 namespace app\assets;
 
 use yii\web\AssetBundle;
+use Yii;
 
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>
@@ -19,7 +20,8 @@ class CabinetAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
-        'css/cabinet/index.css'
+        'css/cabinet/index.css',
+        'css/cabinet/content.css'
 
     ];
     public $js = [
@@ -29,4 +31,12 @@ class CabinetAsset extends AssetBundle
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
     ];
+    public function init()
+    {
+        parent::init();
+        $action = Yii::$app->controller->action->id;
+        if($action == 'profile'){
+            $this->css[] = 'css/cabinet/profile.css';
+        }
+    }
 }

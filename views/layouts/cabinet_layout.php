@@ -66,13 +66,11 @@ CabinetAsset::register($this);
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?= Url::toRoute('cabinet/new-items')?>" class="btn btn-warning"><span id = 'add_items'>Добавить товар</span></a></li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">юзер<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
+                            <li><a href="<?= Url::toRoute('cabinet/profile') ?>" class="glyphicon glyphicon-user"> профиль</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
+                            <li><a href="#" class="glyphicon glyphicon-log-out"> выход</a></li>
                         </ul>
                     </li>
                 </ul>
