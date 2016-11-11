@@ -29,6 +29,7 @@ return [
     'transport_items' => [
         'transport_tires_items' => [
             'name_tires' => 'Название',
+            'title_tires' => 'Титул фото',
             'price_tires' => 'Цена',
             'brand_name_tires' => 'Бренд',
             'season_tires' => 'Сезон',

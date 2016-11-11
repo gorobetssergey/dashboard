@@ -38,6 +38,7 @@ class CabinetController extends \yii\web\Controller
         if(Yii::$app->request->isPost)
         {
             $post = Yii::$app->request->post();
+
             if($items->load($post) && $items->validate())
             {
                 $date = date('Y-m-d H:i:s',strtotime('now'));
@@ -49,9 +50,9 @@ class CabinetController extends \yii\web\Controller
                     'created_at' => $date,
                     'updated_at' => $date,
                     'status' => Items::STATUS_DEFAULT,
-                    'description' => 'test',
                     'dataitems' => ['topmenu_id'=>$params['topmenu'],'name'=>$post["Items"]["name_tires"]],
-                    'table_properties' => $params['table_properties']
+                    'table_properties' => $params['table_properties'],
+                    'title_photo' => $post["Items"]['title_tires']
                 ];
                 if($params['table']->save(true,$attributeNames))
                 {

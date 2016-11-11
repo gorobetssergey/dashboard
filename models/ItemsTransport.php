@@ -120,15 +120,6 @@ class ItemsTransport extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPhotoTransports()
-    {
-        return $this->hasMany(PhotoTransport::className(), ['item_id' => 'id']);
-    }
-
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getTransportProps()
     {
         return $this->hasMany(TransportProp::className(), ['items_id' => 'id']);
@@ -139,6 +130,12 @@ class ItemsTransport extends \yii\db\ActiveRecord
         $transaction = Yii::$app->db->beginTransaction();
 
         try{
+            $photo = new PhotoTransport();
+            $photo->user_id = 1;
+            $photo->topmenu_id = 1;
+            $photo->title = $attributeNames['title_photo'];
+            $res4 = $photo->save();
+
             $this->user_id = $attributeNames['user_id'];
             $this->catalog_id = $attributeNames['catalog_id'];
             $this->topmenu_id = $attributeNames['topmenu_id'];
@@ -147,7 +144,13 @@ class ItemsTransport extends \yii\db\ActiveRecord
             $this->updated_at = $attributeNames['updated_at'];
             $this->status = $attributeNames['status'];
             $this->description = $_POST["Items"]["descriptions_tires"];
+            $this->photo_id = $photo->id;
+
             $res1 = parent::save();
+
+            $rephoto = PhotoTransport::findOne($photo->id);
+            $rephoto->item_id = $this->id;
+            $res5 = $rephoto->update();
 
             $properties = [
                 [$this->id, 1 , $_POST['Items']['price_tires']],
@@ -167,7 +170,7 @@ class ItemsTransport extends \yii\db\ActiveRecord
 
             $res3 = (new Moderation(['user_id' => $attributeNames['user_id'],'topmenu_id' => $attributeNames['topmenu_id'],'items_id' => $this->id]))->save();
 
-            if($res1 && $res2 && $res3)
+            if($res1 && $res2 && $res3 && $res4 && $res5)
             {
                 $transaction->commit();
                 return true;

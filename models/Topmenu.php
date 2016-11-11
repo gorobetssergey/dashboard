@@ -66,6 +66,30 @@ class Topmenu extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getModerations()
+    {
+        return $this->hasMany(Moderation::className(), ['topmenu_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getModerationMistakes()
+    {
+        return $this->hasMany(ModerationMistake::className(), ['topmenu_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPhotoTransports()
+    {
+        return $this->hasMany(PhotoTransport::className(), ['topmenu_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getTopSubs()
     {
         return $this->hasMany(TopSub::className(), ['id_top' => 'id']);

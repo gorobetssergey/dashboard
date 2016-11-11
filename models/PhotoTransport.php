@@ -24,7 +24,6 @@ use Yii;
  * @property string $photo_10
  *
  * @property ItemsTransport[] $itemsTransports
- * @property ItemsTransport $item
  * @property Topmenu $topmenu
  * @property Users $user
  */
@@ -44,10 +43,9 @@ class PhotoTransport extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'topmenu_id', 'item_id'], 'required'],
+            [['user_id', 'topmenu_id'], 'required'],
             [['user_id', 'topmenu_id', 'item_id'], 'integer'],
             [['title', 'photo_1', 'photo_2', 'photo_3', 'photo_4', 'photo_5', 'photo_6', 'photo_7', 'photo_8', 'photo_9', 'photo_10'], 'string', 'max' => 100],
-            [['item_id'], 'exist', 'skipOnError' => true, 'targetClass' => ItemsTransport::className(), 'targetAttribute' => ['item_id' => 'id']],
             [['topmenu_id'], 'exist', 'skipOnError' => true, 'targetClass' => Topmenu::className(), 'targetAttribute' => ['topmenu_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -83,14 +81,6 @@ class PhotoTransport extends \yii\db\ActiveRecord
     public function getItemsTransports()
     {
         return $this->hasMany(ItemsTransport::className(), ['photo_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getItem()
-    {
-        return $this->hasOne(ItemsTransport::className(), ['id' => 'item_id']);
     }
 
     /**

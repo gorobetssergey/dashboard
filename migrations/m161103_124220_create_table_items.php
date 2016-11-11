@@ -135,7 +135,7 @@ class m161103_124220_create_table_items extends Migration
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
             'topmenu_id' => $this->integer()->notNull(),
-            'item_id' => $this->integer()->notNull(),
+            'item_id' => $this->integer()->null(),
             'title' => $this->string(100)->null(),
             'photo_1' => $this->string(100)->null(),
             'photo_2' => $this->string(100)->null(),
@@ -265,19 +265,6 @@ class m161103_124220_create_table_items extends Migration
             'CASCADE'
         );
 
-        $this->createIndex(
-            'idx-item_id_photo_transport',
-            'photo_transport',
-            'item_id'
-        );
-        $this->addForeignKey(
-            'fk-item_id_photo_transport',
-            'photo_transport',//table items
-            'item_id',//items.top_id
-            'items_transport',//table topmenu
-            'id',//topmenu.id
-            'CASCADE'
-        );
         /**
          *
          */

@@ -40,6 +40,7 @@ class Items extends \yii\db\ActiveRecord
     public $thorns_tires;
     public $can_thorns_tires;
     public $descriptions_tires;
+    public $title_tires;
 
 
     /**
@@ -91,6 +92,7 @@ class Items extends \yii\db\ActiveRecord
              * atributes for transport_tires
              */
             'price_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['price_tires'],
+            'title_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['title_tires'],
             'brand_name_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['brand_name_tires'],
             'season_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['season_tires'],
             'width_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['width_tires'],
