@@ -8,6 +8,7 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AdminAsset;
+use yii\helpers\Url;
 
 AdminAsset::register($this);
 ?>
@@ -35,7 +36,7 @@ AdminAsset::register($this);
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Boards</a>
+                <a class="navbar-brand" href="<?= Url::home() ?>">Boards</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
