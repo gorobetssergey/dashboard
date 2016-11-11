@@ -36,7 +36,7 @@ CabinetAsset::register($this);
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Brand</a>
+                <a class="navbar-brand" href="<?= Url::home() ?>">Boards</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
