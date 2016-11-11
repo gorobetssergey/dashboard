@@ -95,7 +95,6 @@ class Moderation extends \yii\db\ActiveRecord
     public function ok($model)
     {
         $modelTable = (new GlobalTables([]))->getItemsTable($model->topmenu->id,$model->items_id);
-
         if(!$modelTable['itemsTable']->status)
         {
             $transaction = Yii::$app->db->beginTransaction();

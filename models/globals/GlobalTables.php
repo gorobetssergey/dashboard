@@ -150,7 +150,7 @@ class GlobalTables extends Modal
             'itemsName' => $this->table->getPropGroup()
                 ->with(['prop'])
                 ->orderBy(['id' => SORT_DESC])->one()
-                ->prop->getTransportProps()
+                ->prop->getTransportProps()->where(['items_id'=>$this->table->id])
                 ->orderBy(['id' => SORT_DESC])
                 ->one()->value
         ];

@@ -18,9 +18,6 @@ class SiteController extends Controller
      */
     public $layout = 'site_layout';
 
-    const VIP       = 1;
-    const TOP       = 2;
-    const STANDARD  = 3;
     public function behaviors()
     {
         return [
@@ -69,9 +66,9 @@ class SiteController extends Controller
     {
         $modelItems = new Items();
         return $this->render('index',[
-            'ItemsVip' => $modelItems->showItems(self::VIP),
-            'ItemsTop' => $modelItems->showItems(self::TOP),
-            'ItemsStandard' => $modelItems->showItems(self::STANDARD),
+            'ItemsVip' => $modelItems->showItems(Items::STATUS_VIP),
+            'ItemsTop' => $modelItems->showItems(Items::STATUS_TOP),
+            'ItemsStandard' => $modelItems->showItems(Items::STATUS_STANDART),
         ]);
     }
 

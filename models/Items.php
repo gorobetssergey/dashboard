@@ -164,10 +164,12 @@ class Items extends \yii\db\ActiveRecord
     public function showItems($status)
     {
         $items = self::find()
+            ->with(['topmenu','topmenu.itemsTransports','topmenu.itemsTransports.transportProps'])
             ->where([
                 'status' => $status
             ])
             ->orderBy(['queue'=>SORT_ASC])
+            ->limit(25)
             ->all();
         return $items;
     }
