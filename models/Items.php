@@ -173,6 +173,17 @@ class Items extends \yii\db\ActiveRecord
             ->all();
         return $items;
     }
+
+    public function findItems($id)
+    {
+        $items = self::find()
+            ->with(['topmenu','topmenu.itemsTransports','topmenu.itemsTransports.transportProps'])
+            ->where([
+                'id' => $id
+            ])
+            ->one();
+        return ($items->id>0) ? $items : null;
+    }
     /* Index End*/
 
 
