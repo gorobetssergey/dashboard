@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "users".
@@ -26,8 +27,13 @@ use Yii;
  * @property Serviseitems[] $serviseitems
  * @property Role $role0
  */
-class Users extends \yii\db\ActiveRecord
+class Users extends \yii\db\ActiveRecord implements IdentityInterface
 {
+    const STATUS_ACTIVE = 1;
+
+    const ROLE_USER = 1;
+
+    public $repet_password;
     /**
      * @inheritdoc
      */
@@ -48,6 +54,14 @@ class Users extends \yii\db\ActiveRecord
             [['email'], 'string', 'max' => 30],
             [['password', 'repassword', 'token'], 'string', 'max' => 255],
             [['role'], 'exist', 'skipOnError' => true, 'targetClass' => Role::className(), 'targetAttribute' => ['role' => 'id']],
+            /**
+             * scenarios registration
+             */
+            [['email', 'password', 'repet_password'], 'required', 'on'=>'registration'],
+            [['email'], 'string','max' => 30, 'on'=>'registration'],
+            [['password', 'repet_password'], 'string', 'min' => 6,'max' => 30, 'on'=>'registration'],
+            ['email', 'unique'],
+            ['repet_password', 'compare', 'compareAttribute'=>'password', 'on' => 'registration' ],
         ];
     }
 
@@ -66,7 +80,38 @@ class Users extends \yii\db\ActiveRecord
             'role' => Yii::t('app', 'Role'),
             'created' => Yii::t('app', 'Created'),
             'auth' => Yii::t('app', 'Auth'),
+            'repet_password' => 'Повторить пароль'
         ];
+    }
+
+    public function scenarios()
+    {
+        return [
+            'registration' => ['email','password','repet_password'],
+            'default' => parent::scenarios()
+        ];
+    }
+
+    public static function findByUserEmail($useremail)
+    {
+        return self::findOne([
+            'email' => $useremail
+        ]);
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = Yii::$app->security->generatePasswordHash($password);
+    }
+
+    public function generateAuthKey()
+    {
+        $this->token = Yii::$app->security->generateRandomString();
+    }
+
+    public function validatePassword($password)
+    {
+        return Yii::$app->security->validatePassword($password,$this->password);
     }
 
     /**
@@ -131,5 +176,56 @@ class Users extends \yii\db\ActiveRecord
     public function getRole0()
     {
         return $this->hasOne(Role::className(), ['id' => 'role']);
+    }
+
+    /**
+     * IdentityInterface
+     */
+
+    public static function findIdentity($id)
+    {
+        return static::findOne([
+            'id' => $id,
+            'active' => self::STATUS_ACTIVE
+        ]);
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        return static::findOne(['access_token' => $token]);
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getAuthKey()
+    {
+        return $this->token;
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        return $this->token === $authKey;
+    }
+
+    private function getRole()
+    {
+        $this->role = self::ROLE_USER;
+    }
+
+    public function reg()
+    {
+        $user = new Users();
+        $user->email = $this->email;
+        $user->setPassword($this->password);
+        $user->generateAuthKey();
+        $user->getRole();
+        $user->repassword = $user->password;
+        $user->created = date('Y-m-d H:i:s', strtotime('nov'));
+        $user->active = self::STATUS_ACTIVE;
+
+        return $user->save() ? $user : null;
     }
 }
