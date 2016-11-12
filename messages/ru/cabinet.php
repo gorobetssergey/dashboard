@@ -331,5 +331,6 @@ return [
     'registration_error' =>[
         'email_busy' => 'емайл зайнят',
         'password_equal' => 'пароли не совпадают',
-    ]
+    ],
+    'registration_error'=> 'емайл зайнят'
 ];
