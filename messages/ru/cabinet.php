@@ -328,5 +328,8 @@ return [
             'data_name' => 'can_thorns'
         ]/*можливість ошиповки*/
     ],
-
+    'registration_error' =>[
+        'email_busy' => 'емайл зайнят',
+        'password_equal' => 'пароли не совпадают',
+    ]
 ];

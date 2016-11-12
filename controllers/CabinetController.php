@@ -7,6 +7,7 @@ use app\models\globals\UploadForm;
 use app\models\Items;
 use app\models\Moderation;
 use app\models\ModerationMistake;
+use app\models\Users;
 use Yii;
 use yii\helpers\Url;
 use app\models\Profile;
@@ -169,4 +170,58 @@ class CabinetController extends \yii\web\Controller
             'model' => $model
         ]);
     }
+    /* Registration  */
+    public function actionSign_up()
+    {
+        $model = new Users();
+        $model->setScenario('user_reg');
+
+        if(Yii::$app->request->post()){
+            $save_model = Yii::$app->request->post();
+
+                if($model->registrationUser($save_model['Users']) && $this->checkModel($save_model['Users'])){
+                    return $this->redirect('/cabinet/login');
+                }
+
+        }
+        return $this->render('registration/sign_up',[
+            'model' => $model
+        ]);
+    }
+    private function checkModel($save_model)
+    {
+        $modelUsers = new Users();
+        $res1 = false;
+        $res2 = false;
+        $error = '';
+//        if($save_model['password'] == $save_model['repassword']){
+//            $error .=  Yii::t('cabinet', ['registration_error']['password_equal']);
+//        }
+//        else{
+            $res1 = true;
+//        }
+        if($modelUsers->existEmail($save_model['Users']['email'])){
+            $error .= ' '.Yii::t('cabinet', ['registration_error']['email_busy']);
+            var_dump('pass busy'); die();
+
+        }
+        else{
+            $res2 = true;
+        }
+        if($res1 && $res2){
+
+            return true;
+        }
+        else{
+            Yii::$app->getSession()->setFlash('registration_error', 'werwerwerwerwerwrwrewer');
+
+            return false;
+        }
+    }
+
+    public function actionLogin()
+    {
+        return $this->render('registration/login');
+    }
+    /* Registration END */
 }

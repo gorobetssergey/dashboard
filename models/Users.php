@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "users".
@@ -26,7 +27,7 @@ use Yii;
  * @property Serviseitems[] $serviseitems
  * @property Role $role0
  */
-class Users extends \yii\db\ActiveRecord
+class Users extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -48,6 +49,16 @@ class Users extends \yii\db\ActiveRecord
             [['email'], 'string', 'max' => 30],
             [['password', 'repassword', 'token'], 'string', 'max' => 255],
             [['role'], 'exist', 'skipOnError' => true, 'targetClass' => Role::className(), 'targetAttribute' => ['role' => 'id']],
+            [['email', 'password'], 'required', 'on' => 'user_reg'],
+            [['email'], 'email', 'on' => 'user_reg'],
+            [['email'], 'unique', 'targetClass'=>'App\models\Users', 'on' => 'user_reg'],
+            [['password'], 'string', 'min'=> 8, 'max'=>100, 'on' => 'user_reg'],
+        ];
+    }
+    public function scenarios()
+    {
+        return [
+            'user_reg' => ['email', 'password'],
         ];
     }
 
@@ -131,5 +142,30 @@ class Users extends \yii\db\ActiveRecord
     public function getRole0()
     {
         return $this->hasOne(Role::className(), ['id' => 'role']);
+    }
+
+    public function registrationUser($model)
+    {
+        $user= new Users();
+        $user->setScenario('user_reg');
+        $user->email = $model['email'];
+        $user->active = 1;
+        $user->password = $model['password'];
+        $user->repassword = 0;
+        $user->token = 0;
+        $user->role = 1;
+        $user->created = date('Y-m-d H-i-s');
+        $user->auth = 1;
+        return $user->save();
+    }
+
+    public function existEmail($email)
+    {
+        $exists = self::find()
+            ->where([
+                'email' => $email
+            ])
+            ->exists();
+        return $exists;
     }
 }
