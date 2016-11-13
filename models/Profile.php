@@ -122,5 +122,6 @@ class Profile extends \yii\db\ActiveRecord
         $profile->patronymic = $model['patronymic'];
         $profile->city = $model['city'];
         return $profile->update();
+
     }
 }
