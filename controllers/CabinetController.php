@@ -11,8 +11,10 @@ use Yii;
 use yii\helpers\Url;
 use app\models\Profile;
 use yii\web\UploadedFile;
+use yii\web\Controller;
+use app\models\additionally\Definition;
 
-class CabinetController extends \yii\web\Controller
+class CabinetController extends Controller
 {
     public $layout = 'cabinet_layout';
     public function actionIndex()
@@ -30,6 +32,9 @@ class CabinetController extends \yii\web\Controller
 
     public function actionNewItems()
     {
+        if(Profile::getOwnerShip() == Definition::$INCOGNITO){
+            return $this->redirect('/cabinet/profile');
+        }
         return $this->render('newItem');
     }
 

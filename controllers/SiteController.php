@@ -91,7 +91,7 @@ class SiteController extends Controller
                 if($user = $model->reg()):
                     if($user->active === Users::STATUS_ACTIVE ):
                         if(Yii::$app->getUser()->login($user)):
-                            return $this->redirect('/cabinet/index');
+                            return $this->redirect('/cabinet/profile');
                         endif;
                     endif;
                 endif;

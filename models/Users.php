@@ -237,12 +237,12 @@ class Users extends \yii\db\ActiveRecord implements IdentityInterface
             $model_profile->user_id = $user->id;
             $model_profile->ownership = 1;
             $model_profile->tel_first = 380000000000;
-            $model_profile->tel_sec =   380000000000;
-            $model_profile->tel_next =  380000000000;
-            $model_profile->name = 'ded';
-            $model_profile->surname = 'mozay';
-            $model_profile->patronymic = 'klaus';
-            $model_profile->city = 'Atlantida';
+            $model_profile->tel_sec =   '';
+            $model_profile->tel_next =  '';
+            $model_profile->name = 'Name';
+            $model_profile->surname = '';
+            $model_profile->patronymic = '';
+            $model_profile->city = 'Town';
             $model_profile->level = 1;
             $res2 = $model_profile->save();
 
@@ -257,14 +257,5 @@ class Users extends \yii\db\ActiveRecord implements IdentityInterface
         }
 
         return ($res1 && $res2)? $user : null;
-    }
-
-    public function saveProfile()
-    {
-        $id_user = self::find()
-            ->where(['email' => $this->email])
-            ->one();
-
-        return true;
     }
 }

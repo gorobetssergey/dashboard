@@ -41,7 +41,7 @@ class Profile extends \yii\db\ActiveRecord
         return [
             [['user_id', 'ownership', 'tel_first'], 'required'],
             [['user_id', 'ownership', 'level'], 'integer'],
-            [['tel_first', 'tel_sec', 'tel_next'], 'required','on'=>'edit'],
+            [['tel_first','name', 'city'], 'required','on'=>'edit'],
             [['tel_first', 'tel_sec', 'tel_next'],'string','max' => 15],
             [['name', 'surname', 'patronymic', 'city'], 'string', 'max' => 50],
             [['level'], 'exist', 'skipOnError' => true, 'targetClass' => Level::className(), 'targetAttribute' => ['level' => 'id']],
@@ -124,6 +124,7 @@ class Profile extends \yii\db\ActiveRecord
         $profile->surname = $model['surname'];
         $profile->patronymic = $model['patronymic'];
         $profile->city = $model['city'];
+        $profile->ownership = 2;
         return $profile->update();
     }
 
@@ -131,5 +132,10 @@ class Profile extends \yii\db\ActiveRecord
     {
         $user = self::findOne(['user_id' => $id]);
         return $user->surname.' '.$user->name;
+    }
+    public static function getOwnerShip()
+    {
+        $user = self::findOne(['user_id' => Yii::$app->user->identity->getId()]);
+        return $user->ownership;
     }
 }

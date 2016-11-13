@@ -11,8 +11,11 @@
 ?>
 
 
-<h2>Профиль</h2>
 <div class="container">
+    <h2>Профиль</h2>
+    <div class="text-center">
+        <span class="text-muted">Для доступа к функцианалу создания заявок нужно <b>заполнить профиль</b></span> <?= Html::a('Пропустить, сделать пустой профиль', Url::toRoute('cabinet/index'), ['class'=>'btn btn-info']) ?>
+    </div>
     <div class="row">
         <?php $form = ActiveForm::begin() ?>
             <?= $form->field($model,'user_id')->hiddenInput()->label(false) ?>

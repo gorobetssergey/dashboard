@@ -140,6 +140,8 @@ class DbseedController extends Controller
              */
 
             Yii::$app->db->createCommand()->batchInsert('ownership', ['value'], [
+                ['incognito'],
+                ['user'],
                 ['entity'],
                 ['individual']
             ])->execute();
