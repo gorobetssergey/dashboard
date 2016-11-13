@@ -91,7 +91,7 @@ class SiteController extends Controller
                 if($user = $model->reg()):
                     if($user->active === Users::STATUS_ACTIVE ):
                         if(Yii::$app->getUser()->login($user)):
-                            return $this->goHome();
+                            return $this->redirect('/cabinet/index');
                         endif;
                     endif;
                 endif;
@@ -110,12 +110,12 @@ class SiteController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->redirect('/cabinet/index');
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect('/cabinet/index');
         }
         return $this->render('login', [
             'model' => $model,

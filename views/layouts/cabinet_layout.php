@@ -9,6 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\CabinetAsset;
 use yii\helpers\Url;
+use app\models\Profile;
 
 CabinetAsset::register($this);
 ?>
@@ -65,14 +66,18 @@ CabinetAsset::register($this);
                 </form>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="<?= Url::toRoute('cabinet/new-items')?>" class="btn btn-warning"><span id = 'add_items'>Добавить товар</span></a></li>
+                    <?php if(!Yii::$app->user->isGuest) :?>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">юзер<span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <?= Profile::getName(Yii::$app->user->identity->getId()) ?>
+                            <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="<?= Url::toRoute('cabinet/profile') ?>" class="glyphicon glyphicon-user"> профиль</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#" class="glyphicon glyphicon-log-out"> выход</a></li>
+                            <li><a href="<?= Url::toRoute('site/logout') ?>" class="glyphicon glyphicon-log-out" data-method ='post'> выход</a></li>
                         </ul>
                     </li>
+                    <?php endif; ?>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

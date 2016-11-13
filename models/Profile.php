@@ -47,6 +47,8 @@ class Profile extends \yii\db\ActiveRecord
             [['level'], 'exist', 'skipOnError' => true, 'targetClass' => Level::className(), 'targetAttribute' => ['level' => 'id']],
             [['ownership'], 'exist', 'skipOnError' => true, 'targetClass' => Ownership::className(), 'targetAttribute' => ['ownership' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'required','on'=>'save_p'],
+
         ];
     }
 
@@ -74,6 +76,7 @@ class Profile extends \yii\db\ActiveRecord
         return [
             'default' => 'edit',
             'edit' => ['tel_first', 'tel_sec', 'tel_next', 'name', 'surname', 'patronymic', 'city'],
+            'save_p' => ['user_id'],
 
         ];
     }
@@ -122,5 +125,11 @@ class Profile extends \yii\db\ActiveRecord
         $profile->patronymic = $model['patronymic'];
         $profile->city = $model['city'];
         return $profile->update();
+    }
+
+    public static function getName($id)
+    {
+        $user = self::findOne(['user_id' => $id]);
+        return $user->surname.' '.$user->name;
     }
 }

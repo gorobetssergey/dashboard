@@ -217,15 +217,54 @@ class Users extends \yii\db\ActiveRecord implements IdentityInterface
 
     public function reg()
     {
-        $user = new Users();
-        $user->email = $this->email;
-        $user->setPassword($this->password);
-        $user->generateAuthKey();
-        $user->getRole();
-        $user->repassword = $user->password;
-        $user->created = date('Y-m-d H:i:s', strtotime('nov'));
-        $user->active = self::STATUS_ACTIVE;
+        $transaction = Yii::$app->db->beginTransaction();
+        try {
+            $res1 = false;
+            $res2 = false;
 
-        return $user->save() ? $user : null;
+            $user = new Users();
+            $user->email = $this->email;
+            $user->setPassword($this->password);
+            $user->generateAuthKey();
+            $user->getRole();
+            $user->repassword = $user->password;
+            $user->created = date('Y-m-d H:i:s');
+            $user->active = self::STATUS_ACTIVE;
+            $res1 = $user->save();
+
+            $model_profile = new Profile();
+            $model_profile->setScenario('save_p');
+            $model_profile->user_id = $user->id;
+            $model_profile->ownership = 1;
+            $model_profile->tel_first = 380000000000;
+            $model_profile->tel_sec =   380000000000;
+            $model_profile->tel_next =  380000000000;
+            $model_profile->name = 'ded';
+            $model_profile->surname = 'mozay';
+            $model_profile->patronymic = 'klaus';
+            $model_profile->city = 'Atlantida';
+            $model_profile->level = 1;
+            $res2 = $model_profile->save();
+
+            if(! ($res1 && $res2)){
+                $transaction->rollBack();
+            }
+            $transaction->commit();
+
+        }
+        catch (Exception $e){
+            $transaction->rollBack();
+        }
+
+        return ($res1 && $res2)? $user : null;
+    }
+
+    public function saveProfile()
+    {
+        $id_user = self::find()
+            ->where(['email' => $this->email])
+            ->one();
+
+        return true;
     }
 }

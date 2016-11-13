@@ -147,6 +147,12 @@ class CabinetController extends \yii\web\Controller
     {
         $modelProfile = new Profile();
         $id = 1;
+        if(Yii::$app->user->isGuest){
+            return $this->goBack();
+        }
+        else{
+            $id = Yii::$app->user->identity->getId();
+        }
 
         if(Yii::$app->request->post()){
             $model = Yii::$app->request->post();
