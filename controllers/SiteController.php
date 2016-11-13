@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use yii\web\NotFoundHttpException;
+use app\models\Users;
 
 class SiteController extends Controller
 {
@@ -79,6 +80,28 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionReg()
+    {
+        $model = new Users(['scenario' => 'registration']);
+
+        if(Yii::$app->request->isPost)
+        {
+            $post = Yii::$app->request->post();
+            if($model->load($post) && $model->validate()):
+                if($user = $model->reg()):
+                    if($user->active === Users::STATUS_ACTIVE ):
+                        if(Yii::$app->getUser()->login($user)):
+                            return $this->goHome();
+                        endif;
+                    endif;
+                endif;
+            endif;
+        }
+
+        return $this->render('reg',[
+            'model' => $model
+        ]);
+    }
     /**
      * Login action.
      *
