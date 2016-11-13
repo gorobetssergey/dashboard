@@ -12,33 +12,10 @@ use Yii;
 use yii\helpers\Url;
 use app\models\Profile;
 use yii\web\UploadedFile;
-use yii\web\Controller;
-use yii\filters\AccessControl;
 
 class CabinetController extends \yii\web\Controller
 {
     public $layout = 'cabinet_layout';
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['login', 'logout', 'signup'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['index','login', 'sign_up'],
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['logout'],
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-        ];
-    }
     public function actionIndex()
     {
         return $this->render('index',[
@@ -224,7 +201,7 @@ class CabinetController extends \yii\web\Controller
             $res1 = true;
 //        }
         if($modelUsers->existEmail($save_model['Users']['email'])){
-            $error .= ' '.Yii::t('cabinet', 'registration_error');
+            $error .= ' '.Yii::t('cabinet', ['registration_error']['email_busy']);
             var_dump('pass busy'); die();
 
         }
@@ -236,7 +213,7 @@ class CabinetController extends \yii\web\Controller
             return true;
         }
         else{
-            Yii::$app->getSession()->setFlash('registration_error', $error);
+            Yii::$app->getSession()->setFlash('registration_error', 'werwerwerwerwerwrwrewer');
 
             return false;
         }
@@ -244,19 +221,7 @@ class CabinetController extends \yii\web\Controller
 
     public function actionLogin()
     {
-        $modelUsers = new Users();
-
-        if(Yii::$app->request->post()){
-            $model = Yii::$app->request->post();
-            $res = $modelUsers->validateUser($model['Users']);
-            $res->setScenario('user_login');
-            if($res){
-                Yii::$app->user->login($modelUsers->getId(), 9000000);
-            }
-        }
-        return $this->render('registration/login',[
-            'model' => $modelUsers
-        ]);
+        return $this->render('registration/login');
     }
     /* Registration END */
 }

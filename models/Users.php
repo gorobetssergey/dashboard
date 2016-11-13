@@ -4,7 +4,6 @@ namespace app\models;
 
 use Yii;
 use yii\db\ActiveRecord;
-use yii\web\IdentityInterface;
 
 /**
  * This is the model class for table "users".
@@ -28,7 +27,7 @@ use yii\web\IdentityInterface;
  * @property Serviseitems[] $serviseitems
  * @property Role $role0
  */
-class Users extends ActiveRecord implements IdentityInterface
+class Users extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -51,10 +50,7 @@ class Users extends ActiveRecord implements IdentityInterface
             [['password', 'repassword', 'token'], 'string', 'max' => 255],
             [['role'], 'exist', 'skipOnError' => true, 'targetClass' => Role::className(), 'targetAttribute' => ['role' => 'id']],
             [['email', 'password'], 'required', 'on' => 'user_reg'],
-            [['email', 'password'], 'required', 'on' => 'user_login'],
             [['email'], 'email', 'on' => 'user_reg'],
-            [['email'], 'email', 'on' => 'user_login'],
-            [['password'], 'validatePassword', 'on' => 'user_login'],
             [['email'], 'unique', 'targetClass'=>'App\models\Users', 'on' => 'user_reg'],
             [['password'], 'string', 'min'=> 8, 'max'=>100, 'on' => 'user_reg'],
         ];
@@ -63,40 +59,7 @@ class Users extends ActiveRecord implements IdentityInterface
     {
         return [
             'user_reg' => ['email', 'password'],
-            'user_login' => ['email', 'password'],
         ];
-    }
-
-    /* interfase*/
-    public static function findIdentity($id)
-    {
-        return self::findOne($id);
-    }
-    public static function findIdentityByAccessToken($token, $type = null)
-    {
-
-    }
-    public function getId()
-    {
-        return $this->id;
-    }
-    public function getAuthKey()
-    {
-
-    }
-    public function validateAuthKey($authKey)
-    {
-
-    }
-
-    /* interfase End*/
-
-    public function validatePassword($attribyte, $params)
-    {
-        $user = User::findOne(['email' => $this->email]);
-        if(!$user || $user->password != sha1($this->password)){
-            $this->addError($attribyte, 'p || u');
-        }
     }
 
     /**
@@ -204,17 +167,5 @@ class Users extends ActiveRecord implements IdentityInterface
             ])
             ->exists();
         return $exists;
-    }
-
-    public function validateUser($model)
-    {
-        $user = self::find()
-            ->where([
-                'email' => $model['email'],
-                'password' => $model['password']
-            ])
-            ->one();
-        return $user;
-
     }
 }
