@@ -16,6 +16,7 @@ Thumbs.db
 
 # composer assets input folder
 /assets/*
+/images/items/*
 !*.php
 
 # composer itself is not needed

@@ -180,4 +180,8 @@ class CabinetController extends Controller
             'model' => $model
         ]);
     }
+    public function actionMessages()
+    {
+        return $this->render('messages');
+    }
 }

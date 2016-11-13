@@ -43,7 +43,7 @@ CabinetAsset::register($this);
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                    <li class="active"><a href="<?= Url::to('/admin/messages') ?>" class="glyphicon glyphicon-envelope"> сообщения</a></li>
                     <li><a href="#">Link</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -68,11 +68,11 @@ CabinetAsset::register($this);
                     <li><a href="<?= Url::toRoute('cabinet/new-items')?>" class="btn btn-warning"><span id = 'add_items'>Добавить товар</span></a></li>
                     <?php if(!Yii::$app->user->isGuest) :?>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <a href="#" class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <?= Profile::getName(Yii::$app->user->identity->getId()) ?>
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?= Url::toRoute('cabinet/profile') ?>" class="glyphicon glyphicon-user"> профиль</a></li>
+                            <li><a href="<?= Url::toRoute('cabinet/profile') ?>" class="glyphicon glyphicon-cog"> профиль</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="<?= Url::toRoute('site/logout') ?>" class="glyphicon glyphicon-log-out" data-method ='post'> выход</a></li>
                         </ul>

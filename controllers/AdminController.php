@@ -70,4 +70,9 @@ class AdminController extends \yii\web\Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionMessages()
+    {
+        return $this->render('messages');
+    }
 }
