@@ -126,6 +126,7 @@ class Profile extends \yii\db\ActiveRecord
         $profile->city = $model['city'];
         $profile->ownership = 2;
         return $profile->update();
+
     }
 
     public static function getName($id)
