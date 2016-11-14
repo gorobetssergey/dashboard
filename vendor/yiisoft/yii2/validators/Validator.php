@@ -244,6 +244,7 @@ class Validator extends Component
     {
         if (is_array($attributes)) {
             $newAttributes = [];
+
             foreach ($attributes as $attribute) {
                 if (in_array($attribute, $this->attributes) || in_array('!' . $attribute, $this->attributes)) {
                     $newAttributes[] = $attribute;

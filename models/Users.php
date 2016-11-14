@@ -236,10 +236,11 @@ class Users extends \yii\db\ActiveRecord implements IdentityInterface
             $user->generateAuthKey();
             $user->getRole();
             $user->repassword = $user->password;
-            $user->created = date('Y-m-d H:i:s');
+            $user->created = date('Y-m-d H:i:s', strtotime('now'));
             $user->active = self::STATUS_ACTIVE;
-            $res1 = $user->save();
+            $user->auth = 0;
 
+            $res1 = $user->save();
 
             $model_profile = new Profile(['scenario' => 'save_p']);
             $res2 = $model_profile->defaultSave($user->id);
