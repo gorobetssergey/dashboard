@@ -12,6 +12,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use yii\web\NotFoundHttpException;
 use app\models\Users;
+use yii\helpers\Url;
 
 class SiteController extends Controller
 {
@@ -111,21 +112,21 @@ class SiteController extends Controller
     {
         if (!Yii::$app->user->isGuest) {
             if(Yii::$app->user->identity->role == Users::ROLE_USER){
-                return $this->redirect('/cabinet/index');
+                return $this->redirect(Url::home(true).'cabinet/index');
             }
             elseif(Yii::$app->user->identity->role == Users::ROLE_ADMIN)
             {
-                return $this->redirect('/admin/index');
+                return $this->redirect(Url::home(true).'admin/index');
             }
         }
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             if(Yii::$app->user->identity->role == Users::ROLE_USER){
-                return $this->redirect('/cabinet/index');
+                return $this->redirect(Url::home(true).'cabinet/index');
             }
             elseif(Yii::$app->user->identity->role == Users::ROLE_ADMIN)
             {
-                return $this->redirect('/admin/index');
+                return $this->redirect(Url::home(true).'admin/index');
             }
         }
         return $this->render('login', [
