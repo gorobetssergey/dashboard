@@ -29,9 +29,12 @@ use yii\web\IdentityInterface;
  */
 class Users extends \yii\db\ActiveRecord implements IdentityInterface
 {
+
     const STATUS_ACTIVE = 1;
 
     const ROLE_USER = 1;
+    const ROLE_ADMIN = 2;
+    const ROLE_MODERATOR = 3;
 
     public $repet_password;
     /**

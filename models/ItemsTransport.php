@@ -131,6 +131,7 @@ class ItemsTransport extends \yii\db\ActiveRecord
         $transaction = Yii::$app->db->beginTransaction();
 
         try{
+            $res6 = $attributeNames['items']->uploadTitle($attributeNames['topmenu_id'],$attributeNames['title_photo'],$attributeNames['time']);
 
             $photo = new PhotoTransport();
             $photo->user_id = Users::id();
@@ -173,7 +174,7 @@ class ItemsTransport extends \yii\db\ActiveRecord
             $res3 = (new Moderation(['user_id' => $attributeNames['user_id'],'topmenu_id' => $attributeNames['topmenu_id'],'items_id' => $this->id]))->save();
 
 
-            if($res1 && $res2 && $res3 && $res4 && $res5)
+            if($res1 && $res2 && $res3 && $res4 && $res5 && $res6)
             {
                 $transaction->commit();
                 return true;

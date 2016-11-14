@@ -2,17 +2,77 @@
 
 namespace app\controllers;
 
-
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use app\models\globals\GlobalTables;
 use app\models\Moderation;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use Yii;
+use app\models\Users;
 
 class AdminController extends \yii\web\Controller
 {
     public $layout = 'admin_layout';
     private $model;
+    public function behaviors() {
+        if(Yii::$app->user->identity->role==Users::ROLE_ADMIN) {
+            return [
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'rules' => [
+                        [
+                            'actions' => [
+                                'index', 'moderation', 'view-items', 'messages'
+                            ],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
+                'verbs' => [
+                    'class' => VerbFilter::className(),
+                    'actions' => [
+                        'delete' => ['POST'],
+                    ],
+                ],
+            ];
+        }elseif(Yii::$app->user->identity->role==Users::ROLE_MODERATOR){
+            return [
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'rules' => [
+                        [
+                            'actions' => [
+                                'index'
+                            ],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
+                'verbs' => [
+                    'class' => VerbFilter::className(),
+                    'actions' => [
+                        'delete' => ['POST'],
+                    ],
+                ],
+            ];
+        }else{
+            return [
+                'access' => [
+                    'rules' => [
+                        [
+                            'actions' => [],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
+            ];
+        }
+    }
+
 
     public function actionIndex()
     {

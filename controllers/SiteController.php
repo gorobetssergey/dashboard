@@ -110,12 +110,23 @@ class SiteController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->redirect('/cabinet/index');
+            if(Yii::$app->user->identity->role == Users::ROLE_USER){
+                return $this->redirect('/cabinet/index');
+            }
+            elseif(Yii::$app->user->identity->role == Users::ROLE_ADMIN)
+            {
+                return $this->redirect('/admin/index');
+            }
         }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->redirect('/cabinet/index');
+            if(Yii::$app->user->identity->role == Users::ROLE_USER){
+                return $this->redirect('/cabinet/index');
+            }
+            elseif(Yii::$app->user->identity->role == Users::ROLE_ADMIN)
+            {
+                return $this->redirect('/admin/index');
+            }
         }
         return $this->render('login', [
             'model' => $model,

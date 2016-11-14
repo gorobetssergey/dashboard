@@ -2,24 +2,62 @@
 
 namespace app\controllers;
 
+
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use app\models\globals\GlobalTables;
 use app\models\globals\UploadForm;
 use app\models\Items;
 use app\models\Moderation;
 use app\models\ModerationMistake;
-use app\models\User;
 use app\models\Users;
 use Yii;
 use yii\helpers\Url;
 use app\models\Profile;
 use yii\web\UploadedFile;
 use yii\web\Controller;
-use app\models\additionally\Definition;
 use yii\web\NotFoundHttpException;
 
 class CabinetController extends Controller
 {
     public $layout = 'cabinet_layout';
+
+    public function behaviors() {
+        if(Yii::$app->user->identity->role==Users::ROLE_USER) {
+            return [
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'rules' => [
+                        [
+                            'actions' => [
+                                'index', 'moderation', 'new-items', 'messages', 'add-new-items', 'get-my-active-items','get-my-moderation-items', 'get-my-mistake-items' ,'edit-items', 'profile'
+                            ],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
+                'verbs' => [
+                    'class' => VerbFilter::className(),
+                    'actions' => [
+                        'delete' => ['POST'],
+                    ],
+                ],
+            ];
+        }else{
+            return [
+                'access' => [
+                    'rules' => [
+                        [
+                            'actions' => [],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
+            ];
+        }
+    }
 
     public function actionIndex()
     {
@@ -73,7 +111,7 @@ class CabinetController extends Controller
                     'items' => $items,
                     'time' => $time
                 ];
-                if($params['table']->save(true,$attributeNames) && $items->uploadTitle($params['topmenu'], $upload->titleImage, $time))
+                if($params['table']->save(true,$attributeNames))
                 {
                     Yii::$app->getSession()->setFlash('add_new_items_ok', 'Товар успешно направлен на модерацию.');
                     return $this->refresh();
@@ -83,7 +121,7 @@ class CabinetController extends Controller
                     Yii::$app->getSession()->setFlash('add_new_items_err', 'Ошибка данных.');
                     return $this->refresh();
                 }
-            }else{var_dump($items->errors);die();
+            }else{
                 Yii::$app->getSession()->setFlash('add_new_items_err', 'Ошибка данных.');
                 return $this->refresh();
             }

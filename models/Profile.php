@@ -136,6 +136,21 @@ class Profile extends \yii\db\ActiveRecord
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
 
+    public function defaultSave($user)
+    {
+        $this->user_id = $user;
+        $this->ownership = self::INCOGNITO;
+        $this->tel_first =  self::TEL_DEFAULT;
+        $this->tel_sec = '';
+        $this->tel_next = '';
+        $this->name = 'Name';
+        $this->surname = '';
+        $this->patronymic = '';
+        $this->city = 'City';
+        $this->level = self::LEVEL_BONUS;
+
+        return $this->save();
+    }
     public static function getName($id)
     {
         $user = self::findOne(['user_id' => $id]);
