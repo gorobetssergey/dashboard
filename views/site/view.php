@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use app\components\ClerkWidget;
 ?>
 <div class="row">
     <div class="col-lg-9">
@@ -24,9 +25,7 @@ use yii\helpers\Url;
             </div>
         </div>
     </div>
-    <div class="col-lg-3">
-        <div class="well">
-            <h4>Доп инфа по типу ОЛХ</h4>
-        </div>
-    </div>
+        <?= ClerkWidget::widget([
+            'user_profile' => $model->user
+        ])?>
 </div>
