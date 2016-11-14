@@ -12,6 +12,7 @@ use yii\base\Widget;
 class ClerkWidget extends Widget
 {
     public $user_profile;
+    public $mailer;
 
     public function init()
     {
@@ -22,7 +23,8 @@ class ClerkWidget extends Widget
     {
         return $this->render('clerk',[
             'profile' => $this->user_profile->profiles[0],
-            'email' => $this->user_profile->email
+            'email' => $this->user_profile->email,
+            'mailer' => $this->mailer
         ]);
     }
 }

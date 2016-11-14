@@ -26,6 +26,7 @@ use app\components\ClerkWidget;
         </div>
     </div>
         <?= ClerkWidget::widget([
-            'user_profile' => $model->user
+            'user_profile' => $model->user,
+            'mailer' => $mailer
         ])?>
 </div>

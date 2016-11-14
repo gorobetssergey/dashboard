@@ -68,6 +68,7 @@ class CabinetController extends Controller
             'moderation_er' => (new ModerationMistake())->getItems($user)
         ]);
     }
+
     public function actionModeration()
     {
         return $this->render('moderation');

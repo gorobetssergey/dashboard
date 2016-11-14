@@ -13,6 +13,7 @@ use app\models\ContactForm;
 use yii\web\NotFoundHttpException;
 use app\models\Users;
 use yii\helpers\Url;
+use app\models\globals\MailerForm;
 
 class SiteController extends Controller
 {
@@ -176,13 +177,19 @@ class SiteController extends Controller
 
     public function actionView($items)
     {
+        $model_mailer = new MailerForm();
         $model = $this->findModel($items);
         $data = (new GlobalTables())->getModel($model->topmenu_id,$model->items_id);
 
         $modelStandard = (new GlobalTables())->getPhoto($model->topmenu_id,$model->items_id);
+        if ($model_mailer->load(Yii::$app->request->post()) && $model_mailer->sendEmail()) {
+            Yii::$app->getSession()->setFlash('profile_successfully', ['text' => 'Успешно. Профиль успешно отредактирован','color' => 'alert-success']);
+            return $this->refresh();
+        }
         return $this->render('view',[
             'model' => $data,
-            'photo' => $modelStandard
+            'photo' => $modelStandard,
+            'mailer' => $model_mailer
         ]);
     }
 
