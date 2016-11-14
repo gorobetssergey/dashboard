@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
     <div class="well">
         <div class="col-lg-4 input-group ref">
             <?= Html::a(
-                'Найти пользователя',
+                'Написать владельцу',
                 ['#'],
                 [
                     'id'=>'clerk',
@@ -30,6 +30,7 @@ use yii\widgets\ActiveForm;
         <h3>Имя: <?=$profile->name?></h3>
         <h3>Телефон: <?=$profile->tel_first?></h3>
         <h3>Email: <?=$email?></h3>
+        <h3>Город: <?=$profile->city?></h3>
     </div>
 </div>
 <?php

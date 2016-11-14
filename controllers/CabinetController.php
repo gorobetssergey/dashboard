@@ -76,6 +76,7 @@ class CabinetController extends Controller
 
     public function actionNewItems()
     {
+
         if($this->findProfile(Users::id())->ownership == Profile::INCOGNITO){
             Yii::$app->getSession()->setFlash('profile_successfully' , ['text' => 'Ошибка!!! Для возможности подавать заявки измените данные профиля.', 'color' => 'alert-info']);
             return $this->redirect(Url::home(true).'cabinet/profile');

@@ -65,7 +65,7 @@ CabinetAsset::register($this);
                     <button type="submit" class="btn btn-default">Submit</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="<?= Url::toRoute('cabinet/new-items')?>" class="btn btn-warning"><span id = 'add_items'>Добавить товар</span></a></li>
+                    <li><a href="<?= Url::toRoute('/cabinet/new-items')?>" class="btn btn-warning"><span id = 'add_items'>Добавить товар</span></a></li>
                     <?php if(!Yii::$app->user->isGuest) :?>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle glyphicon glyphicon-user" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
