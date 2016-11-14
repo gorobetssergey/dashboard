@@ -215,6 +215,11 @@ class Users extends \yii\db\ActiveRecord implements IdentityInterface
         $this->role = self::ROLE_USER;
     }
 
+    public static function id()
+    {
+        return Yii::$app->user->identity->getId();
+    }
+
     public function reg()
     {
         $transaction = Yii::$app->db->beginTransaction();
@@ -232,30 +237,21 @@ class Users extends \yii\db\ActiveRecord implements IdentityInterface
             $user->active = self::STATUS_ACTIVE;
             $res1 = $user->save();
 
-            $model_profile = new Profile();
-            $model_profile->setScenario('save_p');
-            $model_profile->user_id = $user->id;
-            $model_profile->ownership = 1;
-            $model_profile->tel_first = 380000000000;
-            $model_profile->tel_sec =   '';
-            $model_profile->tel_next =  '';
-            $model_profile->name = 'Name';
-            $model_profile->surname = '';
-            $model_profile->patronymic = '';
-            $model_profile->city = 'Town';
-            $model_profile->level = 1;
-            $res2 = $model_profile->save();
 
-            if(! ($res1 && $res2)){
+            $model_profile = new Profile(['scenario' => 'save_p']);
+            $res2 = $model_profile->defaultSave($user->id);
+
+            if($res1 && $res2){
+                $transaction->commit();
+                return $user;
+            }else{
                 $transaction->rollBack();
+                return null;
             }
-            $transaction->commit();
-
         }
         catch (Exception $e){
             $transaction->rollBack();
         }
-
-        return ($res1 && $res2)? $user : null;
+        return null;
     }
 }

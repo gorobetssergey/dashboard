@@ -12,12 +12,10 @@ use yii\helpers\Url;
     </div>
 </div>
 <?php $result = Yii::$app->getSession()->getFlash('profile_successfully') ?>
-<?php if($result != false){
-    $color = Yii::$app->getSession()->getFlash('profile_color');
-    ?>
-    <div class="<?= 'alert '.$color ?>" role="alert">
+<?php if($result): ?>
+    <div class="<?= 'alert '.$result['color'] ?>" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong><?=$result?></strong>
+        <strong><?=$result['text']?></strong>
     </div>
-<?php }?>
+<?php endif;?>
 

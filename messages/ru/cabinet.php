@@ -19,6 +19,15 @@ return [
     'giveAwey' => 'Отдам даром',
     'exchange' => 'Обмен',
 
+    /**
+     *
+     */
+    'ownership' => [
+        'title' => 'Форма собственности',
+        'incognito' => 'Без статуса',
+        'individual' => 'Частное лицо',
+        'entity' => 'Компания',
+    ],
 
     /**
      * titleImage

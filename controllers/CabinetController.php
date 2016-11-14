@@ -7,16 +7,19 @@ use app\models\globals\UploadForm;
 use app\models\Items;
 use app\models\Moderation;
 use app\models\ModerationMistake;
+use app\models\Users;
 use Yii;
 use yii\helpers\Url;
 use app\models\Profile;
 use yii\web\UploadedFile;
 use yii\web\Controller;
 use app\models\additionally\Definition;
+use yii\web\NotFoundHttpException;
 
 class CabinetController extends Controller
 {
     public $layout = 'cabinet_layout';
+
     public function actionIndex()
     {
         return $this->render('index',[
@@ -32,7 +35,8 @@ class CabinetController extends Controller
 
     public function actionNewItems()
     {
-        if(Profile::getOwnerShip() == Definition::$INCOGNITO){
+        if($this->findProfile(Users::id())->ownership == Profile::INCOGNITO){
+            Yii::$app->getSession()->setFlash('profile_successfully' , ['text' => 'Ошибка!!! Для возможности подавать заявки измените данные профиля.', 'color' => 'alert-info']);
             return $this->redirect('/cabinet/profile');
         }
         return $this->render('newItem');
@@ -150,36 +154,40 @@ class CabinetController extends Controller
 
     public function actionProfile()
     {
-        $modelProfile = new Profile();
-        $id = 1;
-        if(Yii::$app->user->isGuest){
-            return $this->goBack();
-        }
-        else{
-            $id = Yii::$app->user->identity->getId();
-        }
-
-        if(Yii::$app->request->post()){
-            $model = Yii::$app->request->post();
-            $res = $modelProfile->updateProfile($model['Profile']);
-            if($res == true){
-                Yii::$app->getSession()->setFlash('profile_successfully', 'Успешно. Профиль успешно отредактирован');
-                Yii::$app->getSession()->setFlash('profile_color', 'alert-success');
-            }
-            else{
-                Yii::$app->getSession()->setFlash('profile_successfully', 'Ошибка!!! редактирования не сохранено или нет изменений');
-                Yii::$app->getSession()->setFlash('profile_color', 'alert-danger');
-            }
-            return $this->redirect('/cabinet');
-        }
-        else{
-            $model = $modelProfile->getForm($id);
-            $model->setScenario('edit');
-        }
+        $modelProfile = $this->findProfile(Yii::$app->user->identity->getId());
+        if($modelProfile):
+            $modelProfile->setScenario('edit');
+            if(Yii::$app->request->post()):
+                $post = Yii::$app->request->post();
+                if($modelProfile->load($post) && $modelProfile->update()):
+                    Yii::$app->getSession()->setFlash('profile_successfully', ['text' => 'Успешно. Профиль успешно отредактирован','color' => 'alert-success']);
+                    return $this->redirect(Url::toRoute('index'));
+                else:
+                    Yii::$app->getSession()->setFlash('profile_successfully' , ['text' => 'Ошибка!!! редактирования не сохранено или нет изменений', 'color' => 'alert-danger']);
+                    //return $this->refresh();
+                endif;
+            endif;
+            return $this->render('profile',[
+                'model' => $modelProfile,
+                'ownership' => $modelProfile->getOwnership(),
+                'self_ownership' => Yii::$app->user->identity->profiles->ownership0
+            ]);
+        endif;
         return $this->render('profile',[
-            'model' => $model
+            'model' => $modelProfile
         ]);
     }
+
+    public function findProfile($id)
+    {
+        $model = Profile::findOne(['user_id' => $id]);
+        if ($model !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
     public function actionMessages()
     {
         return $this->render('messages');

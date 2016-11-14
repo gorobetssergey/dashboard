@@ -25,6 +25,15 @@ use Yii;
  */
 class Profile extends \yii\db\ActiveRecord
 {
+    const INCOGNITO = 1;
+    const TEL_DEFAULT = '+380000000000';
+    const LEVEL_BONUS = 1;
+
+    const OWNERSHIP = [
+        '1' => 'incognito',
+        '3' => 'entity',
+        '4' => 'individual',
+    ];
     /**
      * @inheritdoc
      */
@@ -41,13 +50,18 @@ class Profile extends \yii\db\ActiveRecord
         return [
             [['user_id', 'ownership', 'tel_first'], 'required'],
             [['user_id', 'ownership', 'level'], 'integer'],
-            [['tel_first','name', 'city'], 'required','on'=>'edit'],
-            [['tel_first', 'tel_sec', 'tel_next'],'string','max' => 15],
+            [['tel_first', 'tel_sec', 'tel_next'],'string','max' => 20],
             [['name', 'surname', 'patronymic', 'city'], 'string', 'max' => 50],
             [['level'], 'exist', 'skipOnError' => true, 'targetClass' => Level::className(), 'targetAttribute' => ['level' => 'id']],
             [['ownership'], 'exist', 'skipOnError' => true, 'targetClass' => Ownership::className(), 'targetAttribute' => ['ownership' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_id' => 'id']],
             [['user_id'], 'required','on'=>'save_p'],
+            [['user_id', 'ownership', 'tel_first', 'tel_sec', 'tel_next', 'name', 'surname', 'patronymic', 'city', 'level'], 'safe', 'on' => 'save_p'],
+            /**
+             * scenario edit
+             */
+            [['tel_first','name', 'city'], 'required','on'=>'edit'],
+            ['ownership','checkOwnership','on'=>'edit']
 
         ];
     }
@@ -60,7 +74,7 @@ class Profile extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'ownership' => 'Ownership',
+            'ownership' => 'Форма собственности',
             'tel_first' => 'телефон 1',
             'tel_sec' => 'телефон 2',
             'tel_next' => 'телефон 3',
@@ -75,12 +89,21 @@ class Profile extends \yii\db\ActiveRecord
     {
         return [
             'default' => 'edit',
-            'edit' => ['tel_first', 'tel_sec', 'tel_next', 'name', 'surname', 'patronymic', 'city'],
-            'save_p' => ['user_id'],
+            'edit' => ['tel_first', 'tel_sec', 'tel_next', 'name', 'surname', 'patronymic', 'city','ownership'],
+            'save_p' => ['user_id', 'ownership', 'tel_first', 'tel_sec', 'tel_next', 'name', 'surname', 'patronymic', 'city', 'level'],
 
         ];
     }
 
+    public function checkOwnership($atribute)
+    {
+        if($this->$atribute == self::INCOGNITO)
+        {
+            $this->addError($atribute,'Выберите форму собственности');
+            return false;
+        }
+        return true;
+    }
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -97,6 +120,14 @@ class Profile extends \yii\db\ActiveRecord
         return $this->hasOne(Ownership::className(), ['id' => 'ownership']);
     }
 
+    public function getOwnership()
+    {
+        $arr = [];
+        foreach (self::OWNERSHIP as $k=>$v) {
+            $arr[$k] = Yii::t('cabinet','ownership')[$v];
+        }
+        return $arr;
+    }
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -105,38 +136,9 @@ class Profile extends \yii\db\ActiveRecord
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
 
-    public function getForm($id)
-    {
-        $profile = self::find()
-            ->where(['profile.user_id' => $id])
-            ->one();
-        return $profile;
-    }
-
-    public function updateProfile($model)
-    {
-        $profile = self::findOne(['user_id' => $model['user_id']]);
-        $profile->setScenario('edit');
-        $profile->tel_first = $model['tel_first'];
-        $profile->tel_sec = $model['tel_sec'];
-        $profile->tel_next = $model['tel_next'];
-        $profile->name = $model['name'];
-        $profile->surname = $model['surname'];
-        $profile->patronymic = $model['patronymic'];
-        $profile->city = $model['city'];
-        $profile->ownership = 2;
-        return $profile->update();
-
-    }
-
     public static function getName($id)
     {
         $user = self::findOne(['user_id' => $id]);
         return $user->surname.' '.$user->name;
-    }
-    public static function getOwnerShip()
-    {
-        $user = self::findOne(['user_id' => Yii::$app->user->identity->getId()]);
-        return $user->ownership;
     }
 }

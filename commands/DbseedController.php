@@ -151,9 +151,9 @@ class DbseedController extends Controller
              */
 
 
-            Yii::$app->db->createCommand()->batchInsert('users', ['email','role','active','password','repassword','token','created','auth'], [
-                ['user@user.net',1,1,'qqqqqqqq','wwwwwwww','eeeeeeee','2016-10-12 23:00:00',1]
-            ])->execute();
+//            Yii::$app->db->createCommand()->batchInsert('users', ['email','role','active','password','repassword','token','created','auth'], [
+//                ['user@user.net',1,1,'qqqqqqqq','wwwwwwww','eeeeeeee','2016-10-12 23:00:00',1]
+//            ])->execute();
 
             Yii::$app->db->createCommand()->batchInsert('level', ['value'], [
                 ['bonus'],
