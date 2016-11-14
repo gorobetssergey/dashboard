@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\globals\GlobalTables;
 use Yii;
 use app\models\Properties;
 
@@ -132,8 +133,8 @@ class ItemsTransport extends \yii\db\ActiveRecord
         try{
 
             $photo = new PhotoTransport();
-            $photo->user_id = 1;
-            $photo->topmenu_id = 1;
+            $photo->user_id = Users::id();
+            $photo->topmenu_id = GlobalTables::TRANSPORT;
             $photo->title = $attributeNames['items']->setName($photo->topmenu_id, $attributeNames['time']);
             $res4 = $photo->save();
 

@@ -6,6 +6,7 @@ use app\models\ItemsTransport;
 use app\models\PhotoTransport;
 use app\models\PropertiesGroup;
 use app\models\TransportProp;
+use app\models\Users;
 use yii\bootstrap\Modal;
 use app\models\Submenu;
 use yii\db\Query;
@@ -24,6 +25,7 @@ class GlobalTables extends Modal
     private $view;//specific view of items
     private $scenaries;
     private $query;
+    private $user;
 
     const TRANSPORTPROPS = 'transportProps';
     /**
@@ -49,6 +51,7 @@ class GlobalTables extends Modal
 
     public function __construct(array $config = [])
     {
+        $this->user = Users::id();
         $this->catalog = (isset($config['catalog'])) ? $config['catalog'] : null;
 
         if($this->catalog)
@@ -173,7 +176,7 @@ class GlobalTables extends Modal
     public function getActivItems()
     {
         $active = new Items(['scenario' => 'get_self_active_items']);
-        $itemsLive = $active->getItemsLive(1);
+        $itemsLive = $active->getItemsLive($this->user);
         $arr = [];
 
         foreach ($itemsLive as $item) {
@@ -185,7 +188,7 @@ class GlobalTables extends Modal
     public function getMistakeItems()
     {
         $active = new ModerationMistake();
-        $itemsModeration = $active->getItemsModeration(1);
+        $itemsModeration = $active->getItemsModeration($this->user);
         $arr = [];
 
         foreach ($itemsModeration as $item) {

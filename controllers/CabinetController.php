@@ -7,6 +7,7 @@ use app\models\globals\UploadForm;
 use app\models\Items;
 use app\models\Moderation;
 use app\models\ModerationMistake;
+use app\models\User;
 use app\models\Users;
 use Yii;
 use yii\helpers\Url;
@@ -22,10 +23,11 @@ class CabinetController extends Controller
 
     public function actionIndex()
     {
+        $user = Users::id();
         return $this->render('index',[
-            'items_moderation' => (new Moderation([]))->getItems(),
-            'all_items' => (new Items())->getItems(),
-            'moderation_er' => (new ModerationMistake())->getItems(1)
+            'items_moderation' => (new Moderation([]))->getItems($user),
+            'all_items' => (new Items())->getItems($user),
+            'moderation_er' => (new ModerationMistake())->getItems($user)
         ]);
     }
     public function actionModeration()
@@ -58,7 +60,7 @@ class CabinetController extends Controller
                 $time = time();
                 $date = date('Y-m-d H:i:s',strtotime('now'));
                 $attributeNames = [
-                    'user_id' => 1,//Yii::$app->user->identity->id,
+                    'user_id' => Users::id(),
                     'catalog_id' => $catalog,
                     'topmenu_id' => $params['topmenu'],
                     'prop_group' => $catalog,
@@ -102,7 +104,7 @@ class CabinetController extends Controller
     public function actionGetMyModerationItems()
     {
         return $this->render('transport/itemsModeration',[
-            'items' => (new GlobalTables())->getUserItemsInModeration(1)
+            'items' => (new GlobalTables())->getUserItemsInModeration(Users::id())
         ]);
     }
 
@@ -120,7 +122,7 @@ class CabinetController extends Controller
     public function actionEditItems($tompenu, $id)
     {
         $propreliation = (new GlobalTables([]))->getTableProperties($tompenu);
-        $model = (new GlobalTables([]))->getModel($tompenu, $id, 1);
+        $model = (new GlobalTables([]))->getModel($tompenu, $id, Users::id());
         if(Yii::$app->request->isPost)
         {
             $post = Yii::$app->request->post();
@@ -154,7 +156,7 @@ class CabinetController extends Controller
 
     public function actionProfile()
     {
-        $modelProfile = $this->findProfile(Yii::$app->user->identity->getId());
+        $modelProfile = $this->findProfile(Users::id());
         if($modelProfile):
             $modelProfile->setScenario('edit');
             if(Yii::$app->request->post()):
@@ -164,7 +166,6 @@ class CabinetController extends Controller
                     return $this->redirect(Url::toRoute('index'));
                 else:
                     Yii::$app->getSession()->setFlash('profile_successfully' , ['text' => 'Ошибка!!! редактирования не сохранено или нет изменений', 'color' => 'alert-danger']);
-                    //return $this->refresh();
                 endif;
             endif;
             return $this->render('profile',[

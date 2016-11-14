@@ -17,6 +17,7 @@ use yii\data\ActiveDataProvider;
  */
 class Moderation extends \yii\db\ActiveRecord
 {
+    const STATUS_MODERATION_OK = 1;
     /**
      * @inheritdoc
      */
@@ -70,9 +71,9 @@ class Moderation extends \yii\db\ActiveRecord
         return $this->hasOne(Users::className(), ['id' => 'user_id']);
     }
 
-    public function getItems()
+    public function getItems($user)
     {
-        return self::find()->where(['user_id' => 1])->count();
+        return self::find()->where(['user_id' => $user])->count();
     }
     public function getAllItems($data)
     {
@@ -101,7 +102,7 @@ class Moderation extends \yii\db\ActiveRecord
 
             try
             {
-                $modelTable['itemsTable']->status = 1;
+                $modelTable['itemsTable']->status = self::STATUS_MODERATION_OK;
                 $res1 = $modelTable['itemsTable']->update();
                 $newItems = new Items(['scenario' => 'after_moderation']);
 

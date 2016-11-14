@@ -145,9 +145,9 @@ class Items extends \yii\db\ActiveRecord
         return $this->hasOne(StatusItems::className(), ['id' => 'status']);
     }
 
-    public function getItems()
+    public function getItems($user)
     {
-        return self::find()->where(['user_id' => 1])->count();
+        return self::find()->where(['user_id' => $user])->count();
     }
 
     private function setPath($topmenu)
@@ -162,7 +162,7 @@ class Items extends \yii\db\ActiveRecord
     
     public function setName($topmenu, $time)
     {
-        return self::TITLE_IMAGE_PATH[$topmenu].'_1_'.$time.'.' . $this->titleImage->extension;
+        return self::TITLE_IMAGE_PATH[$topmenu].'_'.Users::id().'_'.$time.'.' . $this->titleImage->extension;
     }
     
     public function uploadTitle($topmenu,$image, $time)
