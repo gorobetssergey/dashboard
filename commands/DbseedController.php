@@ -104,6 +104,8 @@ class DbseedController extends Controller
                 ['car_type_tires'],
                 ['thorns_tires'],
                 ['can_thorns_tires'],
+                ['delivery'],
+                ['old_product'],
                 ['descriptions_tires'],
                 ['name_tires']
             ])->execute();
