@@ -211,7 +211,7 @@ class CabinetController extends Controller
             return $this->render('profile',[
                 'model' => $modelProfile,
                 'ownership' => $modelProfile->getOwnership(),
-                'self_ownership' => Yii::$app->user->identity->profiles->ownership0
+                'self_ownership' => Yii::$app->user->identity->profiles[0]['ownership0']->value
             ]);
         endif;
         return $this->render('profile',[

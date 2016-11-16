@@ -186,7 +186,7 @@ class Items extends \yii\db\ActiveRecord
 
     public function getLastQueue()
     {
-        $queue = self::find()->orderBy(['queue'=>SORT_DESC])->one()->queue;
+        $queue = self::find()->orderBy(['queue'=>SORT_DESC])->one()['queue'];
         if($queue)
         {
             return $queue++;
