@@ -202,7 +202,7 @@ class GlobalTables extends Modal
     
     public function getPhoto($topmenu,$items)
     {
-        $qery = [
+        $query = [
             'topmenu_id'=>$topmenu,
             'item_id' =>$items
         ];
@@ -210,7 +210,7 @@ class GlobalTables extends Modal
         switch ($topmenu)
         {
             case self::TRANSPORT : return [
-                        (new PhotoTransport())->getPhoto($qery),
+                        (new PhotoTransport())->getPhoto($query),
                         Items::TITLE_IMAGE_PATH[$topmenu]
                 ];break;
         }

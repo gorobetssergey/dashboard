@@ -220,7 +220,7 @@ class Users extends \yii\db\ActiveRecord implements IdentityInterface
 
     public static function id()
     {
-        return Yii::$app->user->identity->getId();
+        return (!Yii::$app->user->isGuest) ? Yii::$app->user->identity->getId() : null;
     }
 
     public function reg()
