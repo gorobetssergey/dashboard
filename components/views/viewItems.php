@@ -4,7 +4,7 @@ use yii\helpers\Url;
 <div class="col-lg-8">
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="text-info text-center"><?=array_pop($model->transportProps)['value'].'. Стоимость '.$model->transportProps[0]->value?> Грн</h3>
+            <h3 class="text-info text-center"><?=array_pop($model->transportProps)->value.'. Стоимость '.$model->transportProps[0]->value?> Грн</h3>
         </div>
         <div class="col-lg-6 text-center" style="overflow: hidden">
             <div class="row">
