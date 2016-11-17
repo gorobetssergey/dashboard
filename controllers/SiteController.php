@@ -70,12 +70,18 @@ class SiteController extends Controller
     {
         $modelItems = new Items();
         $ItemsStandard = $modelItems->showItems(Items::STATUS_STANDART);
+        $ItemsVip = $modelItems->showItems(Items::STATUS_VIP);
         $modelStandard = [];
+        $modelVip = [];
         foreach ($ItemsStandard as $item) {
             $modelStandard[$item->id] = $modelItems->getPath($item->topmenu_id).'/'.$item->topmenu->getPhotoTransports()->where(['item_id'=>$item->items_id])->one()->title;
         }
+        foreach ($ItemsVip as $item) {
+            $modelVip[$item->id] = $modelItems->getPath($item->topmenu_id).'/'.$item->topmenu->getPhotoTransports()->where(['item_id'=>$item->items_id])->one()->title;
+        }
         return $this->render('index',[
-            'ItemsVip' => $modelItems->showItems(Items::STATUS_VIP),
+            'ItemsVip' => $ItemsVip,
+            'modelVip' => $modelVip,
             'ItemsTop' => $modelItems->showItems(Items::STATUS_TOP),
             'ItemsStandard' => $ItemsStandard,
             'modelStandard'=> $modelStandard
@@ -180,6 +186,9 @@ class SiteController extends Controller
         $model_mailer = new MailerForm();
         $model = $this->findModel($items);
         $data = (new GlobalTables())->getModel($model->topmenu_id,$model->items_id);
+        $countModel = count($data->transportProps);
+
+        $likeItems = (new GlobalTables())->getLikeItems($model->topmenu_id,$model->items_id);
 
         $modelStandard = (new GlobalTables())->getPhoto($model->topmenu_id,$model->items_id);
         if ($model_mailer->load(Yii::$app->request->post()) && $model_mailer->sendEmail()) {
@@ -189,7 +198,10 @@ class SiteController extends Controller
         return $this->render('view',[
             'model' => $data,
             'photo' => $modelStandard,
-            'mailer' => $model_mailer
+            'mailer' => $model_mailer,
+            'countModel' => $countModel,
+            'description' => $data->transportProps[$countModel-2]->value,
+            'data' =>$likeItems
         ]);
     }
 

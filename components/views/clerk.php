@@ -4,17 +4,13 @@ use yii\bootstrap\Modal;
 use yii\widgets\ActiveForm;
 
 ?>
-<?php $result = Yii::$app->getSession()->getFlash('profile_successfully') ?>
-
-<?php if($result): ?>
-    <div class="<?= 'alert '.$result['color'] ?>" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong><?=$result['text']?></strong>
-    </div>
-<?php endif;?>
-<div class="col-lg-3">
+<div class="col-lg-4">
     <div class="well">
-        <div class="col-lg-4 input-group ref">
+        <h3>Имя: <?=$profile->name?></h3>
+        <h3>Телефон: <?=$profile->tel_first?></h3>
+        <h3>Email: <?=$email?></h3>
+        <h3>Город: <?=$profile->city?></h3>
+        <div class="col-lg-12 input-group ref">
             <?= Html::a(
                 'Написать владельцу',
                 ['#'],
@@ -22,15 +18,11 @@ use yii\widgets\ActiveForm;
                     'id'=>'clerk',
                     'data-toggle'=>'modal',
                     'data-target'=>'#modal-clerk',
-                    'class'=>'btn btn-primary',
+                    'class'=>'btn btn-primary btn-block',
                     'style'=>'color:white',
                 ]
             ) ?>
         </div>
-        <h3>Имя: <?=$profile->name?></h3>
-        <h3>Телефон: <?=$profile->tel_first?></h3>
-        <h3>Email: <?=$email?></h3>
-        <h3>Город: <?=$profile->city?></h3>
     </div>
 </div>
 <?php

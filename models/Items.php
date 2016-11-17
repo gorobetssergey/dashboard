@@ -194,17 +194,25 @@ class Items extends \yii\db\ActiveRecord
         return self::STATUS_DEFAULT;
     }
     /* Index */
-    public function showItems($status)
+    public function showItems($status,$data = null)
     {
-        $items = self::find()
+        $params = '';
+        $query = self::find()
             ->with(['topmenu','topmenu.itemsTransports','topmenu.itemsTransports.transportProps'])
-            ->where([
-                'status' => $status
-            ])
-            ->orderBy(['queue'=>SORT_ASC])
-            ->limit(25)
-            ->all();
-        return $items;
+            ->where(['status' => $status]);
+        if(!is_null($data))
+        {
+            $params = $query->andWhere(['topmenu_id' => $data['topmenu']])
+                ->andWhere(['in', 'items_id', $data['items']])
+                ->limit(25)
+                ->all();
+        }else{
+            $params = $query
+                ->orderBy(['queue'=>SORT_ASC])
+                ->limit(25)
+                ->all();
+        }
+        return $params;
     }
 
     public function findItems($id)
@@ -218,6 +226,15 @@ class Items extends \yii\db\ActiveRecord
         return ($items->id>0) ? $items : null;
     }
     /* Index End*/
-
-
+    public function findVipItems($topmenu,$items)
+    {
+        return self::find()
+            ->where([
+                'status' => self::STATUS_VIP,
+                'topmenu_id' => $topmenu
+            ])
+            ->andWhere([
+                'in', 'items_id', $items
+            ]);
+    }
 }
