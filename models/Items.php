@@ -40,7 +40,6 @@ class Items extends \yii\db\ActiveRecord
     public $car_type_tires;
     public $thorns_tires;
     public $can_thorns_tires;
-    public $type_sales;
     public $descriptions_tires;
 
     public $titleImage;
@@ -95,7 +94,6 @@ class Items extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'Name'),
             'status' => Yii::t('app', 'Status'),
             'queue' => Yii::t('app', 'Queue'),
-            'type_sales' => Yii::t('cabinet', 'type_sales')['delivery_select'],
             'titleImage' => Yii::t('cabinet', 'titleImage'),
             /**
              * atributes for transport_tires
