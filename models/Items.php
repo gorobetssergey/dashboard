@@ -41,7 +41,6 @@ class Items extends \yii\db\ActiveRecord
     public $thorns_tires;
     public $can_thorns_tires;
     public $type_sales;
-    public $old_product;
     public $descriptions_tires;
 
     public $titleImage;
