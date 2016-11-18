@@ -198,6 +198,28 @@ class Items extends \yii\db\ActiveRecord
     {
         $params = '';
         $query = self::find()
+            ->with(['topmenu','topmenu.itemsTransports','topmenu.itemsTransports.transportProps']);
+        if(!is_null($data))
+        {
+            $params = $query->andWhere(['topmenu_id' => $data['topmenu']])
+                ->andWhere(['in', 'items_id', $data['items']])
+                ->limit(25)
+                ->orderBy(['status' => SORT_ASC])
+                ->all();
+        }else{
+            $params = $query
+                ->where(['status' => $status])
+                ->orderBy(['queue'=>SORT_ASC])
+                ->limit(25)
+                ->all();
+        }
+        return $params;
+    }
+
+    public function showLikeItems($status,$data = null)
+    {
+        $params = '';
+        $query = self::find()
             ->with(['topmenu','topmenu.itemsTransports','topmenu.itemsTransports.transportProps'])
             ->where(['status' => $status]);
         if(!is_null($data))

@@ -9,6 +9,7 @@ class VipItemsWidget extends Widget
     public $ItemsVip;
     public $modelVip;
     public $title;
+    public $it_style;
 
     public function init()
     {
@@ -20,7 +21,8 @@ class VipItemsWidget extends Widget
         return $this->render('vipItems',[
             'ItemsVip' => $this->ItemsVip,
             'modelVip' => $this->modelVip,
-            'title' => $this->title
+            'title' => $this->title,
+            'it_style' => $this->it_style
         ]);
     }
 }

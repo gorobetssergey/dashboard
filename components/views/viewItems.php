@@ -1,12 +1,12 @@
 <?php
 use yii\helpers\Url;
 ?>
-<div class="col-lg-8">
+<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h3 class="text-info text-center"><?=array_pop($model->transportProps)->value.'. Стоимость '.$model->transportProps[0]->value?> Грн</h3>
         </div>
-        <div class="col-lg-6 text-center" style="overflow: hidden">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center" style="overflow: hidden">
             <div class="row">
                 <div class="col-lg-12">
                     <img src="<?=Url::home(true)?>images/items/<?=$photo[1].'/'.$photo[0]->title?>" class="items_img img-rounded">
@@ -18,7 +18,7 @@ use yii\helpers\Url;
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <table class="table">
                 <tr>
                     <th>Свойство товара</th>
