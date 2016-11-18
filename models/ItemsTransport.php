@@ -154,7 +154,6 @@ class ItemsTransport extends \yii\db\ActiveRecord
             $rephoto = PhotoTransport::findOne($photo->id);
             $rephoto->item_id = $this->id;
             $res5 = $rephoto->update();
-
             $properties = [
                 [$this->id, 1 , $_POST['Items']['price_tires']],
                 [$this->id, 2 , Properties::BREND_TIRES[$_POST['Items']['brand_name_tires']]],
@@ -166,7 +165,9 @@ class ItemsTransport extends \yii\db\ActiveRecord
                 [$this->id, 8 , Properties::THORNS_TIRES[$_POST['Items']['thorns_tires']]],
                 [$this->id, 9 , Properties::CAN_THORNS_TIRES[$_POST['Items']['can_thorns_tires']]],
                 [$this->id, 10 , $_POST['Items']['descriptions_tires']],
-                [$this->id, 11 , $_POST['Items']['name_tires']],
+                [$this->id, 11 , Properties::TYPE_SALES[$_POST['Items']['type_sales']]],
+                [$this->id, 12 , ($_POST['Items']['old_product'])? Yii::t('cabinet', 'type_sales')['old_product']['new'] : Yii::t('cabinet', 'type_sales')['old_product']['old']],
+                [$this->id, 13 , $_POST['Items']['name_tires']],
             ];
             
             $res2 = Yii::$app->db->createCommand()->batchInsert($attributeNames['table_properties'], ['items_id','prop_id','value'], $properties)->execute();
