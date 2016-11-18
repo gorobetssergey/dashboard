@@ -29,19 +29,6 @@ return [
         'entity' => 'Компания',
     ],
 
-    'old_product' => [
-        'title' => 'Cостояние',
-        'new' => 'новый',
-        'old' => 'б/у',
-    ],
-    'delivery' => [
-        'title' => 'Выбор доставки',
-        'delivery_no'=>'без доставки',
-        'nova_poshta' =>'Нова пошта',
-        'express_mail'=>'Экспресс мейл',
-        'meest_express'=>'Meest Express',
-        'KM_express'=>'КМ ЭКСПРЕСС',
-    ],
     /**
      * titleImage
      */
