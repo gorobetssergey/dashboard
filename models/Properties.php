@@ -281,9 +281,18 @@ class Properties extends \yii\db\ActiveRecord
         '242' => 'Возможность ошиповки',
         '243' => 'Без возможности ошиповки'
     ];
-    const CONDITION = [
-        '244' => 'Новое',
-        '245' => 'Б/У'
+    const TYPE_SALES = [
+        '244' => 'без доставки',
+        '245' => 'Нова пошта',
+        '246' => 'Экспресс мейл',
+        '247' => 'Meest Express',
+        '248' => 'КМ ЭКСПРЕСС'
+    ];
+    const TYPE_SALES_ALL = 'delivery';
+    const OLD_PRODUCT_ALL= 'old_product';
+    const OLD_PRODUCT = [
+        '249' => 'новий',
+        '250' => 'б/у'
     ];
     /**
      * @inheritdoc
