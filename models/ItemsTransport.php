@@ -166,7 +166,7 @@ class ItemsTransport extends \yii\db\ActiveRecord
                 [$this->id, 9 , Properties::CAN_THORNS_TIRES[$_POST['Items']['can_thorns_tires']]],
                 [$this->id, 10 , $_POST['Items']['descriptions_tires']],
                 [$this->id, 11 , Properties::TYPE_SALES[$_POST['Items']['type_sales']]],
-                [$this->id, 12 , ($_POST['Items']['old_product'])? Yii::t('cabinet', 'type_sales')['old_product']['new'] : Yii::t('cabinet', 'type_sales')['old_product']['old']],
+                [$this->id, 12 , ($_POST['Items']['old_product'])? Yii::t('cabinet', 'old_product')['new'] : Yii::t('cabinet', 'old_product')['old']],
                 [$this->id, 13 , $_POST['Items']['name_tires']],
             ];
             

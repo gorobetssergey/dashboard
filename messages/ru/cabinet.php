@@ -28,20 +28,19 @@ return [
         'individual' => 'Частное лицо',
         'entity' => 'Компания',
     ],
-    'type_sales' =>[
-        'old_product' => [
-            'title' => 'б/у',
-            'new' => 'новый',
-            'old' => 'б/у',
-        ],
-        'delivery_select'=> 'Выбор доставки',
-        'delivery' => [
-            'delivery_no'=>'без доставки',
-            'nova_poshta' =>'Нова пошта',
-            'express_mail'=>'Экспресс мейл',
-            'meest_express'=>'Meest Express',
-            'KM_express'=>'КМ ЭКСПРЕСС',
-        ]
+
+    'old_product' => [
+        'title' => 'Cостояние',
+        'new' => 'новый',
+        'old' => 'б/у',
+    ],
+    'delivery' => [
+        'title' => 'Выбор доставки',
+        'delivery_no'=>'без доставки',
+        'nova_poshta' =>'Нова пошта',
+        'express_mail'=>'Экспресс мейл',
+        'meest_express'=>'Meest Express',
+        'KM_express'=>'КМ ЭКСПРЕСС',
     ],
     /**
      * titleImage

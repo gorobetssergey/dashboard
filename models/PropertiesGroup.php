@@ -30,7 +30,9 @@ class PropertiesGroup extends \yii\db\ActiveRecord
             'thorns_tires',/*thorns*/
             'can_thorns_tires',/*can_thorns*/
             'description_tires',
-            'name_tires'
+            'name_tires',
+            'type_sales',
+            'old_product'
         ]
     ];
     /**

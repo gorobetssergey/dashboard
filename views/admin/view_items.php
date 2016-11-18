@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 
-
+use app\models\Properties;
 ?>
 <div class="row">
     <div class="col-lg-12">
@@ -16,7 +16,19 @@ use yii\helpers\Url;
             </tr>
             <?php foreach ($model->transportProps as $item): ?>
                 <tr>
-                    <td><?=Yii::t('cabinet','transport_items')['transport_tires_items'][$item->prop->name]?></td>
+                    <td><?php
+
+                        if(Yii::t('cabinet','transport_items')['transport_tires_items'][$item->prop->name]){
+                            echo Yii::t('cabinet','transport_items')['transport_tires_items'][$item->prop->name];
+                        }
+                        elseif($item->prop->name == Properties::TYPE_SALES_ALL){
+                            echo Yii::t('cabinet', 'delivery')['title'];
+                        }
+                        elseif($item->prop->name == Properties::OLD_PRODUCT_ALL){
+                            echo Yii::t('cabinet', 'old_product')['title'];
+                        }
+                        ?>
+                    </td>
                     <td><?=$item->value?></td>
                 </tr>
             <?php endforeach;?>

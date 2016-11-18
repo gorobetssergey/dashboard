@@ -110,8 +110,8 @@ class Items extends \yii\db\ActiveRecord
             'car_type_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['car_type_tires'],
             'thorns_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['thorns_tires'],
             'can_thorns_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['can_thorns_tires'],
-            'type_sales' => Yii::t('cabinet', 'type_sales')['delivery_select'],
-            'old_product' => Yii::t('cabinet', 'type_sales')['old_product'],
+            'type_sales' => Yii::t('cabinet', 'delivery')['title'],
+            'old_product' => Yii::t('cabinet', 'old_product'),
             'descriptions_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['descriptions_tires'],
             'name_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['name_tires']
         ];
