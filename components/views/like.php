@@ -8,7 +8,8 @@ use app\components\VipItemsWidget;
         <?= VipItemsWidget::widget([
             'ItemsVip' => $data['itemsVip'],
             'modelVip' => $data['modelVip'],
-            'title' => 'Похожие товары'
+            'title' => 'Похожие товары',
+            'it_style' => 'items_vips'
         ])?>
     </div>
 </div>

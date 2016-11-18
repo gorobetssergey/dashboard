@@ -32,6 +32,8 @@ use app\models\Properties;
     <?= $form->field($model, 'type_sales')->dropDownList(Properties::TYPE_SALES,['prompt' => Yii::t('cabinet', 'delivery')['delivery_no']])?>
     <?= $form->field($model, 'old_product')->checkbox(['label' => Yii::t('cabinet', 'old_product')['title']])?>
 
+    <?= $form->field($model, 'condition_tires')->checkbox()?>
+
     <?= $form->field($model, 'descriptions_tires')->textarea()?>
 
     <?= $form->field($model, 'titleImage')->fileInput() ?>

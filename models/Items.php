@@ -39,9 +39,8 @@ class Items extends \yii\db\ActiveRecord
     public $diameter_tires;
     public $car_type_tires;
     public $thorns_tires;
+    public $condition_tires;
     public $can_thorns_tires;
-    public $type_sales;
-    public $old_product;
     public $descriptions_tires;
 
     public $titleImage;
@@ -73,7 +72,7 @@ class Items extends \yii\db\ActiveRecord
             /**
              * rulles for transport_tires
              */
-            [['titleImage', 'name_tires','price_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires', 'type_sales', 'descriptions_tires'],'required','on' => 'transport_tires'],
+            [['titleImage', 'name_tires','price_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires','descriptions_tires'],'required','on' => 'transport_tires'],
             [['price_tires'], 'integer','max'=>10000000,'min'=>1, 'on' => 'transport_tires'],
             [['name_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires'],'string','max'=>50,'on' => 'transport_tires'],
             [['descriptions_tires'],'string','max'=>2000,'on' => 'transport_tires'],
@@ -110,8 +109,7 @@ class Items extends \yii\db\ActiveRecord
             'car_type_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['car_type_tires'],
             'thorns_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['thorns_tires'],
             'can_thorns_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['can_thorns_tires'],
-            'type_sales' => Yii::t('cabinet', 'delivery')['title'],
-            'old_product' => Yii::t('cabinet', 'old_product'),
+            'condition_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['condition_tires'],
             'descriptions_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['descriptions_tires'],
             'name_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['name_tires']
         ];
@@ -120,7 +118,7 @@ class Items extends \yii\db\ActiveRecord
     public function scenarios()
     {
         return [
-            'transport_tires' => ['name_tires','price_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires', 'type_sales', 'descriptions_tires', 'titleImage'],
+            'transport_tires' => ['name_tires','price_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires','descriptions_tires', 'titleImage','condition_tires'],
             'after_moderation' => ['user_id', 'topmenu_id', 'items_id', 'name', 'status', 'queue'],
             'get_self_active_items' => ['user_id'],//перевырити щоб преданий юзер був тим хто даэ запрос
         ];
@@ -199,6 +197,27 @@ class Items extends \yii\db\ActiveRecord
     }
     /* Index */
     public function showItems($status,$data = null)
+    {
+        $query = self::find()
+            ->with(['topmenu','topmenu.itemsTransports','topmenu.itemsTransports.transportProps']);
+        if(!is_null($data))
+        {
+            $params = $query->andWhere(['topmenu_id' => $data['topmenu']])
+                ->andWhere(['in', 'items_id', $data['items']])
+                ->limit(25)
+                ->orderBy(['status' => SORT_ASC])
+                ->all();
+        }else{
+            $params = $query
+                ->where(['status' => $status])
+                ->orderBy(['queue'=>SORT_ASC])
+                ->limit(25)
+                ->all();
+        }
+        return $params;
+    }
+
+    public function showLikeItems($status,$data = null)
     {
         $params = '';
         $query = self::find()

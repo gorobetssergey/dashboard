@@ -91,6 +91,7 @@ class CabinetController extends Controller
         if(Yii::$app->request->isPost)
         {
             $post = Yii::$app->request->post();
+
             $upload = new UploadForm();
             $upload->titleImage = UploadedFile::getInstance($items, 'titleImage');
             
