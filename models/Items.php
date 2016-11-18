@@ -63,7 +63,7 @@ class Items extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['titleImage', 'name_tires','price_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires', 'type_sales', 'descriptions_tires'],'required','on' => 'transport_tires'],
+            [['titleImage', 'name_tires','price_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires', 'descriptions_tires'],'required','on' => 'transport_tires'],
             [['user_id', 'topmenu_id', 'items_id', 'name'], 'safe'],
             [['user_id', 'topmenu_id', 'items_id', 'status', 'queue'], 'integer'],
             [['name'], 'string', 'max' => 50],

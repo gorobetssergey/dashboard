@@ -281,13 +281,17 @@ class Properties extends \yii\db\ActiveRecord
         '242' => 'Возможность ошиповки',
         '243' => 'Без возможности ошиповки'
     ];
-    const TYPE_SALES = [
-        '244' => 'без доставки',
-        '245' => 'Нова пошта',
-        '246' => 'Экспресс мейл',
-        '247' => 'Meest Express',
-        '248' => 'КМ ЭКСПРЕСС'
+    const DELIVERY_TYPE = [
+        self::DELIVERY_NOVA_POSHTA =>   'Нова пошта',
+        self::DELIVERY_EXPRESS_MEIL =>  'Экспресс мейл',
+        self::DELIVERY_MEEST_EXPRESS => 'Meest Express',
+        self::DELIVERY_KM_EXPRESS =>    'КМ ЭКСПРЕСС'
     ];
+    const DELIVERY_NO =             '0000000000';
+    const DELIVERY_NOVA_POSHTA  =   '1000000000';
+    const DELIVERY_EXPRESS_MEIL=    '0100000000';
+    const DELIVERY_MEEST_EXPRESS =  '0010000000';
+    const DELIVERY_KM_EXPRESS =     '0001000000';
     const TYPE_SALES_ALL = 'delivery';
     const OLD_PRODUCT_ALL= 'old_product';
     const OLD_PRODUCT = [

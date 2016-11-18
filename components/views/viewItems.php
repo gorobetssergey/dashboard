@@ -29,17 +29,7 @@ use app\models\Properties;
                     <?php ?>
                     <tr>
                         <td>
-                            <?php
-                            if(Yii::t('cabinet','transport_items')['transport_tires_items'][$data->prop->name]){
-                            echo Yii::t('cabinet','transport_items')['transport_tires_items'][$data->prop->name];
-                            }
-                            elseif($data->prop->name == Properties::TYPE_SALES_ALL){
-                            echo Yii::t('cabinet', 'delivery')['title'];
-                            }
-                            elseif($data->prop->name == Properties::OLD_PRODUCT_ALL){
-                            echo Yii::t('cabinet', 'old_product')['title'];
-                            }
-                            ?>
+                            <?= Yii::t('cabinet','transport_items')['transport_tires_items'][$data->prop->name]?>
                         </td>
                         <td><?=$data->value?></td>
                     </tr>

@@ -30,12 +30,10 @@ return [
     ],
 
     'old_product' => [
-        'title' => 'Cостояние',
         'new' => 'новый',
         'old' => 'б/у',
     ],
     'delivery' => [
-        'title' => 'Выбор доставки',
         'delivery_no'=>'без доставки',
         'nova_poshta' =>'Нова пошта',
         'express_mail'=>'Экспресс мейл',
@@ -66,7 +64,8 @@ return [
             'car_type_tires' => 'Тип',
             'thorns_tires' => 'Шипы',
             'can_thorns_tires' => 'Возможность ошиповки',
-            'condition_tires' => 'б/у',
+            'delivery' => 'Выбор доставки',
+            'old_product' => 'Cостояние',
             'descriptions_tires' => 'Описание',
         ],
         'tires_and_wheels'=>'Шины, диски, колеса',
