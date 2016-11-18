@@ -196,7 +196,6 @@ class Items extends \yii\db\ActiveRecord
     /* Index */
     public function showItems($status,$data = null)
     {
-        $params = '';
         $query = self::find()
             ->with(['topmenu','topmenu.itemsTransports','topmenu.itemsTransports.transportProps']);
         if(!is_null($data))
