@@ -30,6 +30,8 @@ use app\models\Properties;
 
     <?= $form->field($model, 'can_thorns_tires')->dropDownList(Properties::CAN_THORNS_TIRES,['prompt' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['can_thorns_tires']])?>
 
+    <?= $form->field($model, 'condition_tires')->checkbox()?>
+
     <?= $form->field($model, 'descriptions_tires')->textarea()?>
 
     <?= $form->field($model, 'titleImage')->fileInput() ?>

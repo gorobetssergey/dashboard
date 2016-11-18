@@ -281,6 +281,10 @@ class Properties extends \yii\db\ActiveRecord
         '242' => 'Возможность ошиповки',
         '243' => 'Без возможности ошиповки'
     ];
+    const CONDITION = [
+        '244' => 'Новое',
+        '245' => 'Б/У'
+    ];
     /**
      * @inheritdoc
      */

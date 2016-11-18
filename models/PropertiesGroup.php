@@ -29,6 +29,7 @@ class PropertiesGroup extends \yii\db\ActiveRecord
             'car_type_tires',/*car_type (cards trucks)*/
             'thorns_tires',/*thorns*/
             'can_thorns_tires',/*can_thorns*/
+            'condition_tires',
             'description_tires',
             'name_tires'
         ]

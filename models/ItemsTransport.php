@@ -165,8 +165,9 @@ class ItemsTransport extends \yii\db\ActiveRecord
                 [$this->id, 7 , Properties::CAR_TYPE_TIRES[$_POST['Items']['car_type_tires']]],
                 [$this->id, 8 , Properties::THORNS_TIRES[$_POST['Items']['thorns_tires']]],
                 [$this->id, 9 , Properties::CAN_THORNS_TIRES[$_POST['Items']['can_thorns_tires']]],
-                [$this->id, 10 , $_POST['Items']['descriptions_tires']],
-                [$this->id, 11 , $_POST['Items']['name_tires']],
+                [$this->id, 10 , ($_POST['Items']['condition_tires']) ? Properties::CONDITION[244] : Properties::CONDITION[245]] ,
+                [$this->id, 11 , $_POST['Items']['descriptions_tires']],
+                [$this->id, 12 , $_POST['Items']['name_tires']],
             ];
             
             $res2 = Yii::$app->db->createCommand()->batchInsert($attributeNames['table_properties'], ['items_id','prop_id','value'], $properties)->execute();
