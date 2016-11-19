@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Url;
+use app\models\Properties;
 
 $result = Yii::$app->getSession()->getFlash('edit_items_find_err');
 ?>
@@ -33,10 +34,18 @@ $result = Yii::$app->getSession()->getFlash('edit_items_find_err');
                                 <th>Свойство товара</th>
                                 <th>Значение свойства</th>
                             </tr>
-                            <?php foreach ($item->transportProps as $data): ?>
+                            <?php foreach ($item->transportProps as $key=> $data): ?>
                                 <tr>
                                     <td><?=Yii::t('cabinet','transport_items')['transport_tires_items'][$data->prop->name]?></td>
-                                    <td><?=$data->value?></td>
+                                    <td>
+                                        <?php if($key != 9){?>
+                                        <?=$data->value?>
+                                        <?php } else{ ?>
+                                            <ul>
+                                                <?php   echo Properties::prepare($data->value); ?>
+                                            </ul>
+                                         <?php }?>
+                                    </td>
                                 </tr>
                             <?php endforeach;?>
                         </table>

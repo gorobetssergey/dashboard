@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 
-
+use app\models\Properties;
 ?>
 <div class="row">
     <div class="col-lg-12">
@@ -14,10 +14,20 @@ use yii\helpers\Url;
                 <th>Свойство товара</th>
                 <th>Значение свойства</th>
             </tr>
-            <?php foreach ($model->transportProps as $item): ?>
+            <?php foreach ($model->transportProps as $key => $item): ?>
                 <tr>
-                    <td><?=Yii::t('cabinet','transport_items')['transport_tires_items'][$item->prop->name]?></td>
-                    <td><?=$item->value?></td>
+                    <td>
+                        <?= Yii::t('cabinet','transport_items')['transport_tires_items'][$item->prop->name]  ?>
+                    </td>
+                    <td>
+                        <?php if($key != 9){?>
+                            <?=$item->value?>
+                        <?php } else{ ?>
+                            <ul>
+                                <?php   echo Properties::prepare($item->value); ?>
+                            </ul>
+                        <?php }?>
+                    </td>
                 </tr>
             <?php endforeach;?>
         </table>

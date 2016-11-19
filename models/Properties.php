@@ -343,4 +343,21 @@ class Properties extends \yii\db\ActiveRecord
     {
         return $this->hasMany(TransportProp::className(), ['prop_id' => 'id']);
     }
+
+    public static function prepare($deliveries_cod)
+    {
+        $model = '';
+        $array_length = strlen($deliveries_cod);
+        for($i=0; $i<$array_length; $i++){
+            if($deliveries_cod[$i] == 1){
+                switch ($i){
+                    case 0 : $model .= '<li>'.Properties::DELIVERY_TYPE[Properties::DELIVERY_NOVA_POSHTA].'</li>'; break;
+                    case 1 : $model .= '<li>'.Properties::DELIVERY_TYPE[Properties::DELIVERY_EXPRESS_MEIL].'</li>'; break;
+                    case 2 : $model .= '<li>'.Properties::DELIVERY_TYPE[Properties::DELIVERY_MEEST_EXPRESS].'</li>'; break;
+                    case 3 : $model .= '<li>'.Properties::DELIVERY_TYPE[Properties::DELIVERY_KM_EXPRESS].'</li>'; break;
+                }
+            }
+        }
+        return $model;
+    }
 }
