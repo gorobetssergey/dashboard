@@ -1,8 +1,8 @@
 <?php
- use yii\helpers\Html;
- use yii\widgets\ActiveForm;
+    use yii\helpers\Html;
+    use yii\widgets\ActiveForm;
     use yii\helpers\Url;
-
+use kartik\typeahead\Typeahead;
 
 /**
  * @var $model
@@ -29,7 +29,22 @@
             <?= $form->field($model,'name')->textInput(['class'=>'col-4 input-sm']) ?>
             <?= $form->field($model,'surname')->textInput(['class'=>'col-4 input-sm']) ?>
             <?= $form->field($model,'patronymic')->textInput(['class'=>'col-4 input-sm']) ?>
-            <?= $form->field($model,'city')->textInput(['class'=>'col-4 input-sm']) ?>
+            <?= $form->field($model, 'city')->widget(Typeahead::classname(), [
+                'options' => ['placeholder' => Yii::t('site', 'city_name')],
+                'pluginOptions' => ['highlight'=>true],
+                'dataset' => [
+                    [
+                        'datumTokenizer' => "Bloodhound.tokenizers.obj.whitespace('value')",
+                        'display' => 'value',
+                        'remote' => [
+                            'url' => Url::to(['site/get-town']) . '?s=%QUERY',
+                            'wildcard' => '%QUERY'
+                        ]
+                    ]
+                ],
+                'pluginOptions' => ['highlight' => true],
+            ]);
+            ?>
             <?= $form->field($model,'ownership')->dropDownList($ownership, ['class'=>'col-4 input-sm', 'selected' => $self_ownership]) ?>
             <?= Html::submitInput('сохранить', ['class'=>'btn btn-success button_float_l']) ?>
         <?php ActiveForm::end() ?>

@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\globals\GlobalTables;
 use app\models\Items;
+use app\models\Locality;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -213,5 +214,10 @@ class SiteController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+    public function actionGetTown($s = null)
+    {
+        return Locality::returnetown($s);
     }
 }
