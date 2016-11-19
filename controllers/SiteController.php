@@ -220,4 +220,9 @@ class SiteController extends Controller
     {
         return Locality::returnetown($s);
     }
+
+    public function actionGetName($s = null)
+    {
+        return Items::returnename($s);
+    }
 }

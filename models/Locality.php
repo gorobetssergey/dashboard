@@ -57,7 +57,7 @@ class Locality extends \yii\db\ActiveRecord
         $query = (new Query())
             ->select('title')
             ->from('locality')
-            ->where('title LIKE "%' . $s .'%"')
+            ->where('title LIKE "' . $s .'%"')
             ->orderBy('title');
         $command = $query->createCommand();
         $data = $command->queryAll();

@@ -2,6 +2,7 @@
 
 return [
 
-    'city_name' => 'Город'
+    'city_name' => 'Город',
+    'product_name' => 'Товар'
 
 ];

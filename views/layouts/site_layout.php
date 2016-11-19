@@ -3,12 +3,17 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use app\models\Items;
+use app\models\Locality;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\SiteAsset;
 use app\models\Users;
+use kartik\typeahead\Typeahead;
+use yii\helpers\Url;
+use yii\widgets\ActiveForm;
 
 SiteAsset::register($this);
 ?>
@@ -40,7 +45,6 @@ SiteAsset::register($this);
         ['label' => 'About', 'url' => ['/site/about']],
         ['label' => 'Contact', 'url' => ['/site/contact']],
     ];
-
     if(Yii::$app->user->isGuest):
         $menuItems[]=[
             'label' => 'Войти',
@@ -77,9 +81,54 @@ SiteAsset::register($this);
     ?>
 
     <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-lg-offset-1 col-md-offset-1">
+                <?php
+                $form = ActiveForm::begin();
+                echo $form->field(new Items(), 'name')->label(false)->widget(Typeahead::classname(), [
+                    'options' => ['placeholder' => Yii::t('site', 'product_name')],
+                    'pluginOptions' => ['highlight'=>true],
+                    'dataset' => [
+                        [
+                            'datumTokenizer' => "Bloodhound.tokenizers.obj.whitespace('value')",
+                            'display' => 'value',
+                            'remote' => [
+                                'url' => Url::to(['site/get-name']) . '?s=%QUERY',
+                                'wildcard' => '%QUERY'
+                            ]
+                        ]
+                    ],
+                    'pluginOptions' => ['highlight' => true],
+                ]);
+                ActiveForm::end();
+                ?>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-lg-offset-1 col-md-offset-1">
+                <?php
+                $forms = ActiveForm::begin();
+                echo $forms->field(new Locality(), 'title')->label(false)->widget(Typeahead::classname(), [
+                    'name' => 'title',
+                    'options' => ['placeholder' => Yii::t('site', 'city_name')],
+                    'pluginOptions' => ['highlight'=>true],
+                    'dataset' => [
+                        [
+                            'datumTokenizer' => "Bloodhound.tokenizers.obj.whitespace('value')",
+                            'display' => 'value',
+                            'remote' => [
+                                'url' => Url::to(['site/get-town']) . '?s=%QUERY',
+                                'wildcard' => '%QUERY'
+                            ]
+                        ]
+                    ],
+                    'pluginOptions' => ['highlight' => true],
+                ]);
+                ?>
+            </div>
+                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                    <?= Html::submitInput('Найти', ['class'=>'btn btn-info btn-block']) ?>
+                </div>
+            <?php ActiveForm::end();?>
+        </div>
         <?= $content ?>
     </div>
 </div>

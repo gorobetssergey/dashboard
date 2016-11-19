@@ -5,6 +5,8 @@ namespace app\models;
 use app\models\globals\UploadForm;
 use app\models\Topmenu;
 use app\models\StatusItems;
+use yii\db\Query;
+Use yii\helpers\Json;
 use Yii;
 
 /**
@@ -261,5 +263,21 @@ class Items extends \yii\db\ActiveRecord
             ->andWhere([
                 'in', 'items_id', $items
             ]);
+    }
+
+    public static function returnename($s = null)
+    {
+        $query = (new Query())
+            ->select('name')
+            ->from('items')
+            ->where('name LIKE "' . $s .'%"')
+            ->orderBy('name');
+        $command = $query->createCommand();
+        $data = $command->queryAll();
+        $out = [];
+        foreach ($data as $d) {
+            $out[] = ['value' => $d['name']];
+        }
+        return Json::encode($out);
     }
 }
