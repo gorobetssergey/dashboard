@@ -26,10 +26,10 @@ class m161108_192205_create_table_message extends Migration
 
     public function safeDown()
     {
-        $this->dropTable('messages');
         $this->dropForeignKey(
             'fk-users_id_messages',
             'messages'//table items
         );
+        $this->dropTable('messages');
     }    
 }
