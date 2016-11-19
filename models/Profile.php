@@ -61,7 +61,8 @@ class Profile extends \yii\db\ActiveRecord
              * scenario edit
              */
             [['tel_first','name', 'city'], 'required','on'=>'edit'],
-            ['ownership','checkOwnership','on'=>'edit']
+            ['ownership','checkOwnership','on'=>'edit'],
+            ['city','checkCity','on'=>'edit']
 
         ];
     }
@@ -81,7 +82,7 @@ class Profile extends \yii\db\ActiveRecord
             'name' => 'имя',
             'surname' => 'фамилия',
             'patronymic' => 'отчество',
-            'city' => 'город',
+            'city' => 'Город',
             'level' => 'Level',
         ];
     }
@@ -89,10 +90,20 @@ class Profile extends \yii\db\ActiveRecord
     {
         return [
             'default' => 'edit',
-            'edit' => ['tel_first', 'tel_sec', 'tel_next', 'name', 'surname', 'patronymic', 'city','ownership'],
+            'edit' => ['tel_first', 'tel_sec', 'tel_next', 'name', 'surname', 'patronymic', 'city','ownership','city'],
             'save_p' => ['user_id', 'ownership', 'tel_first', 'tel_sec', 'tel_next', 'name', 'surname', 'patronymic', 'city', 'level'],
 
         ];
+    }
+
+    public function checkCity($atribute)
+    {
+        if(!(new Locality())->getCity($this->$atribute))
+        {
+            $this->addError($atribute,'Указанного вами населенного пункта неу в базе. Укажите ближайший к вам населенный пункт');
+            return false;
+        }
+        return true;
     }
 
     public function checkOwnership($atribute)
