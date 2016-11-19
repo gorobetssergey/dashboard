@@ -29,11 +29,8 @@ use app\models\Properties;
     <?= $form->field($model, 'thorns_tires')->dropDownList(Properties::THORNS_TIRES,['prompt' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['thorns_tires']])?>
 
     <?= $form->field($model, 'can_thorns_tires')->dropDownList(Properties::CAN_THORNS_TIRES,['prompt' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['can_thorns_tires']])?>
-
-    <?= $form->field($model, 'type_sales')->checkboxList(Properties::DELIVERY_TYPE,['prompt' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['delivery']])?>
-
-    <?= $form->field($model, 'old_product')->checkbox(['label' => Yii::t('cabinet', 'old_product')['old']])?>
-
+    <?= $form->field($model, 'delivery_tires')->checkboxList(Properties::DELIVERY_TYPE,['prompt' => ''])?>
+    <?= $form->field($model, 'old_tires')->checkbox(['label' => Yii::t('cabinet', 'old_product')['old']])?>
     <?= $form->field($model, 'descriptions_tires')->textarea()?>
 
     <?= $form->field($model, 'titleImage')->fileInput() ?>
