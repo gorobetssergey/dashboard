@@ -39,8 +39,8 @@ class Items extends \yii\db\ActiveRecord
     public $diameter_tires;
     public $car_type_tires;
     public $thorns_tires;
-    public $type_sales;
-    public $old_product;
+    public $delivery_tires;
+    public $old_tires;
     public $can_thorns_tires;
     public $descriptions_tires;
 
@@ -110,8 +110,8 @@ class Items extends \yii\db\ActiveRecord
             'car_type_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['car_type_tires'],
             'thorns_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['thorns_tires'],
             'can_thorns_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['can_thorns_tires'],
-            'type_sales' => Yii::t('cabinet', 'delivery')['title'],
-            'old_product' => Yii::t('cabinet', 'old_product'),
+            'delivery_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['delivery_tires'],
+            'old_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['old_tires'],
             'descriptions_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['descriptions_tires'],
             'name_tires' => Yii::t('cabinet', 'transport_items')['transport_tires_items']['name_tires']
         ];
@@ -120,7 +120,7 @@ class Items extends \yii\db\ActiveRecord
     public function scenarios()
     {
         return [
-            'transport_tires' => ['name_tires','price_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires', 'type_sales', 'descriptions_tires', 'titleImage'],
+            'transport_tires' => ['name_tires','price_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires', 'delivery_tires', 'old_tires', 'descriptions_tires', 'titleImage'],
             'after_moderation' => ['user_id', 'topmenu_id', 'items_id', 'name', 'status', 'queue'],
             'get_self_active_items' => ['user_id'],//перевырити щоб преданий юзер був тим хто даэ запрос
         ];
