@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Url;
+use app\models\Properties;
 ?>
 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
     <div class="row">
@@ -25,9 +26,11 @@ use yii\helpers\Url;
                     <th>Значение</th>
                 </tr>
                 <?php $count = 0; foreach ($model->transportProps as $data): $count++;?>
-                    <?php if($count == $countModel-1)continue;?>
+                    <?php ?>
                     <tr>
-                        <td><?=Yii::t('cabinet','transport_items')['transport_tires_items'][$data->prop->name]?></td>
+                        <td>
+                            <?= Yii::t('cabinet','transport_items')['transport_tires_items'][$data->prop->name]?>
+                        </td>
                         <td><?=$data->value?></td>
                     </tr>
                 <?php endforeach;?>

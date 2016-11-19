@@ -29,6 +29,17 @@ return [
         'entity' => 'Компания',
     ],
 
+    'old_product' => [
+        'new' => 'новый',
+        'old' => 'б/у',
+    ],
+    'delivery' => [
+        'delivery_no'=>'без доставки',
+        'nova_poshta' =>'Нова пошта',
+        'express_mail'=>'Экспресс мейл',
+        'meest_express'=>'Meest Express',
+        'KM_express'=>'КМ ЭКСПРЕСС',
+    ],
     /**
      * titleImage
      */
@@ -53,7 +64,8 @@ return [
             'car_type_tires' => 'Тип',
             'thorns_tires' => 'Шипы',
             'can_thorns_tires' => 'Возможность ошиповки',
-            'condition_tires' => 'Состояние',
+            'delivery' => 'Выбор доставки',
+            'old_product' => 'Cостояние',
             'descriptions_tires' => 'Описание',
         ],
         'tires_and_wheels'=>'Шины, диски, колеса',
