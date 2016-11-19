@@ -25,13 +25,21 @@ use app\models\Properties;
                     <th>Свойство товара</th>
                     <th>Значение</th>
                 </tr>
-                <?php $count = 0; foreach ($model->transportProps as $data): $count++;?>
+                <?php $count = 0; foreach ($model->transportProps as $key => $data): $count++;?>
                     <?php ?>
                     <tr>
                         <td>
                             <?= Yii::t('cabinet','transport_items')['transport_tires_items'][$data->prop->name]?>
                         </td>
-                        <td><?=$data->value?></td>
+                        <td>
+                            <?php if($key != 9){?>
+                                <?=$data->value?>
+                            <?php } else{ ?>
+                                <ul>
+                                    <?php   echo Properties::prepare($data->value); ?>
+                                </ul>
+                            <?php }?>
+                        </td>
                     </tr>
                 <?php endforeach;?>
             </table>

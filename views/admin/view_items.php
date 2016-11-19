@@ -14,22 +14,20 @@ use app\models\Properties;
                 <th>Свойство товара</th>
                 <th>Значение свойства</th>
             </tr>
-            <?php foreach ($model->transportProps as $item): ?>
+            <?php foreach ($model->transportProps as $key => $item): ?>
                 <tr>
-                    <td><?php
-
-                        if(Yii::t('cabinet','transport_items')['transport_tires_items'][$item->prop->name]){
-                            echo Yii::t('cabinet','transport_items')['transport_tires_items'][$item->prop->name];
-                        }
-                        elseif($item->prop->name == Properties::TYPE_SALES_ALL){
-                            echo Yii::t('cabinet', 'delivery')['title'];
-                        }
-                        elseif($item->prop->name == Properties::OLD_PRODUCT_ALL){
-                            echo Yii::t('cabinet', 'old_product')['title'];
-                        }
-                        ?>
+                    <td>
+                        <?= Yii::t('cabinet','transport_items')['transport_tires_items'][$item->prop->name]  ?>
                     </td>
-                    <td><?=$item->value?></td>
+                    <td>
+                        <?php if($key != 9){?>
+                            <?=$item->value?>
+                        <?php } else{ ?>
+                            <ul>
+                                <?php   echo Properties::prepare($item->value); ?>
+                            </ul>
+                        <?php }?>
+                    </td>
                 </tr>
             <?php endforeach;?>
         </table>
