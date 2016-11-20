@@ -47,6 +47,7 @@ class Items extends \yii\db\ActiveRecord
     public $descriptions_tires;
 
     public $titleImage;
+    public $galleryImages;
 
     const TITLE_IMAGE_PATH = [
       '1' => 'transport'
@@ -80,7 +81,8 @@ class Items extends \yii\db\ActiveRecord
             [['name_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires'],'string','max'=>50,'on' => 'transport_tires'],
             [['descriptions_tires'],'string','max'=>2000,'on' => 'transport_tires'],
             [['titleImage'], 'image', 'skipOnEmpty' => false, 'enableClientValidation'=>true,
-                'extensions' => 'jpg', 'mimeTypes'=>['image/jpeg'], 'maxSize'=>512000, 'maxWidth'=>800, 'maxHeight'=>600, 'on' => 'transport_tires']
+                'extensions' => 'jpg', 'mimeTypes'=>['image/jpeg'], 'maxSize'=>512000, 'maxWidth'=>800, 'maxHeight'=>600, 'on' => 'transport_tires'],
+            [['galleryImages'], 'file', 'skipOnEmpty' => false, 'extensions' => 'jpg', 'maxFiles' => 10],
         ];
     }
 
@@ -99,6 +101,7 @@ class Items extends \yii\db\ActiveRecord
             'status' => Yii::t('app', 'Status'),
             'queue' => Yii::t('app', 'Queue'),
             'titleImage' => Yii::t('cabinet', 'titleImage'),
+            'galleryImages' => Yii::t('cabinet', 'galleryImages'),
             /**
              * atributes for transport_tires
              */
