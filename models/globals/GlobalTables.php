@@ -27,6 +27,10 @@ class GlobalTables extends Modal
     private $query;
     private $user;
 
+    const TRANSPORTPROPSTABLE = [ 
+            'transport_prop'
+        ];
+
     const TRANSPORTPROPS = 'transportProps';
     /**
      * return views specific of items
@@ -90,6 +94,11 @@ class GlobalTables extends Modal
         return $params;
     }
 
+    public function getTablePropertiesSearch($model)
+    {
+        return self::TRANSPORTPROPSTABLE[--$model];
+    }
+    
     /**
      * @param $model - id tompenu
      */
@@ -230,6 +239,50 @@ class GlobalTables extends Modal
                 'catalog_id' => $this->table->catalog_id
             ])
             ->andWhere(['not in','id',[$items]])
+            ->asArray()
+            ->all();
+
+        $items_arr = [];
+        foreach ($item as $itemss) {
+            $items_arr[] = $itemss['id'];
+        }
+
+        $ItemsVip = $modelItems->showItems(Items::STATUS_VIP,['topmenu' => $top, 'items' => $items_arr]);
+        $modelVip = [];
+        foreach ($ItemsVip as $item) {
+            $modelVip[$item->id] = $modelItems->getPath($item->topmenu_id).'/'.$item->topmenu->getPhotoTransports()->where(['item_id'=>$item->items_id])->one()->title;
+        }
+        return [
+            'itemsVip' => $ItemsVip,
+            'modelVip' => $modelVip
+        ];
+    }
+
+    private function builderQuery($params = [])
+    {
+        switch ($params['topmenu'])
+        {
+            case self::TRANSPORT : return with(['topmenu.itemsTransports','topmenu.itemsTransports.transportProps']);break;
+        }
+
+        $query = with();
+    }
+
+    public function findLikeItems($top,$items)
+    {
+
+        $modelItems = new Items();
+
+        $data = $this->getItemsTable($top,$items);
+        $catalog = $this->table->catalog_id;
+
+        $this->getTableProperties($top);
+        $item = $this->query
+            ->select('id')
+            ->where([
+                'catalog_id' => $this->table->catalog_id
+            ])
+            ->andWhere(['in','id',$items])
             ->asArray()
             ->all();
 

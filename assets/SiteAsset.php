@@ -31,7 +31,7 @@ class SiteAsset extends AssetBundle
     {
         parent::init();
         $action = Yii::$app->controller->action->id;
-        if(in_array($action,['index','view'])){
+        if(in_array($action,['index','view','find-like-items'])){
             $this->css[] = 'css/site/index.css';
         }
     }

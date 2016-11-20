@@ -25,7 +25,8 @@ use app\models\Properties;
                     <th>Свойство товара</th>
                     <th>Значение</th>
                 </tr>
-                <?php $count = 0; foreach ($model->transportProps as $key => $data): $count++;?>
+                <?php $count = 0; foreach ($model->transportProps as $key => $data): $count++;if($key == 11)continue; ?>
+
                     <?php ?>
                     <tr>
                         <td>

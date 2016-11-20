@@ -2,7 +2,9 @@
 
 namespace app\models;
 
+use app\models\globals\GlobalTables;
 use app\models\globals\UploadForm;
+use app\models\Profile;
 use app\models\Topmenu;
 use app\models\StatusItems;
 use yii\db\Query;
@@ -46,6 +48,11 @@ class Items extends \yii\db\ActiveRecord
     public $can_thorns_tires;
     public $descriptions_tires;
 
+    private $result_query;
+    private $result_items;
+
+    public $title_city;
+
     public $titleImage;
 
     const TITLE_IMAGE_PATH = [
@@ -79,8 +86,8 @@ class Items extends \yii\db\ActiveRecord
             [['price_tires'], 'integer','max'=>10000000,'min'=>1, 'on' => 'transport_tires'],
             [['name_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires'],'string','max'=>50,'on' => 'transport_tires'],
             [['descriptions_tires'],'string','max'=>2000,'on' => 'transport_tires'],
-            [['titleImage'], 'image', 'skipOnEmpty' => false, 'enableClientValidation'=>true,
-                'extensions' => 'jpg', 'mimeTypes'=>['image/jpeg'], 'maxSize'=>512000, 'maxWidth'=>800, 'maxHeight'=>600, 'on' => 'transport_tires']
+            [['titleImage'], 'file', 'skipOnEmpty' => false, 'enableClientValidation'=>true,
+                'maxSize'=>512000, 'on' => 'transport_tires']
         ];
     }
 
@@ -279,5 +286,40 @@ class Items extends \yii\db\ActiveRecord
             $out[] = ['value' => $d['name']];
         }
         return Json::encode($out);
+    }
+
+    public function getWithTableRelation($topmenu)
+    {
+        switch ($topmenu){
+            case 1: return 1;
+        }
+    }
+
+    public function findLikeItems($name, $city)
+    {
+        $query = (new Items())->find();
+        $this->result_items = [];
+        if($name && $city)
+        {
+            $res_query= 1;
+        }elseif ($name){
+            $res_query = 2;
+        }elseif ($city){
+            $user = (new Profile())->getTown($city);
+            $this->result_query = $query->where(['in','user_id',$user])->limit(25)->all();
+            foreach ($this->result_query as $item) {
+                $path = (new GlobalTables([]))->getPhoto($item->topmenu_id,$item->items_id);
+                $this->result_items[] = [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'price' => (new Properties())->getPrice($item->topmenu_id,$item->items_id),
+                    'photo' => $this->getPath($item->topmenu_id).$path[0]->title
+                ];
+            }
+        }else{
+            return false;
+        }
+
+        return $this->result_items;
     }
 }
