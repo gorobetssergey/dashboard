@@ -55,6 +55,8 @@ class Items extends \yii\db\ActiveRecord
 
     public $titleImage;
 
+    private $city;
+
     const TITLE_IMAGE_PATH = [
       '1' => 'transport'
     ];
@@ -295,31 +297,47 @@ class Items extends \yii\db\ActiveRecord
         }
     }
 
+    private function searchItems()
+    {
+        $data = [];
+        foreach ($this->result_query as $item) {
+            $path = (new GlobalTables([]))->getPhoto($item->topmenu_id,$item->items_id);
+            $data[] = [
+                'id' => $item->id,
+                'name' => $item->name,
+                'price' => (new Properties())->getPrice($item->topmenu_id,$item->items_id),
+                'photo' => $this->getPath($item->topmenu_id).$path[0]->title
+            ];
+        }
+        return $data;
+    }
+
     public function findLikeItems($name, $city)
     {
+        $this->city = $city;
         $query = (new Items())->find();
         $this->result_items = [];
+        $user = (new Profile())->getTown();
         if($name && $city)
         {
-            $res_query= 1;
+            $this->result_query = $query
+                ->where([
+                    'name' => $name,
+                ])
+                ->andWhere(['in','user_id',$user])
+                ->limit(25)
+                ->all();
+            $this->result_items = $this->searchItems();
         }elseif ($name){
-            $res_query = 2;
+            $this->result_query = $query->where(['name' => $name])->limit(25)->all();
+            $this->result_items = $this->searchItems();
         }elseif ($city){
             $user = (new Profile())->getTown($city);
             $this->result_query = $query->where(['in','user_id',$user])->limit(25)->all();
-            foreach ($this->result_query as $item) {
-                $path = (new GlobalTables([]))->getPhoto($item->topmenu_id,$item->items_id);
-                $this->result_items[] = [
-                    'id' => $item->id,
-                    'name' => $item->name,
-                    'price' => (new Properties())->getPrice($item->topmenu_id,$item->items_id),
-                    'photo' => $this->getPath($item->topmenu_id).$path[0]->title
-                ];
-            }
+            $this->result_items = $this->searchItems(true);
         }else{
             return false;
         }
-
         return $this->result_items;
     }
 }
