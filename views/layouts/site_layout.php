@@ -14,6 +14,7 @@ use app\models\Users;
 use kartik\typeahead\Typeahead;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use app\components\MenuWidgets;
 
 SiteAsset::register($this);
 ?>
@@ -79,7 +80,7 @@ SiteAsset::register($this);
     ]);
     NavBar::end();
     ?>
-
+    <?= MenuWidgets::widget()?>
     <div class="container">
         <?= $content ?>
     </div>

@@ -81,3 +81,12 @@
 .accordeone_clerk{
     margin-top: 15px;
 }
+#start-menu{
+    margin-top: 50px;
+    height: 60px;
+    background-color: #d5d5d5;
+}
+
+.wrap > .container {
+    padding: 10px 15px 20px!important;
+}
