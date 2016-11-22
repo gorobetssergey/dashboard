@@ -46,7 +46,7 @@
         height: 240px;
     }
 }
-@media all and (max-width: 400px) and (max-width: 559px) {
+@media all and (min-width: 400px) and (max-width: 559px) {
     .items_block, .items_vips {
         height: 350px;
     }
@@ -83,10 +83,26 @@
 }
 #start-menu{
     margin-top: 50px;
-    height: 60px;
+    height: 50px;
     background-color: #d5d5d5;
+    overflow: hidden;
+}
+ul.menu_start li{
+    width: 170px;
+    background-color: red;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 18px;
+    display: inline-block;
+}
+ul.menu_start{
+    margin-left: 155px;
 }
 
 .wrap > .container {
     padding: 10px 15px 20px!important;
+}
+ul{
+    padding-left: 0px;
 }
