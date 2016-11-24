@@ -7,10 +7,10 @@
         <div id = "start-menu" class="col-lg-12">
             <div class="btn-group btn-group-justified" role="group" aria-label="...">
                 <div class="btn-group" role="group">
-                    <a href="" type="button" class="btn btn-default menu_start">ТРАНСПОРТ</a>
+                    <a href="" type="button" class="btn btn-default menu_start" id = "transport">ТРАНСПОРТ</a>
                 </div>
                 <div class="btn-group" role="group">
-                    <a href="" type="button" class="btn btn-default menu_start">НЕДВИЖИМОСТЬ</a>
+                    <a href="" type="button" class="btn btn-default menu_start" id = "real_state">НЕДВИЖИМОСТЬ</a>
                 </div>
                 <div class="btn-group" role="group">
                     <a href="" type="button" class="btn btn-default menu_start">ДЕТСКИЙ МИР</a>
