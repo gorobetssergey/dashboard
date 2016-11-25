@@ -96,11 +96,22 @@
     background-color: #faf2cc;;
 }
 .wrap > .container {
-    padding: 20px 15px 20px;
+    padding: 70px 15px 20px;
 }
 #sub{
     position: absolute;
     top: 100px;
     z-index: 12;
     background-color: #00b3ee;
+}
+/*трансформации меню*/
+#transport_new,#real_state_new{
+    display: none;
+}
+.mem{
+    float: left;
+    height: 240px;
+    width: 25%;
+    background-color: #faf2cc;
+    border: 1px solid red;
 }

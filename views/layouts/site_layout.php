@@ -42,9 +42,9 @@ SiteAsset::register($this);
     ]);
 
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+//        ['label' => 'Home', 'url' => ['/site/index']],
+//        ['label' => 'About', 'url' => ['/site/about']],
+//        ['label' => 'Contact', 'url' => ['/site/contact']],
     ];
     if(Yii::$app->user->isGuest):
         $menuItems[]=[
@@ -80,7 +80,7 @@ SiteAsset::register($this);
     ]);
     NavBar::end();
     ?>
-    <?= MenuWidgets::widget()?>
+<!--    --><?//= MenuWidgets::widget()?>
     <div class="container">
         <?= $content ?>
     </div>

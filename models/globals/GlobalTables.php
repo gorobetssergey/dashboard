@@ -31,7 +31,7 @@ class GlobalTables extends Modal
      * таблиця з свойствами товарыв групи ТРАНСПОРТ .Використовуэться як запрос до бази
      */
     const TRANSPORTPROPSTABLE = [ 
-            'transport_prop'
+            '1' => 'transport_prop'
         ];
     /**
      * связь з таблицею transportProps . Використовуэться в запросі як связь
@@ -62,7 +62,7 @@ class GlobalTables extends Modal
     {
         $this->user = Users::id();//беру ід користувача. Якщо зареєстрований верне ід якщо ні верне null.
         $this->catalog = (isset($config['catalog'])) ? $config['catalog'] : null; // устанавдюю приватну змінну Каталог. Якщо створюєш товар то прийме значення ід каталогу в якому створюєш товар
-                                                                                    // інакше верне null
+                                                                // інакше верне null
 
         if($this->catalog)//якщо встановлений кталог тобто якщо свтрорюєш товар
         {
@@ -74,10 +74,10 @@ class GlobalTables extends Modal
     {
         switch($this->catalog)
         {
-            case self::TIRES ://якщо каталог товарів Автошини
+            case self::TIRES : //якщо каталог товарів Автошини
                                     $this->topmenu = self::TRANSPORT;//вказівник що цей каталог знаходиться в блокомі ТРАНСПОРТ
                                     $this->table = new ItemsTransport();//вказівник на таблицю куди запишу товар
-                                    $this->table_properties = self::TRANSPORTPROPSTABLE[--$this->catalog];//вказую таблицю в яку писатиму значення всых властивостей новостворенного товару
+                                    $this->table_properties = self::TRANSPORTPROPSTABLE[($this->catalog)];//вказую таблицю в яку писатиму значення всых властивостей новостворенного товару
                                     $this->properties = (new PropertiesGroup($this->catalog))->getAllProp();//вибираю перелык всых властивостей товару згыдно вибранного каталогу
                                     $this->view = self::VIEWS[$this->catalog];//вказую яку вюху показувати
                                     $this->scenaries = self::SCENARIES[$this->catalog];//створюю сценарій для роботи з введенними данними
