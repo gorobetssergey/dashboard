@@ -27,46 +27,36 @@ class GlobalTables extends Modal
     private $query;
     private $user;
 
-    /**
-     * таблиця з свойствами товарыв групи ТРАНСПОРТ .Використовуэться як запрос до бази
-     */
-    const TRANSPORTPROPSTABLE = [ 
-            'transport_prop'
-        ];
-    /**
-     * связь з таблицею transportProps . Використовуэться в запросі як связь
-     */
     const TRANSPORTPROPS = 'transportProps';
     /**
-     * return views specific of items . Підгружає конкретну необхіжну вюху
+     * return views specific of items
      */
     const VIEWS = [
       '1' => 'transport/tires'
     ];
     /**
-     * return specific scenario . Сценарій для обробки запиту по збереженню товару АВТОШИНА
+     * return specific scenario
      */
     const SCENARIES = [
       '1' => 'transport_tires'
     ];
     /**
-     * link of topmenu. Порядковий номер головного меню.
+     * link of topmenu
      */
     const TRANSPORT = 1;
     /**
-     * link of catalog. Порядковий номер каталога
+     * link of catalog
      */
     const TIRES = 1;
 
     public function __construct(array $config = [])
     {
-        $this->user = Users::id();//беру ід користувача. Якщо зареєстрований верне ід якщо ні верне null.
-        $this->catalog = (isset($config['catalog'])) ? $config['catalog'] : null; // устанавдюю приватну змінну Каталог. Якщо створюєш товар то прийме значення ід каталогу в якому створюєш товар
-                                                                                    // інакше верне null
+        $this->user = Users::id();
+        $this->catalog = (isset($config['catalog'])) ? $config['catalog'] : null;
 
-        if($this->catalog)//якщо встановлений кталог тобто якщо свтрорюєш товар
+        if($this->catalog)
         {
-            return $this->setParams();//устанавлюю праметри по замовчуванню згідно вибраного каталогу
+            return $this->setParams();
         }
     }
 
@@ -74,19 +64,17 @@ class GlobalTables extends Modal
     {
         switch($this->catalog)
         {
-            case self::TIRES ://якщо каталог товарів Автошини
-                                    $this->topmenu = self::TRANSPORT;//вказівник що цей каталог знаходиться в блокомі ТРАНСПОРТ
-                                    $this->table = new ItemsTransport();//вказівник на таблицю куди запишу товар
-                                    $this->table_properties = self::TRANSPORTPROPSTABLE[--$this->catalog];//вказую таблицю в яку писатиму значення всых властивостей новостворенного товару
-                                    $this->properties = (new PropertiesGroup($this->catalog))->getAllProp();//вибираю перелык всых властивостей товару згыдно вибранного каталогу
-                                    $this->view = self::VIEWS[$this->catalog];//вказую яку вюху показувати
-                                    $this->scenaries = self::SCENARIES[$this->catalog];//створюю сценарій для роботи з введенними данними
+            case self::TIRES :
+                                    $this->topmenu = self::TRANSPORT;
+                                    $this->table = new ItemsTransport();
+                                    $this->table_properties = 'transport_prop';
+                                    $this->properties = (new PropertiesGroup($this->catalog))->getAllProp();
+                                    $this->view = self::VIEWS[$this->catalog];
+                                    $this->scenaries = self::SCENARIES[$this->catalog];
         }
     }
 
-    /**
-     * @return array вернаю масив параметрів по замовчуванню згідно конкретного каталогу
-     */
+
     public function getParams()
     {
         $params = [
@@ -103,16 +91,6 @@ class GlobalTables extends Modal
     }
 
     /**
-     * @param $model айдішнік головного каталогу
-     * @return mixed
-     * вертаю таблицю в якій шукати свойства тораву
-     */
-    public function getTablePropertiesSearch($model)
-    {
-        return self::TRANSPORTPROPSTABLE[--$model];
-    }
-    
-    /**
      * @param $model - id tompenu
      */
 
@@ -121,8 +99,8 @@ class GlobalTables extends Modal
         switch($model)
         {
             case self::TRANSPORT :
-                                    $this->query = ItemsTransport::find();//відповідно до $model вказую з якої таблиці шукати товар
-                                    return self::TRANSPORTPROPS;break;//вказую связь
+                                    $this->query = ItemsTransport::find();
+                                    return self::TRANSPORTPROPS;break;
         }
     }
 
@@ -131,7 +109,6 @@ class GlobalTables extends Modal
      * @param $id
      * @param $user
      * @return array|null|\yii\db\ActiveRecord
-     * виборка конкретного товару
      */
     private function getTablePropertiesModel($model,$id, $user)
     {
@@ -150,7 +127,6 @@ class GlobalTables extends Modal
      * @param $model - id tompenu
      * @param $id
      * @return array|null|\yii\db\ActiveRecord
-     * виборка конкретного товару
      */
     public function getModel($model,$id, $user = null)
     {
@@ -164,7 +140,6 @@ class GlobalTables extends Modal
      * @param $top
      * @param $id_items
      * @return array
-     * складна виборка товару з усіма свойствами..
      */
     public function getItemsTable($top,$id_items)
     {
@@ -184,12 +159,7 @@ class GlobalTables extends Modal
                 ->one()->value
         ];
     }
-
-    /**
-     * @param $user
-     * @return array
-     * товари користувача на модерації
-     */
+    
     public function getUserItemsInModeration($user)
     {
         $model = new Moderation();
@@ -202,11 +172,7 @@ class GlobalTables extends Modal
         }
         return $arr;
     }
-
-    /**
-     * @return array
-     * товари користувача які пройшли модерацію
-     */
+    
     public function getActivItems()
     {
         $active = new Items(['scenario' => 'get_self_active_items']);
@@ -219,10 +185,6 @@ class GlobalTables extends Modal
         return $arr;
     }
 
-    /**
-     * @return array
-     * товари користувача які не пройшли модерацію та будуть видалені
-     */
     public function getMistakeItems()
     {
         $active = new ModerationMistake();
@@ -237,13 +199,7 @@ class GlobalTables extends Modal
         }
         return $arr;
     }
-
-    /**
-     * @param $topmenu
-     * @param $items
-     * @return array
-     * титульне фото конкретного товару
-     */
+    
     public function getPhoto($topmenu,$items)
     {
         $query = [
@@ -260,12 +216,6 @@ class GlobalTables extends Modal
         }
     }
 
-    /**
-     * @param $top
-     * @param $items
-     * @return array
-     * схожі товари
-     */
     public function getLikeItems($top,$items)
     {
         $modelItems = new Items();

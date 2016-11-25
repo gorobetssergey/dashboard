@@ -1,65 +1,41 @@
 @media all and (min-width: 1200px) {
-    .items_block, .items_vips {
+    .items_block {
         height: 280px;
-    }
-    .items_img {
-        height: 160px;
     }
 }
 @media all and (min-width: 992px) and (max-width: 1199px) {
-    .items_block, .items_vips {
+    .items_block {
         height: 300px;
-    }
-    .items_img {
-        height: 170px;
     }
 }
 @media all and (min-width: 768px) and (max-width: 991px) {
-    .items_block, .items_vips {
+    .items_block {
         height: 320px;
-    }
-    .items_img {
-        height: 180px;
     }
 }
 @media all and (min-width: 701px) and (max-width: 767px) {
-    .items_block, .items_vips {
+    .items_block {
         height: 500px;
-    }
-    .items_img {
-        height: 285px;
     }
 }
 @media all and (min-width: 650px) and (max-width: 700px) {
-    .items_block, .items_vips {
+    .items_block {
         height: 460px;
-    }
-    .items_img {
-        height: 260px;
     }
 }
 @media all and (min-width: 560px) and (max-width: 649px) {
-    .items_block, .items_vips {
+    .items_block {
         height: 420px;
     }
-    .items_img {
-        height: 240px;
-    }
 }
-@media all and (min-width: 400px) and (max-width: 559px) {
-    .items_block, .items_vips {
+@media all and (max-width: 400px) and (max-width: 559px) {
+    .items_block {
         height: 350px;
-    }
-    .items_img {
-        height: 200px;
     }
 }
 @media all and (max-width: 399px) {
-    .items_block, .items_vips {
+    .items_block {
         height: 280px;
-    }
-    .items_img {
-        height: 160px;
     }
 }
 .items_block, .items_vips{
@@ -80,27 +56,4 @@
 }
 .accordeone_clerk{
     margin-top: 15px;
-}
-#start-menu{
-    margin-top: 50px;
-    padding-left: 0!important;
-    padding-right: 0!important;
-    overflow: hidden;
-}
-.btn-default.menu_start{
-    border: none;
-    line-height: 40px;
-    height: 50px;
-}
-.btn-default.menu_start:hover{
-    background-color: #faf2cc;;
-}
-.wrap > .container {
-    padding: 20px 15px 20px;
-}
-#sub{
-    position: absolute;
-    top: 100px;
-    z-index: 12;
-    background-color: #00b3ee;
 }

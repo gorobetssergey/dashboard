@@ -4,7 +4,6 @@ use yii\helpers\Url;
 use app\components\ClerkWidget;
 use app\components\ViewItemsWidget;
 use app\components\LikeWidget;
-use app\components\SearchWidget;
 ?>
 
 <?php $result = Yii::$app->getSession()->getFlash('profile_successfully') ?>
@@ -15,7 +14,6 @@ use app\components\SearchWidget;
         <strong><?=$result['text']?></strong>
     </div>
 <?php endif;?>
-<?= SearchWidget::widget()?>
 <div class="row">
     <?= ViewItemsWidget::widget([
         'photo' => $photo,

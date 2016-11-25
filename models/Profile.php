@@ -167,18 +167,4 @@ class Profile extends \yii\db\ActiveRecord
         $user = self::findOne(['user_id' => $id]);
         return $user->surname.' '.$user->name;
     }
-    public function getTown($city)
-    {
-        $data = self::find()
-            ->select('user_id')
-            ->where(['city' => $city])
-            ->limit(25)
-            ->asArray()
-            ->all();
-        $user=[];
-        foreach ($data as $item) {
-            $user[] = (int)$item['user_id'];
-        }
-        return $user;
-    }
 }

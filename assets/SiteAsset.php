@@ -22,7 +22,6 @@ class SiteAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
-        'js/site/menu.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
@@ -32,7 +31,7 @@ class SiteAsset extends AssetBundle
     {
         parent::init();
         $action = Yii::$app->controller->action->id;
-        if(in_array($action,['index','view','find-like-items'])){
+        if(in_array($action,['index','view'])){
             $this->css[] = 'css/site/index.css';
         }
     }

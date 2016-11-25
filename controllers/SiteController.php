@@ -225,18 +225,4 @@ class SiteController extends Controller
     {
         return Items::returnename($s);
     }
-
-    public function actionFindLikeItems()
-    {
-        if(Yii::$app->request->isPost)
-        {
-            $post = Yii::$app->request->post();
-            $data = (new Items())->findLikeItems($post['Items']['name'],$post['Locality']['title']);
-            return $this->render('afterSearch',[
-               'model' => $data 
-            ]);
-        }else{
-            return $this->redirect(Url::toRoute('index'));
-        }
-    }
 }

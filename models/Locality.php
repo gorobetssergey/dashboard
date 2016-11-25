@@ -58,7 +58,6 @@ class Locality extends \yii\db\ActiveRecord
             ->select('title')
             ->from('locality')
             ->where('title LIKE "' . $s .'%"')
-            ->andWhere(['not in','type',['Область','Район']])
             ->orderBy('title');
         $command = $query->createCommand();
         $data = $command->queryAll();

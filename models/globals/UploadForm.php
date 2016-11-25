@@ -15,8 +15,8 @@ class UploadForm extends Model
     public function rules()
     {
         return [
-            [['titleImage'], 'file', 'skipOnEmpty' => false, 'enableClientValidation'=>true,
-                'maxSize'=>512000, 'on' => 'transport_tires'],
+            [['titleImage'], 'image', 'skipOnEmpty' => false, 'enableClientValidation'=>true,
+                'extensions' => 'jpg', 'mimeTypes'=>['image/jpeg'], 'maxSize'=>512000, 'maxWidth'=>800, 'maxHeight'=>600, 'on' => 'transport_tires'],
         ];
     }
 

@@ -8,6 +8,7 @@ class UploadImages extends Model
 {
     /**
      * @var UploadedFile[]
+     * @property array $galleryImages
      */
     public $galleryImages;
 
@@ -22,7 +23,7 @@ class UploadImages extends Model
     {
         if ($this->validate()) {
             foreach ($this->galleryImages as $file) {
-                $file->saveAs('uploads/' . $file->baseName . '.' . $file->extension);
+                $file->saveAs('images/items/transport' . $file->baseName . '.' . $file->extension);
             }
             return true;
         } else {

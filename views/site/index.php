@@ -2,11 +2,9 @@
 
 use yii\helpers\Url;
 use app\components\VipItemsWidget;
-use app\components\SearchWidget;
 
 $this->title = 'Главная';
 ?>
-<?= SearchWidget::widget()?>
 <div class="container">
     <div class="row">
         <div class="col-lg-12">

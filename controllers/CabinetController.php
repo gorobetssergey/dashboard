@@ -3,7 +3,9 @@
 namespace app\controllers;
 
 
+use app\models\globals\UploadImages;
 use app\models\Locality;
+use Psr\Http\Message\UploadedFileInterface;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use app\models\globals\GlobalTables;
@@ -16,6 +18,7 @@ use Yii;
 use yii\helpers\Url;
 use app\models\Profile;
 use yii\web\UploadedFile;
+
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -93,10 +96,14 @@ class CabinetController extends Controller
         {
             $post = Yii::$app->request->post();
             $upload = new UploadForm();
+            $uploadImages = new UploadImages();
             $upload->titleImage = UploadedFile::getInstance($items, 'titleImage');
-            
+            $uploadImages->galleryImages = UploadedFile::getInstance($items, 'galleryImages');
+
             $post['Items']['titleImage'] = $upload->titleImage;
-            if($items->load($post) && $items->validate())
+            $post['Items']['galleryImages[]'] = $uploadImages->galleryImages;
+
+            if($items->load($post) && $items->validate() && $uploadImages->load($post))
             {
                 $time = time();
                 $date = date('Y-m-d H:i:s',strtotime('now'));
@@ -125,6 +132,7 @@ class CabinetController extends Controller
                     return $this->refresh();
                 }
             }else{
+                debug($items->errors);
                 Yii::$app->getSession()->setFlash('add_new_items_err', 'Ошибка данных.');
                 return $this->refresh();
             }
