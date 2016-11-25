@@ -2,7 +2,9 @@
 
 namespace app\models;
 
+use app\models\globals\GlobalTables;
 use app\models\globals\UploadForm;
+use app\models\Profile;
 use app\models\Topmenu;
 use app\models\StatusItems;
 use yii\db\Query;
@@ -46,8 +48,15 @@ class Items extends \yii\db\ActiveRecord
     public $can_thorns_tires;
     public $descriptions_tires;
 
+    private $result_query;
+    private $result_items;
+
+    public $title_city;
+
     public $titleImage;
     public $galleryImages;
+
+    private $city;
 
     const TITLE_IMAGE_PATH = [
       '1' => 'transport'
@@ -76,13 +85,12 @@ class Items extends \yii\db\ActiveRecord
             /**
              * rulles for transport_tires
              */
-            [['titleImage', 'name_tires','price_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires','descriptions_tires', 'galleryImages'],'required','on' => 'transport_tires'],
+            [['titleImage', 'name_tires','price_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires','descriptions_tires'],'required','on' => 'transport_tires'],
             [['price_tires'], 'integer','max'=>10000000,'min'=>1, 'on' => 'transport_tires'],
             [['name_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires'],'string','max'=>50,'on' => 'transport_tires'],
             [['descriptions_tires'],'string','max'=>2000,'on' => 'transport_tires'],
-            [['titleImage'], 'image', 'skipOnEmpty' => false, 'enableClientValidation'=>true,
-                'extensions' => 'jpg', 'mimeTypes'=>['image/jpeg'], 'maxSize'=>512000, 'maxWidth'=>800, 'maxHeight'=>600, 'on' => 'transport_tires'],
-            [['galleryImages'], 'file', 'skipOnEmpty' => false, 'extensions' => 'jpg', 'maxFiles' => 10, 'on' => 'transport_tires'],
+            [['titleImage'], 'file', 'skipOnEmpty' => false, 'enableClientValidation'=>true,
+                'maxSize'=>512000, 'on' => 'transport_tires']
         ];
     }
 
@@ -101,7 +109,6 @@ class Items extends \yii\db\ActiveRecord
             'status' => Yii::t('app', 'Status'),
             'queue' => Yii::t('app', 'Queue'),
             'titleImage' => Yii::t('cabinet', 'titleImage'),
-            'galleryImages' => Yii::t('cabinet', 'galleryImages'),
             /**
              * atributes for transport_tires
              */
@@ -160,6 +167,10 @@ class Items extends \yii\db\ActiveRecord
     }
 
     private function setPath($topmenu)
+    {
+        return __DIR__.'/../images/items/'.self::TITLE_IMAGE_PATH[$topmenu] . '/';
+    }
+    public function setPathPhoto($topmenu)
     {
         return __DIR__.'/../images/items/'.self::TITLE_IMAGE_PATH[$topmenu] . '/';
     }
@@ -282,5 +293,56 @@ class Items extends \yii\db\ActiveRecord
             $out[] = ['value' => $d['name']];
         }
         return Json::encode($out);
+    }
+
+    public function getWithTableRelation($topmenu)
+    {
+        switch ($topmenu){
+            case 1: return 1;
+        }
+    }
+
+    private function searchItems()
+    {
+        $data = [];
+        foreach ($this->result_query as $item) {
+            $path = (new GlobalTables([]))->getPhoto($item->topmenu_id,$item->items_id);
+            $data[] = [
+                'id' => $item->id,
+                'name' => $item->name,
+                'price' => (new Properties())->getPrice($item->topmenu_id,$item->items_id),
+                'photo' => $this->getPath($item->topmenu_id).$path[0]->title
+            ];
+        }
+        return $data;
+    }
+
+    public function findLikeItems($name, $city)
+    {
+        $this->city = $city;
+        $query = (new Items())->find();
+        $this->result_items = [];
+        $user = (new Profile())->getTown();
+        if($name && $city)
+        {
+            $this->result_query = $query
+                ->where([
+                    'name' => $name,
+                ])
+                ->andWhere(['in','user_id',$user])
+                ->limit(25)
+                ->all();
+            $this->result_items = $this->searchItems();
+        }elseif ($name){
+            $this->result_query = $query->where(['name' => $name])->limit(25)->all();
+            $this->result_items = $this->searchItems();
+        }elseif ($city){
+            $user = (new Profile())->getTown($city);
+            $this->result_query = $query->where(['in','user_id',$user])->limit(25)->all();
+            $this->result_items = $this->searchItems(true);
+        }else{
+            return false;
+        }
+        return $this->result_items;
     }
 }

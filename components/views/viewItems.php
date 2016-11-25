@@ -10,7 +10,7 @@ use app\models\Properties;
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center" style="overflow: hidden">
             <div class="row">
                 <div class="col-lg-12">
-                    <img src="<?=Url::home(true)?>images/items/<?=$photo[1].'/'.$photo[0]->title?>" class="items_img img-rounded img_main">
+                    <img src="<?=Url::home(true)?>images/items/<?=$photo[1].'/'.$photo[0]->title?>" class="items_img">
                 </div>
                 <div class="col-lg-12">
                     <div class="well">
@@ -25,7 +25,8 @@ use app\models\Properties;
                     <th>Свойство товара</th>
                     <th>Значение</th>
                 </tr>
-                <?php $count = 0; foreach ($model->transportProps as $key => $data): $count++;?>
+                <?php $count = 0; foreach ($model->transportProps as $key => $data): $count++;if($key == 11)continue; ?>
+
                     <?php ?>
                     <tr>
                         <td>

@@ -178,7 +178,7 @@ class ItemsTransport extends \yii\db\ActiveRecord
                 [$this->id, 8 , Properties::THORNS_TIRES[$_POST['Items']['thorns_tires']]],
                 [$this->id, 9 , Properties::CAN_THORNS_TIRES[$_POST['Items']['can_thorns_tires']]],
                 [$this->id, 10 , self::prepare_mask($_POST['Items']['delivery_tires'])],
-                [$this->id, 11 , ($_POST['Items']['old_tires'])? Yii::t('cabinet', 'old_product')['new'] : Yii::t('cabinet', 'old_product')['old']],
+                [$this->id, 11 , ($_POST['Items']['old_tires'])? Yii::t('cabinet', 'old_product')['old'] : Yii::t('cabinet', 'old_product')['new']],
                 [$this->id, 12 , $_POST['Items']['descriptions_tires']],
                 [$this->id, 13 , $_POST['Items']['name_tires']],
             ];
@@ -190,6 +190,7 @@ class ItemsTransport extends \yii\db\ActiveRecord
 
             if($res1 && $res2 && $res3 && $res4 && $res5 && $res6)
             {
+                Yii::$app->getSession()->setFlash('id_row_photo', $photo->id);
                 $transaction->commit();
                 return true;
             }

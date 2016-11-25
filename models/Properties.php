@@ -2,7 +2,9 @@
 
 namespace app\models;
 
+use app\models\globals\GlobalTables;
 use Yii;
+use yii\db\Query;
 
 /**
  * This is the model class for table "properties".
@@ -15,6 +17,10 @@ use Yii;
  */
 class Properties extends \yii\db\ActiveRecord
 {
+    const PRICE = 1;
+
+    private $query;
+
     const BREND_TIRES =  [
         "1" => 'ACCELERA',
         "2" => 'ACHILLES',
@@ -282,6 +288,7 @@ class Properties extends \yii\db\ActiveRecord
         '243' => 'Без возможности ошиповки'
     ];
     const DELIVERY_TYPE = [
+        self::DELIVERY_NO =>   '-',
         self::DELIVERY_NOVA_POSHTA =>   'Нова пошта',
         self::DELIVERY_EXPRESS_MEIL =>  'Экспресс мейл',
         self::DELIVERY_MEEST_EXPRESS => 'Meest Express',
@@ -360,4 +367,18 @@ class Properties extends \yii\db\ActiveRecord
         }
         return $model;
     }
+     public function getPrice($topmenu, $items)
+     {
+         switch ($topmenu){
+             case 1 : $this->query = (new GlobalTables([]))->getTablePropertiesSearch($topmenu);break;
+         }
+         return (new Query())
+                ->from($this->query)
+                ->select('value')
+                ->where([
+                 'items_id' => $items,
+                 'prop_id' => self::PRICE
+             ])
+             ->one();
+     }
 }

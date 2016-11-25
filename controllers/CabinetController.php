@@ -5,7 +5,6 @@ namespace app\controllers;
 
 use app\models\globals\UploadImages;
 use app\models\Locality;
-use Psr\Http\Message\UploadedFileInterface;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use app\models\globals\GlobalTables;
@@ -18,7 +17,6 @@ use Yii;
 use yii\helpers\Url;
 use app\models\Profile;
 use yii\web\UploadedFile;
-
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -92,18 +90,22 @@ class CabinetController extends Controller
     {
         $params = (new GlobalTables(['catalog' => $catalog]))->getParams();
         $items = new Items(['scenario' =>$params['scenario']]);
+        $modelImages = new UploadImages();
+
+        if(Yii::$app->request->post('UploadImages')){
+            $modelImages->imageFiles = UploadedFile::getInstances($modelImages, 'imageFiles');
+            if ($modelImages->upload($catalog)) {
+                Yii::$app->getSession()->setFlash('add_new_items_ok', 'Успешно. Картинки в галерею сохранины успешно');
+                return $this->refresh();            }
+        }
         if(Yii::$app->request->isPost)
         {
             $post = Yii::$app->request->post();
             $upload = new UploadForm();
-            $uploadImages = new UploadImages();
             $upload->titleImage = UploadedFile::getInstance($items, 'titleImage');
-            $uploadImages->galleryImages = UploadedFile::getInstance($items, 'galleryImages');
-
+            
             $post['Items']['titleImage'] = $upload->titleImage;
-            $post['Items']['galleryImages[]'] = $uploadImages->galleryImages;
-
-            if($items->load($post) && $items->validate() && $uploadImages->load($post))
+            if($items->load($post) && $items->validate())
             {
                 $time = time();
                 $date = date('Y-m-d H:i:s',strtotime('now'));
@@ -124,7 +126,9 @@ class CabinetController extends Controller
                 if($params['table']->save(true,$attributeNames))
                 {
                     Yii::$app->getSession()->setFlash('add_new_items_ok', 'Товар успешно направлен на модерацию.');
-                    return $this->refresh();
+
+                    return $this->render('_forms/save_files', [
+                        'model' => $modelImages]);
                 }
                 else{
 
@@ -132,7 +136,6 @@ class CabinetController extends Controller
                     return $this->refresh();
                 }
             }else{
-                debug($items->errors);
                 Yii::$app->getSession()->setFlash('add_new_items_err', 'Ошибка данных.');
                 return $this->refresh();
             }

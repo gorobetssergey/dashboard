@@ -34,7 +34,6 @@ use app\models\Properties;
     <?= $form->field($model, 'descriptions_tires')->textarea()?>
 
     <?= $form->field($model, 'titleImage')->fileInput() ?>
-    <?= $form->field($model, 'galleryImages[]')->fileInput(['multiple' => true, 'accept' => 'image/*' ]) ?>
     <div class="form-group">
         <?= Html::submitButton('Добавить товар', ['class' => 'btn btn-success btn-block']) ?>
     </div>
