@@ -25,15 +25,16 @@
     cursor: pointer;
 }
 .pager_fixed{
-    bottom: 141px;
+    top: 141px;
     position: relative;
     z-index: 50;
 }
 .pager_important{
     margin: 0;
 }
-.pager li > a, .pager li > span {
-  /*background: none !important;*/
+.gallery_button_c{
     color: blueviolet;
+}
+.gallery_button_bor{
     border: 1px solid #b88ee2;
 }

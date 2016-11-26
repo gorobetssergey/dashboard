@@ -18,13 +18,16 @@ use app\models\Properties;
 <!--                    </div>-->
 <!--                </div>-->
                 <div class="col-lg-12">
-                    <div>
-                            <img id="0" src="<?=Url::home(true)?>images/items/<?=$photo[1].'/'.$photo[0]->title?>" class="items_img click_photo image_pointer">
-                            <ul class="pager_fixed pager_important pager">
-                                <li class="previous"><a class="p_left image_pointer glyphicon glyphicon-triangle-left"></a></li>
-                                <li class="next"><a class="p_right image_pointer glyphicon glyphicon-triangle-right"></a></li>
-                            </ul>
+                    <div style="position: inherit">
+                        <button class="btn btn-default pager_fixed pull-left gallery_button_bor"><a class="gallery_button_c p_left image_pointer glyphicon glyphicon-triangle-left"></a></button>
+                        <button class="btn btn-default pager_fixed pull-right gallery_button_bor"><a class="gallery_button_c p_right image_pointer glyphicon glyphicon-triangle-right"></a></button>
                     </div>
+                    <div style="height: 320px;">
+                            <img id="0" src="<?=Url::home(true)?>images/items/<?=$photo[1].'/'.$photo[0]->title?>" class="items_img click_photo image_pointer">
+
+
+                    </div>
+
                     <div class="gallery_height row">
                         <?php   $max_file = 11;
                                 $photo_one = '';
