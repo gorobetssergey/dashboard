@@ -6,7 +6,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 ?>
 
-<div class="row">
+<div class="row top_margin">
     <?php
     $form = ActiveForm::begin([
         'method' => 'post',

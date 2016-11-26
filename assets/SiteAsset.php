@@ -22,7 +22,7 @@ class SiteAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
-        'js/site/menu.js',
+        'js/site/new_menu.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

@@ -69,6 +69,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+		
         $modelItems = new Items();
         $ItemsStandard = $modelItems->showItems(Items::STATUS_STANDART);
         $ItemsVip = $modelItems->showItems(Items::STATUS_VIP);
@@ -80,7 +81,7 @@ class SiteController extends Controller
         foreach ($ItemsVip as $item) {
             $modelVip[$item->id] = $modelItems->getPath($item->topmenu_id).'/'.$item->topmenu->getPhotoTransports()->where(['item_id'=>$item->items_id])->one()->title;
         }
-        return $this->render('index',[
+        return $this->render('index_new',[
             'ItemsVip' => $ItemsVip,
             'modelVip' => $modelVip,
             'ItemsTop' => $modelItems->showItems(Items::STATUS_TOP),
