@@ -31,7 +31,9 @@ class UploadImages extends Model
     private function saveImageName($column, $catalog, $name){
         $id = Yii::$app->getSession()->getFlash('id_row_photo');
         switch ($column){
-            case 'photo_1' : { $photo = PhotoTransport::findOne($id);
+            case 'photo_1' : {
+                $x = new PhotoTransport();
+                $photo = $x::findOne($id);
                     $photo->photo_1 = $name;
                     $photo->update();
             }break;
@@ -52,7 +54,7 @@ class UploadImages extends Model
                 $photo->update();
             }break;
             case 'photo_6' : { $photo = PhotoTransport::findOne($id);
-                $photo->photo_1 = $name;
+                $photo->photo_6 = $name;
                 $photo->update();
             }break;
             case 'photo_7' : { $photo = PhotoTransport::findOne($id);
