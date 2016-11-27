@@ -22,10 +22,8 @@ use app\models\Properties;
                         <button class="btn btn-default pager_fixed pull-left gallery_button_bor"><a class="gallery_button_c p_left image_pointer glyphicon glyphicon-triangle-left"></a></button>
                         <button class="btn btn-default pager_fixed pull-right gallery_button_bor"><a class="gallery_button_c p_right image_pointer glyphicon glyphicon-triangle-right"></a></button>
                     </div>
-                    <div style="height: 320px;">
+                    <div class="main_img_gallery">
                             <img id="0" src="<?=Url::home(true)?>images/items/<?=$photo[1].'/'.$photo[0]->title?>" class="items_img click_photo image_pointer">
-
-
                     </div>
 
                     <div class="gallery_height row">

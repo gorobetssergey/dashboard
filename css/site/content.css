@@ -17,7 +17,9 @@
     opacity: 1;
 }
 .gallery_height{
-    border-top: 1px solid #b88ee2;}
+    border-top: 1px solid #b88ee2;
+    padding-top: 8px;
+}
 .image_modal{
     width: 80%;
 }
@@ -37,4 +39,8 @@
 }
 .gallery_button_bor{
     border: 1px solid #b88ee2;
+}
+.main_img_gallery{
+    height: 320px;
+    padding-top: 43px !important;
 }
