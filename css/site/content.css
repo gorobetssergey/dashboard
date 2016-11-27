@@ -27,7 +27,7 @@
     cursor: pointer;
 }
 .pager_fixed{
-    top: 141px;
+    top: 153px;
     position: relative;
     z-index: 50;
 }
