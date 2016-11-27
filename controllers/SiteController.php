@@ -69,7 +69,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-		
         $modelItems = new Items();
         $ItemsStandard = $modelItems->showItems(Items::STATUS_STANDART);
         $ItemsVip = $modelItems->showItems(Items::STATUS_VIP);
