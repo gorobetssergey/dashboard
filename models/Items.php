@@ -54,6 +54,7 @@ class Items extends \yii\db\ActiveRecord
     public $title_city;
 
     public $titleImage;
+    public $galleryImages;
 
     private $city;
 
@@ -131,7 +132,7 @@ class Items extends \yii\db\ActiveRecord
     public function scenarios()
     {
         return [
-            'transport_tires' => ['name_tires','price_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires', 'delivery_tires', 'old_tires', 'descriptions_tires', 'titleImage'],
+            'transport_tires' => ['name_tires','price_tires','brand_name_tires','season_tires','width_tires','side_view_tires','diameter_tires','car_type_tires','thorns_tires','can_thorns_tires', 'delivery_tires', 'old_tires', 'descriptions_tires', 'titleImage', 'galleryImages'],
             'after_moderation' => ['user_id', 'topmenu_id', 'items_id', 'name', 'status', 'queue'],
             'get_self_active_items' => ['user_id'],//перевырити щоб преданий юзер був тим хто даэ запрос
         ];
@@ -166,6 +167,10 @@ class Items extends \yii\db\ActiveRecord
     }
 
     private function setPath($topmenu)
+    {
+        return __DIR__.'/../images/items/'.self::TITLE_IMAGE_PATH[$topmenu] . '/';
+    }
+    public function setPathPhoto($topmenu)
     {
         return __DIR__.'/../images/items/'.self::TITLE_IMAGE_PATH[$topmenu] . '/';
     }

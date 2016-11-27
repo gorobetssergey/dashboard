@@ -4,3 +4,7 @@
 .button_float_l{
     float: left;
 }
+.no_gallery{
+    float: left;
+    margin-right: 20px;
+}

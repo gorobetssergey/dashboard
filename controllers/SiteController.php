@@ -80,7 +80,7 @@ class SiteController extends Controller
         foreach ($ItemsVip as $item) {
             $modelVip[$item->id] = $modelItems->getPath($item->topmenu_id).'/'.$item->topmenu->getPhotoTransports()->where(['item_id'=>$item->items_id])->one()->title;
         }
-        return $this->render('index_new',[
+        return $this->render('index',[
             'ItemsVip' => $ItemsVip,
             'modelVip' => $modelVip,
             'ItemsTop' => $modelItems->showItems(Items::STATUS_TOP),

@@ -288,6 +288,7 @@ class Properties extends \yii\db\ActiveRecord
         '243' => 'Без возможности ошиповки'
     ];
     const DELIVERY_TYPE = [
+        self::DELIVERY_NO =>   '-',
         self::DELIVERY_NOVA_POSHTA =>   'Нова пошта',
         self::DELIVERY_EXPRESS_MEIL =>  'Экспресс мейл',
         self::DELIVERY_MEEST_EXPRESS => 'Meest Express',

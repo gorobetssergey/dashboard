@@ -70,7 +70,8 @@
     border-radius: 2px;
 }
 .items_img{
-    width: 100%;
+    width: auto;
+    height: 250px;
 }
 .clerck_photo{
     width: 100%;

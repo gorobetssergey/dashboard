@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 
+use app\models\globals\UploadImages;
 use app\models\Locality;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -89,6 +90,14 @@ class CabinetController extends Controller
     {
         $params = (new GlobalTables(['catalog' => $catalog]))->getParams();
         $items = new Items(['scenario' =>$params['scenario']]);
+        $modelImages = new UploadImages();
+
+        if(Yii::$app->request->post('UploadImages')){
+            $modelImages->imageFiles = UploadedFile::getInstances($modelImages, 'imageFiles');
+            if ($modelImages->upload($catalog)) {
+                Yii::$app->getSession()->setFlash('add_new_items_ok', 'Успешно. Картинки в галерею сохранины успешно');
+                return $this->refresh();            }
+        }
         if(Yii::$app->request->isPost)
         {
             $post = Yii::$app->request->post();
@@ -117,7 +126,9 @@ class CabinetController extends Controller
                 if($params['table']->save(true,$attributeNames))
                 {
                     Yii::$app->getSession()->setFlash('add_new_items_ok', 'Товар успешно направлен на модерацию.');
-                    return $this->refresh();
+
+                    return $this->render('_forms/save_files', [
+                        'model' => $modelImages]);
                 }
                 else{
 

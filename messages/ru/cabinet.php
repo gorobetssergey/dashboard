@@ -44,6 +44,7 @@ return [
      * titleImage
      */
     'titleImage' => 'Титульное изображение',
+    'galleryImages' => 'Галерея фото',
 
     /*****************/
 

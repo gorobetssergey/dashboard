@@ -20,6 +20,7 @@ class SiteAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
+        'css/site/content.css'
     ];
     public $js = [
         'js/site/new_menu.js',

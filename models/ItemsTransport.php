@@ -190,6 +190,7 @@ class ItemsTransport extends \yii\db\ActiveRecord
 
             if($res1 && $res2 && $res3 && $res4 && $res5 && $res6)
             {
+                Yii::$app->getSession()->setFlash('id_row_photo', $photo->id);
                 $transaction->commit();
                 return true;
             }
