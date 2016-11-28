@@ -15,10 +15,27 @@ return [
     'business_and_services' => 'Бизнес и услуги',
     'fashion_style' => 'Мода и стиль',
     'sport' => 'Хобби, отдых и спорт',
-    'helping' => 'Нужна помощ',
+    'helping' => 'Нужна помощь',
     'giveAwey' => 'Отдам даром',
     'exchange' => 'Обмен',
+    'more' => 'Ещё',
+    /**
+     * SubMenu
+     */
+    'sub_menu' =>[
+        'Tires' => 'Автошины',
+        'Discs' => 'Диски',
+        'Complete_wheels' => 'Колеса в сборе',
+        'Covers' => 'Колпаки',
+        'motorcycle_tires' => 'Мотошины',
 
+        'quarters' => 'Квартиры',
+        'home' => 'Дома',
+        'commercial_realty' => 'Коммерческая недвижимость',
+        'office' => 'Офисы',
+        'plots' => 'Земельные участки',
+        'garage' => 'Гаражи'
+    ],
     /**
      *
      */

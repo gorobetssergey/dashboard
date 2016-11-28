@@ -44,3 +44,7 @@
     height: 320px;
     padding-top: 43px !important;
 }
+.content_s{
+    top: 150px;
+    position: absolute;
+}

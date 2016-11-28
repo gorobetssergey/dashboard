@@ -103,4 +103,11 @@ class Topmenu extends \yii\db\ActiveRecord
                                             return $this->itemsTransports;break;
         }
     }
+
+    public function getTopMenu()
+    {
+        $menu = self::find()
+            ->all();
+        return $menu;
+    }
 }
