@@ -63,4 +63,21 @@ class SubCat extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Submenu::className(), ['id' => 'id_sub']);
     }
+
+    public function getListSubMenu($id_sub)
+    {
+        $list = self::find()
+            ->with('idCat')
+            ->where(['id_sub' => $id_sub])
+            ->all();
+        return $list;
+    }
+    public function getList()
+    {
+        $list = self::find()
+            ->select(['id_sub'])
+            ->distinct('id_sub')
+            ->all();
+        return $list;
+    }
 }

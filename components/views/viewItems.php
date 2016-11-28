@@ -9,12 +9,47 @@ use app\models\Properties;
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center" style="overflow: hidden">
             <div class="row">
+<!--                <div class="col-lg-12">-->
+<!--                    <img src="--><?//=Url::home(true)?><!--images/items/--><?//=$photo[1].'/'.$photo[0]->title?><!--" class="items_img">-->
+<!--                </div>-->
+<!--                <div class="col-lg-12">-->
+<!--                    <div class="well">-->
+<!--                        <h4>Галерея</h4>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="col-lg-12">
-                    <img src="<?=Url::home(true)?>images/items/<?=$photo[1].'/'.$photo[0]->title?>" class="items_img">
-                </div>
-                <div class="col-lg-12">
-                    <div class="well">
-                        <h4>Галерея</h4>
+                    <div style="position: inherit">
+                        <button class="btn btn-default pager_fixed pull-left gallery_button_bor"><a class="gallery_button_c p_left image_pointer glyphicon glyphicon-triangle-left"></a></button>
+                        <button class="btn btn-default pager_fixed pull-right gallery_button_bor"><a class="gallery_button_c p_right image_pointer glyphicon glyphicon-triangle-right"></a></button>
+                    </div>
+                    <div class="main_img_gallery">
+                            <img id="0" src="<?=Url::home(true)?>images/items/<?=$photo[1].'/'.$photo[0]->title?>" class="items_img click_photo image_pointer">
+                    </div>
+
+                    <div class="gallery_height row">
+                        <?php   $max_file = 11;
+                                $photo_one = '';
+                        for($i=0; $i<$max_file; $i++):
+                            switch($i){
+                                case 0 : {$photo_one = $photo[0]->title;}break;
+                                case 1 : {$photo_one = $photo[0]->photo_1;}break;
+                                case 2 : {$photo_one = $photo[0]->photo_2;}break;
+                                case 3 : {$photo_one = $photo[0]->photo_3;}break;
+                                case 4 : {$photo_one = $photo[0]->photo_4;}break;
+                                case 5 : {$photo_one = $photo[0]->photo_5;}break;
+                                case 6 : {$photo_one = $photo[0]->photo_6;}break;
+                                case 7 : {$photo_one = $photo[0]->photo_7;}break;
+                                case 8 : {$photo_one = $photo[0]->photo_8;}break;
+                                case 9 : {$photo_one = $photo[0]->photo_9;}break;
+                                case 10 : {$photo_one = $photo[0]->photo_10;}break;
+                            }
+                            if(! $photo_one){
+                                continue;
+                            }
+                        ?>
+                            <img id="<?= $i ?>" src="<?=Url::home(true)?>images/items/<?=$photo[1].'/'.$photo_one?>" class="gallery_img_border_standard gallery_img image_pointer">
+                        <?php endfor;?>
+                        <span id="max_images" data-max_file="<?= $i ?>"></span>
                     </div>
                 </div>
             </div>
@@ -52,3 +87,20 @@ use app\models\Properties;
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal  fade" id="photoModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <img  src="" class="show_image image_modal">
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+    $this->registerJsFile('js/site/images_gallery.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+?>

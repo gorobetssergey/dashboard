@@ -291,7 +291,7 @@ class GlobalTables extends Modal
         $ItemsVip = $modelItems->showItems(Items::STATUS_VIP,['topmenu' => $top, 'items' => $items_arr]);
         $modelVip = [];
         foreach ($ItemsVip as $item) {
-            $modelVip[$item->id] = $modelItems->getPath($item->topmenu_id).'/'.$item->topmenu->getPhotoTransports()->where(['item_id'=>$item->items_id])->one()->title;
+            $modelVip[$item->id] = $modelItems->getPath($item->topmenu_id).$item->topmenu->getPhotoTransports()->where(['item_id'=>$item->items_id])->one()->title;
         }
         return [
             'itemsVip' => $ItemsVip,

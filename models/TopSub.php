@@ -14,7 +14,7 @@ use Yii;
  * @property Submenu $idSub
  * @property Topmenu $idTop
  */
-class TopSub extends \yii\db\ActiveRecord
+class TopSub extends Topmenu
 {
     /**
      * @inheritdoc
