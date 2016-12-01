@@ -5,6 +5,7 @@ return [
     /**
      * TOPMENU
      */
+    'menu' => [
     'transport' => 'Транспорт',
     'real_estate' => 'Недвижимость',
     'child_world' => 'Детский мир',
@@ -19,10 +20,31 @@ return [
     'giveAwey' => 'Отдам даром',
     'exchange' => 'Обмен',
     'more' => 'Ещё',
+        ],
     /**
      * SubMenu
      */
     'sub_menu' =>[
+        'tires_and_wheels' => 'шины и диски',
+        'spare_parts_for_speciale' => 'запасные части',
+        'cars' => 'автомобили',
+        'motozapchastey_and_accessories' => 'мотозапчасти, аксессуары',
+        'motorcycles'=>'мотоциклы',
+        'agriculture'=>'сельское хозяйство',
+        'trucks'=>'грузовики',
+        'buses' =>'автобусы',
+        'spesial_tehnik' => 'специальна техника',
+        'air_transport' => 'воздушный транспорт',
+        'woter_transpotr' => 'водный транспорт',
+        'other_transport' => 'другой транспорт',
+        'trailers' => 'прицепы',
+        'spec_acessories' => 'спецификации аксессуаров',
+        'spare_parts' => 'запасные части',
+    ],
+    /**
+     * SubCat
+     */
+    'sub_cat' =>[
         'Tires' => 'Автошины',
         'Discs' => 'Диски',
         'Complete_wheels' => 'Колеса в сборе',

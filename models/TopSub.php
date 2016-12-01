@@ -64,4 +64,12 @@ class TopSub extends Topmenu
     {
         return $this->hasOne(Topmenu::className(), ['id' => 'id_top']);
     }
+    public function getListSubMenu($id_sub)
+    {
+        $list = self::find()
+            ->with('idSub')
+            ->where(['id_top' => $id_sub])
+            ->all();
+        return $list;
+    }
 }

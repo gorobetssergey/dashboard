@@ -24,9 +24,9 @@ class Submenu extends \yii\db\ActiveRecord
         return 'submenu';
     }
 
-    public function __construct($config)
+    public function __construct($config = [])
     {
-        $this->submenu = 18;
+//        $this->submenu = 18;
     }
 
     /**

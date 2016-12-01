@@ -1,11 +1,10 @@
 $(document).ready(function () {
    $("li.ul_menu").hover(function () {
        var id_menu = $(this).attr('id');
-       $("#sub_menu"+ id_menu).slideDown(200);
+       $("div.ul_more").slideUp(0); //hide all menu
+       $(".sub_menu_all").removeClass('show');
+       $("#sub_menu"+ id_menu + ".sub_menu").slideDown(200);
    });
-    $(".ul_menu").mouseout(function () {
-        $("div.sub_menu").slideUp(5);
-    });
     $(".sub_menu").mouseout(function () {
         $(".sub_menu").slideToggle(0);
     });
@@ -45,5 +44,31 @@ $(document).ready(function () {
     for(var k = count_menu; k >= max_show; k--){
         $("#"+ k + ".ul_menu").hide();
     }
+    if(max_show >= count_menu){ //hide More if all button is show
+        $("#-1.ul_menu").addClass('hide');
+    }
     $("div.display_menu").addClass("position_finish");
+    // Hover to button More
+    $("li#-1.ul_menu").hover(
+        function () {
+        $(".sub_menu").slideUp(0); // hide main menu
+
+        for(var k = 0; k < max_show; k++){
+            $("#-"+ k + ".ul_menu_all").addClass('hide');
+        }
+        $(".sub_menu_all").addClass('show');
+        },
+        function () {
+            $(".sub_menu_all").hover(
+            function () {
+
+            },
+
+            function () {
+                $(".sub_menu_all").removeClass('show');
+            });
+
+        }
+    );
+
 });
