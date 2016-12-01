@@ -104,6 +104,7 @@
     top: 100px;
     z-index: 12;
     background-color: #00b3ee;
+    height: 0px;
 }
 /*трансформации меню*/
 #transport_new,#real_state_new{
@@ -115,4 +116,16 @@
     width: 25%;
     background-color: #faf2cc;
     border: 1px solid red;
+}
+#first,#first_1,#first_2,#first_3,#first_4{
+    width: 100px;
+    height:100%;
+    text-align: center;
+    line-height: 60px;
+    font-size: 40px;
+    float: left;
+    display: none;
+}
+#first:hover,#first_1:hover,#first_2:hover,#first_3:hover,#first_4:hover{
+    background-color: #337ab7;
 }

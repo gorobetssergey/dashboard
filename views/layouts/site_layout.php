@@ -81,8 +81,8 @@ SiteAsset::register($this);
     ]);
     NavBar::end();
     ?>
-<!--    --><?//= MenuWidgets::widget()?>
-    <?= WidgetTopMenu::widget() ?>
+    <?= MenuWidgets::widget()?>
+<!--    --><?//= WidgetTopMenu::widget() ?>
     <div class="container content_s">
         <?= $content ?>
     </div>
