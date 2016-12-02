@@ -77,5 +77,33 @@ $(document).ready(function () {
 
         }
     );
+    //Click on sub menu button right
+    $("span.excess_sub_menu").click(function () {
+        var id_status = $(this).attr("id");
+        var width_left = 0;
+        if(id_status == 0) {
+            $("#0.excess_sub_menu").addClass('hide');
+            $("#1.excess_sub_menu").removeClass('hide');
+            for (var i = 1; i < 10; i++) {
+                $("#" + i + ".ul_sub_menu").css('opacity', 0);
+            }
+             width_left = i * 133;
+            $(".ul_sup").animate({
+                left: '-' + width_left + 'px'
+            }, function () {
+                //Change icon on left
+            });
+        }
+        else {
+            $(".ul_sub_menu").css('opacity', 1);
+            $(".ul_sup").animate({
+                left: '+' + width_left + 'px'
+            },
+            function () {
+                $("#1.excess_sub_menu").addClass('hide');
+                $("#0.excess_sub_menu").removeClass('hide');
+            });
+        }
+    });
 
 });

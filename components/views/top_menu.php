@@ -11,8 +11,8 @@ use yii\helpers\Url;
 <div class="">
     <div data-count_menus="<?= $count_menus ?>" class="display_menu">
         <ul class="ul_style">
-        <?php foreach ($menus as $key => $menu): ?>
-<!--           Main menu -->
+            <!--           Main menu -->
+            <?php foreach ($menus as $key => $menu): ?>
             <a href="#">
                 <li id="<?= $key ?>" class="color_menu ul_menu li_style">
                     <?= Yii::t('cabinet', 'menu')[$menu->title]?>
@@ -46,16 +46,23 @@ use yii\helpers\Url;
         </a>
     <?php endfor; ?>
         <a href="#" >
-            <li id="<?= $j ?>" class="ul_sub_menu sub_menu_right text-center">
-                <span class="glyphicon glyphicon-menu-right" style="font-size: 32px;"></span>
+            <li class="ul_sub_menu sub_menu_right text-center">
+                <div>
+                    <span id="0" class="excess_sub_menu glyphicon glyphicon-menu-right menu_left_right"></span>
+                </div>
             </li>
         </a>
     </ul>
+    <li class="ul_sub_menu sub_menu_right text-center">
+        <div>
+            <span id="1" class="excess_sub_menu glyphicon glyphicon-menu-left menu_left_right hide"></span>
+        </div>
+    </li>
 </div>
 <?php endfor; ?>
-<!-- Menu to button more menu -->
+<!-- Menu to button More menu -->
     <div id="sub_menu<?= '-'.$i ?>" class="sub_menu_all hide">
-        <ul class="ul_sup ul_more">
+        <ul class="ul_more">
             <?php foreach ($menus as $key => $menu): ?>
                 <a href="#">
                     <li id="<?= '-'.$key ?>" class="color_menu ul_menu_all li_style_more">

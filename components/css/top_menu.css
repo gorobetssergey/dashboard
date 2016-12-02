@@ -39,7 +39,16 @@
     z-index: 3;
     padding-left: 5%;
     padding-right: 5%;
+    overflow: hidden;
+    position: absolute;
+    height: 115px;
 }
+.ul_more{
+    z-index: 3;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
 .li_style{
     padding: 18px 15px 17px;
     height: 50px;
@@ -77,17 +86,18 @@ ul.ul_style{
     padding-left: 0 !important;
     margin-bottom: 0 !important;
 }
-ul.ul_sup{
+ul.ul_sup, .ul_more{
     margin-bottom: 0 !important;
 }
 .sub_menu{
     width: 100%;
     background: #d3cd53;
-    top: 108px;
-    position: absolute;
+    top: 51px;
+    position: relative;
     border-top: solid 1px darkgoldenrod;
     border-bottom: solid 1px darkgoldenrod;
     z-index: 2;
+    height: 115px;
 }
 .sub_menu_all{
     width: 90%;
@@ -100,20 +110,7 @@ ul.ul_sup{
     border-bottom: solid 1px darkgoldenrod;
     z-index: 2;
 }
-/*.selected {*/
-    /*float: right;*/
-    /*!*position: absolute;*!*/
-    /*right: 0px;*/
-    /*top: 0px;*/
-    /*background: #d3cd53;*/
-    /*!*border: solid 1px darkgoldenrod;*!*/
 
-    /*width: 0;*/
-    /*height: 0;*/
-    /*border-top: 29px solid white;*/
-    /*border-bottom: 29px solid white;*/
-    /*border-right: 12px solid #d3cd53;*/
-/*}*/
 a:hover{
     text-decoration: none; /* Отменяем подчеркивание у ссылки */
 }
@@ -121,6 +118,10 @@ a:hover{
     position: absolute;
     top: 38px;
     right: 0.5%;
+}
+.menu_left_right{
+    font-size: 32px;
+    color: black;
 }
 .sub_menu_right:hover{
     background: #ebe47d;
