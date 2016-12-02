@@ -73,16 +73,18 @@
     display: flex;
     margin: 25px auto auto auto;
 }
-ul{
+ul.ul_style{
     padding-left: 0 !important;
     margin-bottom: 0 !important;
 }
-
+ul.ul_sup{
+    margin-bottom: 0 !important;
+}
 .sub_menu{
     width: 100%;
     background: #d3cd53;
     top: 108px;
-    position: fixed;
+    position: absolute;
     border-top: solid 1px darkgoldenrod;
     border-bottom: solid 1px darkgoldenrod;
     z-index: 2;
@@ -93,7 +95,7 @@ ul{
     margin-right: 5%;
     background: #d3cd53;
     top: 108px;
-    position: fixed;
+    position: absolute;
     border-top: solid 1px darkgoldenrod;
     border-bottom: solid 1px darkgoldenrod;
     z-index: 2;
@@ -115,3 +117,12 @@ ul{
 a:hover{
     text-decoration: none; /* Отменяем подчеркивание у ссылки */
 }
+.sub_menu_right{
+    position: absolute;
+    top: 38px;
+    right: 0.5%;
+}
+.sub_menu_right:hover{
+    background: #ebe47d;
+}
+

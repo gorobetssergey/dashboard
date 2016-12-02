@@ -12,12 +12,14 @@ use yii\helpers\Url;
     <div data-count_menus="<?= $count_menus ?>" class="display_menu">
         <ul class="ul_style">
         <?php foreach ($menus as $key => $menu): ?>
+<!--           Main menu -->
             <a href="#">
                 <li id="<?= $key ?>" class="color_menu ul_menu li_style">
                     <?= Yii::t('cabinet', 'menu')[$menu->title]?>
                 </li>
             </a>
         <?php endforeach; ?>
+<!--          batton to more menu  -->
             <a href="#">
                 <li id="-1" class="color_menu ul_menu li_style">
                     <?= Yii::t('cabinet', 'menu')['more']?>
@@ -27,10 +29,11 @@ use yii\helpers\Url;
 
     </div>
 </div>
+<!-- Sub Menu -->
 <?php
     for($i=0; $i<$count_sub_menus; $i++):
 ?>
-<div id="sub_menu<?= $i ?>" class="sub_menu collapse">
+<div id="sub_menu<?= $i ?>" class="sub_menu hide">
     <ul class="ul_sup">
     <?php
     $count_title = count($sub_menus[$i]);
@@ -42,13 +45,16 @@ use yii\helpers\Url;
             </li>
         </a>
     <?php endfor; ?>
+        <a href="#" >
+            <li id="<?= $j ?>" class="ul_sub_menu sub_menu_right text-center">
+                <span class="glyphicon glyphicon-menu-right" style="font-size: 32px;"></span>
+            </li>
+        </a>
     </ul>
 </div>
 <?php endfor; ?>
-<?php
-for($i=0; $i<$count_sub_menus; $i++):
-    ?>
-    <div id="sub_menu<?= '-'.$i ?>" class="sub_menu_all collapse">
+<!-- Menu to button more menu -->
+    <div id="sub_menu<?= '-'.$i ?>" class="sub_menu_all hide">
         <ul class="ul_sup ul_more">
             <?php foreach ($menus as $key => $menu): ?>
                 <a href="#">
@@ -59,5 +65,4 @@ for($i=0; $i<$count_sub_menus; $i++):
             <?php endforeach; ?>
         </ul>
     </div>
-<?php endfor; ?>
 
