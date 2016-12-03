@@ -28,6 +28,8 @@ use yii\helpers\Url;
         </ul>
 
     </div>
+    <div class="pointer hide"></div>
+
 </div>
 <!-- Sub Menu -->
 <?php
