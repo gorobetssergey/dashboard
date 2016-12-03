@@ -9,7 +9,7 @@ use yii\helpers\Url;
  $this->registerJsFile('components/js/menu.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 <div class="">
-    <div data-count_menus="<?= $count_menus ?>" class="display_menu">
+    <div data-count_menus="<?= $count_menus ?>" class="display_menu width_page">
         <ul class="ul_style">
             <!--           Main menu -->
             <?php foreach ($menus as $key => $menu): ?>
@@ -34,6 +34,10 @@ use yii\helpers\Url;
     for($i=0; $i<$count_sub_menus; $i++):
 ?>
 <div id="sub_menu<?= $i ?>" class="sub_menu hide">
+    <li class="ul_sub_menu sub_menu_left text-center">
+        <div class="sub_menu_left_style">
+        </div>
+    </li>
     <ul class="ul_sup">
     <?php
     $count_title = count($sub_menus[$i]);

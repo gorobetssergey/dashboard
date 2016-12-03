@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    var between_button_menu = 4;
    $("li.ul_menu").hover(function () {
        var id_menu = $(this).attr('id');
        $("div.ul_more").addClass('hide') //hide all menu
@@ -33,9 +34,14 @@ $(document).ready(function () {
     var li_width = 0;
     var li_width_more = 0;
     var max_show = 0;
+    var width_page = 0;
     $(".ul_style").css("width", function (i, value) {
         width_bloc = parseInt(value);
     });
+    $("div.width_page").css('width', function (i, value) {
+        width_page = parseInt(value);
+    });
+    $("div.sub_menu_left_style").css('width', (width_page * 0.05) +Number(between_button_menu)); // set width block he have function hide element with left
     $("#-1.ul_menu").css("width", function (i, value) {
         li_width_more = parseInt(value);
     });
@@ -80,22 +86,20 @@ $(document).ready(function () {
     //Click on sub menu button right
     $("span.excess_sub_menu").click(function () {
         var id_status = $(this).attr("id");
+        var width_one_button = 0;
+            $("li#0.ul_sub_menu").css('width',  function (i, one_menu) {
+                width_one_button = parseInt(one_menu);
+        });
         var width_left = 0;
         if(id_status == 0) {
             $("#0.excess_sub_menu").addClass('hide');
             $("#1.excess_sub_menu").removeClass('hide');
-            for (var i = 1; i < 10; i++) {
-                $("#" + i + ".ul_sub_menu").css('opacity', 0);
-            }
-             width_left = i * 133;
+             width_left = max_show * Number(width_one_button + between_button_menu); // 4px width between button
             $(".ul_sup").animate({
                 left: '-' + width_left + 'px'
-            }, function () {
-                //Change icon on left
             });
         }
         else {
-            $(".ul_sub_menu").css('opacity', 1);
             $(".ul_sup").animate({
                 left: '+' + width_left + 'px'
             },
@@ -105,5 +109,4 @@ $(document).ready(function () {
             });
         }
     });
-
 });
