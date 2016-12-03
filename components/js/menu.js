@@ -25,8 +25,10 @@ $(document).ready(function () {
            }
            pointer_position -= pointer_halh;
            $("div.pointer").css('left', pointer_position+'px');
+           $("div.pointer_main").css('left', pointer_position+'px');
            pointer_position = sub_menu_left_style;
        $("div.pointer").removeClass('hide');
+       $("div.pointer_main").removeClass('hide');
    },
        function () {
            $(".sub_menu").hover(
@@ -36,6 +38,7 @@ $(document).ready(function () {
                function () {
                    $(".sub_menu").addClass('hide');
                    $("div.pointer").addClass('hide');
+                   $("div.pointer_main").addClass('hide');
                });
 
        });

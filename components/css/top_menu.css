@@ -43,18 +43,6 @@
     position: absolute;
     height: 113px;
 }
-.pointer {
-    position: absolute;
-    top: 95px;
-    width: 0;
-    height: 0;
-    border: 1px #cc8500;
-    border-bottom: 18px solid #FFAF1A;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    z-index: 3;
-}
-
 .ul_more{
     z-index: 3;
     padding-left: 5%;
@@ -232,5 +220,25 @@ a:hover{
     background-image: -webkit-linear-gradient(top, #B8860B 0%, #FFC966 4%, #FFC966 96%, #B8860B 100%);
 
     background-image: linear-gradient(to bottom, #B8860B 0%, #FFC966 4%, #FFC966 96%, #B8860B 100%);
+}
+.pointer {
+    position: absolute;
+    top: 96px;
+    width: 0;
+    height: 0;
+    border-bottom: 18px solid #FFAF1A;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    z-index: 4;
+}
+.pointer_main{
+    position: absolute;
+    top: 92px;
+    width: 0;
+    height: 0;
+    border-bottom: 18px solid #B8860B;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    z-index: 3;
 }
 
