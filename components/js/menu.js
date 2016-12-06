@@ -1,6 +1,6 @@
 $(document).ready(function () {
     var between_button_menu = 4;
-    var pointer_halh = 10; // half width with 20px
+    var pointer_half = 10; // half width with 20px
    $("li.ul_menu").hover(function () {
        var id_menu = $(this).attr('id');
        var pointer_position = sub_menu_left_style;
@@ -23,7 +23,7 @@ $(document).ready(function () {
 
                });
            }
-           pointer_position -= pointer_halh;
+           pointer_position -= pointer_half;
            $("div.pointer").css('left', pointer_position+'px');
            $("div.pointer_main").css('left', pointer_position+'px');
            pointer_position = sub_menu_left_style;
