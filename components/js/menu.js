@@ -3,25 +3,40 @@ $(document).ready(function () {
     var pointer_half = 10; // half width with 20px
    $("li.ul_menu").hover(function () {
        var id_menu = $(this).attr('id');
+       // var id_menu_store = id_menu;
        var pointer_position = sub_menu_left_style;
        $("div.ul_more").addClass('hide'); //hide all menu
-       // $("div.sub_menu_all").addClass('hide');
-       $("#sub_menu"+ id_menu + ".sub_menu").removeClass('hide');
+       $("div.sub_menu_all").addClass('hide'); //hide main menu
+       $(".sub_menu").addClass('hide'); // hide main menu
+
+
+           $("#sub_menu"+ id_menu + ".sub_menu").removeClass('hide');
            var j=0;
-           for(j=0; j <= id_menu; j++){
+       var for_max =  id_menu;
+       if(id_menu == '-1'){
+           for_max = max_show - 1; console.log(id_menu);
+       }
+           for(j=0; j <= for_max; j++){
                $("#"+ j + ".ul_menu").css("width", function (i, li_w) {
                    if(j == id_menu){
                        var x = parseInt(li_w);
                        pointer_position += x/2;
-                       console.log(pointer_position);
                    }
                    else{
                        pointer_position += li_width = parseInt(li_w);
                        pointer_position += between_button_menu;
-                       console.log(pointer_position);
                    }
 
                });
+           }
+           if(id_menu == '-1') {
+               var width_more = 0;
+               $("#-1.ul_menu").css("width", function (i, li_more) {
+                   width_more = parseInt(li_more);
+               });
+               pointer_position += between_button_menu;
+               pointer_position += width_more/2;
+
            }
            pointer_position -= pointer_half;
            $("div.pointer").css('left', pointer_position+'px');
@@ -92,7 +107,7 @@ $(document).ready(function () {
     // Hover to button More
     $("li#-1.ul_menu").hover(
         function () {
-        // $(".sub_menu").slideUp(0); // hide main menu
+        $(".sub_menu").addClass('hide'); // hide main menu
         //forming more menu
         for(var k = 0; k < max_show; k++){
             $("#-"+ k + ".ul_menu_all").addClass('hide');
@@ -107,6 +122,8 @@ $(document).ready(function () {
 
             function () {
                 $(".sub_menu_all").addClass('hide');
+                $("div.pointer").addClass('hide');
+                $("div.pointer_main").addClass('hide');
             });
 
         }
