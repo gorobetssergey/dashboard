@@ -114,8 +114,8 @@ ul.ul_sup, .ul_more{
 .sub_menu{
     width: 100%;
     /*background: #d3cd53;*/
-    top: 51px;
-    position: relative;
+    top: 107px;
+    position: absolute;
     border-top: solid 1px darkgoldenrod;
     border-bottom: solid 1px darkgoldenrod;
     z-index: 2;

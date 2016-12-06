@@ -31,7 +31,6 @@ use yii\helpers\Url;
     <div class="pointer hide"></div>
     <div class="pointer_main hide"></div>
 
-</div>
 <!-- Sub Menu -->
 <?php
     for($i=0; $i<$count_sub_menus; $i++):
@@ -60,11 +59,13 @@ use yii\helpers\Url;
             </li>
         </a>
     </ul>
-    <li class="ul_sub_menu sub_menu_right text-center">
-        <div>
-            <span id="1" class="excess_sub_menu glyphicon glyphicon-menu-left menu_left_right hide"></span>
-        </div>
-    </li>
+    <a href="#" >
+        <li class="ul_sub_menu sub_menu_right text-center">
+            <div>
+                <span id="1" class="excess_sub_menu glyphicon glyphicon-menu-left menu_left_right hide"></span>
+            </div>
+        </li>
+    </a>
 </div>
 <?php endfor; ?>
 <!-- Menu to button More menu -->
@@ -79,4 +80,5 @@ use yii\helpers\Url;
             <?php endforeach; ?>
         </ul>
     </div>
+</div>
 
