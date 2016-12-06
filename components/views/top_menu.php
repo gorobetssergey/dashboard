@@ -1,12 +1,13 @@
 <?php
 use yii\helpers\Url;
+use yii\web\View;
 
 /**
  * @property object $menus
  */
 
  $this->registerCssFile('components/css/top_menu.css', ['depends' => [\yii\web\JqueryAsset::className()]]);
- $this->registerJsFile('components/js/menu.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+ $this->registerJsFile('components/js/menu.js', ['depends' => [\yii\web\JqueryAsset::className()], 'position' => View::POS_END]);
 ?>
 <div class="">
     <div data-count_menus="<?= $count_menus ?>" class="display_menu width_page">
@@ -36,10 +37,10 @@ use yii\helpers\Url;
     for($i=0; $i<$count_sub_menus; $i++):
 ?>
 <div id="sub_menu<?= $i ?>" class="sub_menu hide">
-    <li class="ul_sub_menu sub_menu_left text-center">
-        <div class="sub_menu_left_style">
-        </div>
-    </li>
+<!--    <li class="ul_sub_menu sub_menu_left text-center">-->
+<!--        <div class="sub_menu_left_style">-->
+<!--        </div>-->
+<!--    </li>-->
     <ul class="ul_sup">
     <?php
     $count_title = count($sub_menus[$i]);

@@ -26,9 +26,9 @@
 
     border-top: solid 1px gray;
     border-bottom: solid 1px gray;
-    margin-left: 5%;
-    margin-right: 5%;
-    width: 90%;
+    /*margin-left: 5%;*/
+    /*margin-right: 5%;*/
+    width: 100%;
 }
 .ul_style{
     background: white;
@@ -37,16 +37,16 @@
 }
 .ul_sup{
     z-index: 3;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-left: 0;
+    /*padding-right: 5%;*/
     overflow: hidden;
     position: absolute;
     height: 113px;
 }
 .ul_more{
     z-index: 3;
-    padding-left: 5%;
-    padding-right: 5%;
+    /*padding-left: 5%;*/
+    /*padding-right: 5%;*/
 }
 
 .li_style{
@@ -139,9 +139,9 @@ ul.ul_sup, .ul_more{
     background-image: linear-gradient(to bottom, #B8860B 0%, #FFAF1A 4%, #ffaf1a 96%, #B8860B 100%);
 }
 .sub_menu_all{
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 5%;
+    width: 100%;
+    /*margin-left: 5%;*/
+    /*margin-right: 5%;*/
     /*background: #d3cd53;*/
     top: 108px;
     position: absolute;
