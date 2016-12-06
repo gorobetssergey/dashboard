@@ -19,7 +19,7 @@ use yii\helpers\Url;
                 </li>
             </a>
         <?php endforeach; ?>
-<!--          batton to more menu  -->
+<!--          button to more menu  -->
             <a href="#">
                 <li id="-1" class="color_menu ul_menu li_style">
                     <?= Yii::t('cabinet', 'menu')['more']?>

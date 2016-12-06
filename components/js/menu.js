@@ -111,7 +111,7 @@ $(document).ready(function () {
 
         }
     );
-    //Click on sub menu button right
+    //Click on sub menu button left right
     $("span.excess_sub_menu").click(function () {
         var id_status = $(this).attr("id");
         var width_one_button = 0;
