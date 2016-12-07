@@ -322,7 +322,7 @@ class Items extends \yii\db\ActiveRecord
         $this->city = $city;
         $query = (new Items())->find();
         $this->result_items = [];
-        $user = (new Profile())->getTown();
+        $user = (new Profile())->getTown($city);
         if($name && $city)
         {
             $this->result_query = $query

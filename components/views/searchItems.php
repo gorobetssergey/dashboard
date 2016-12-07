@@ -16,7 +16,7 @@ $this->registerCssFile('components/css/search.css', ['depends' => [\yii\web\Jque
         'action' => Url::home(true).'site/find-like-items'
     ]);
     ?>
-    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-lg-offset-1 col-md-offset-1 input_z_index">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-lg-offset-1 col-md-offset-1">
         <?php
         echo $form->field($items, 'name')->label(false)->widget(Typeahead::classname(), [
             'options' => ['placeholder' => Yii::t('site', 'product_name'),
@@ -36,7 +36,7 @@ $this->registerCssFile('components/css/search.css', ['depends' => [\yii\web\Jque
         ]);
         ?>
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-lg-offset-1 col-md-offset-1 input_z_index">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-lg-offset-1 col-md-offset-1">
         <?php
         echo $form->field($city, 'title')->label(false)->widget(Typeahead::classname(), [
             'name' => 'title_city',
