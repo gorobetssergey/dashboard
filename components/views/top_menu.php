@@ -37,10 +37,10 @@ use yii\web\View;
     for($i=0; $i<$count_sub_menus; $i++):
 ?>
 <div id="sub_menu<?= $i ?>" class="sub_menu hide">
-<!--    <li class="ul_sub_menu sub_menu_left text-center">-->
-<!--        <div class="sub_menu_left_style">-->
-<!--        </div>-->
-<!--    </li>-->
+    <li class="ul_sub_menu sub_menu_left text-center">
+        <div class="sub_menu_left_style">
+        </div>
+    </li>
     <ul class="ul_sup">
     <?php
     $count_title = count($sub_menus[$i]);

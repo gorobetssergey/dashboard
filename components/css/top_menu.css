@@ -37,8 +37,8 @@
 }
 .ul_sup{
     z-index: 3;
-    padding-left: 0;
-    /*padding-right: 5%;*/
+    padding-left: 3%;
+    padding-right: 3%;
     overflow: hidden;
     position: absolute;
     height: 113px;
