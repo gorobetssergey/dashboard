@@ -72,12 +72,5 @@ class SubCat extends \yii\db\ActiveRecord
             ->all();
         return $list;
     }
-    public function getList()
-    {
-        $list = self::find()
-            ->select(['id_sub'])
-            ->distinct('id_sub')
-            ->all();
-        return $list;
-    }
+
 }

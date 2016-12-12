@@ -24,13 +24,12 @@ class WidgetTopMenu extends Widget
         $menu = new Topmenu();
         $menus = $menu->getTopMenu();
         $count_menus = count($menus);
-        $modelSutegoryes = new SubCat();
         $modelTopSubmenu = new TopSub();
 
-        $list_sub_categoryes = $modelSutegoryes->getList();
+        $list_sub_categoryes = $modelTopSubmenu->getList();
         $model = array();
         foreach ($list_sub_categoryes as $key => $item){
-            $count_model = $modelTopSubmenu->getListSubMenu($item->id_sub);
+            $count_model = $modelTopSubmenu->getListSubMenu($item->id_top);
             foreach ($count_model as $i => $id_title)
                 $model[$key][$i] = Yii::t('cabinet', 'sub_menu')[$id_title->idSub->title];
         }

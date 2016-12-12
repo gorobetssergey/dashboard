@@ -72,4 +72,12 @@ class TopSub extends Topmenu
             ->all();
         return $list;
     }
+    public function getList()
+    {
+        $list = self::find()
+            ->select(['id_top'])
+            ->distinct('id_top')
+            ->all();
+        return $list;
+    }
 }
