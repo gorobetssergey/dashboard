@@ -19,6 +19,7 @@ $(document).ready(function () {
        if(id_menu == '-1'){
            for_max = max_show - 1;
        }
+           //logic to pointer
            for(j=0; j <= for_max; j++){
                $("#"+ j + ".ul_menu").css("width", function (i, li_w) {
                    if(j == id_menu){
@@ -82,7 +83,7 @@ $(document).ready(function () {
     var width_page = 0;
     var sub_menu_left_style = 0;
     WindowResize();
-    function WindowResize() { console.log('Window Resize');
+    function WindowResize() {
          width_bloc = 0;
          current_width = 0;
          li_width = 0;
@@ -155,7 +156,7 @@ $(document).ready(function () {
         if(id_status == 0) {
             $("#0.excess_sub_menu").addClass('hide');
             $("#1.excess_sub_menu").removeClass('hide');
-             width_left = max_show * Number(width_one_button + between_button_menu); // 4px width between button
+             width_left = Number(max_show + 1) * Number(width_one_button + between_button_menu); // 4px width between button
             $(".ul_sup").animate({
                 left: '-' + width_left + 'px'
             });
