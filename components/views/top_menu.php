@@ -34,16 +34,17 @@ use yii\web\View;
 
 <!-- Sub Menu -->
 <?php
+
     for($i=0; $i<$count_sub_menus; $i++):
-?>
+        $count_title = count($sub_menus[$i]);
+        ?>
 <div id="sub_menu<?= $i ?>" class="sub_menu hide">
     <li class="ul_sub_menu sub_menu_left text-center">
         <div class="sub_menu_left_style">
         </div>
     </li>
-    <ul class="ul_sup">
+    <ul class="ul_sup" data-sub_menu_count="<?= $count_title ?>">
     <?php
-    $count_title = count($sub_menus[$i]);
     for($j=0; $j<$count_title; $j++): ?>
         <a href="#" >
             <li id="<?= $j ?>" class="ul_sub_menu li_sub_style text-center">

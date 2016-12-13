@@ -4,6 +4,7 @@ $(document).ready(function () {
     });
     var between_button_menu = 4;
     var pointer_half = 10; // half width with 20px
+    var max_show_sub = 0;
    $("li.ul_menu").hover(function () {
        var id_menu = $(this).attr('id');
        // var id_menu_store = id_menu;
@@ -13,7 +14,9 @@ $(document).ready(function () {
        $(".sub_menu").addClass('hide'); // hide main menu
 
 
-           $("#sub_menu"+ id_menu + ".sub_menu").removeClass('hide');
+           $("#sub_menu"+ id_menu + ".sub_menu").removeClass('hide');   //show sub_menu
+           max_show_sub = maxShowSub(id_menu);
+
            var j=0;
        var for_max =  id_menu;
        if(id_menu == '-1'){
@@ -156,7 +159,7 @@ $(document).ready(function () {
         if(id_status == 0) {
             $("#0.excess_sub_menu").addClass('hide');
             $("#1.excess_sub_menu").removeClass('hide');
-             width_left = Number(max_show + 1) * Number(width_one_button + between_button_menu); // 4px width between button
+                 width_left = Number(max_show_sub + 1) * Number(width_one_button + between_button_menu); // 4px width between button
             $(".ul_sup").animate({
                 left: '-' + width_left + 'px'
             });
@@ -171,4 +174,17 @@ $(document).ready(function () {
             });
         }
     });
+    function maxShowSub(id_sub) {
+        var sub_menu_width = 0;
+        var sub_menu_count = $("#sub_menu"+ id_sub + ".sub_menu").find('ul.ul_sup').data('sub_menu_count');
+        $("#sub_menu"+ id_sub + ".sub_menu").find('ul.ul_sup').css("width",function (i, sub) {
+            sub_menu_width = parseInt(sub);
+        });
+        var sub_li_width = 0;
+        $("#sub_menu"+ id_sub + ".sub_menu").find('li#0.ul_sub_menu').css("width",function (i, li) {
+            sub_li_width = parseInt(li);
+        });
+        var max_to_show = sub_menu_width/(Number(sub_li_width + between_button_menu));
+        return Math.floor(max_to_show)-1;
+    }
 });

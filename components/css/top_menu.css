@@ -179,7 +179,7 @@ a:hover{
 }
 .sub_menu_left{
     position: absolute;
-    left: 2px;
+    left: 0;
     z-index: 5;
 }
 .sub_menu_left_style{
