@@ -49,7 +49,7 @@ use yii\web\View;
         <a href="#" >
             <li id="<?= $j ?>" class="ul_sub_menu li_sub_style text-center">
                 <img class="img_sub" src="/images/site/menu/sub_menu/laptop.png">
-                    <?= wordwrap($sub_menus[$i][$j], 12, "<br />\n"); ?>
+                    <?= $sub_menus[$i][$j] ?>
             </li>
         </a>
     <?php endfor; ?>

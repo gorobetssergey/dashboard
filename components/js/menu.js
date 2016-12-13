@@ -159,7 +159,7 @@ $(document).ready(function () {
         if(id_status == 0) {
             $("#0.excess_sub_menu").addClass('hide');
             $("#1.excess_sub_menu").removeClass('hide');
-                 width_left = Number(max_show_sub + 1) * Number(width_one_button + between_button_menu); // 4px width between button
+                 width_left = Number(max_show_sub) * Number(width_one_button + between_button_menu); // 4px width between button
             $(".ul_sup").animate({
                 left: '-' + width_left + 'px'
             });
@@ -176,6 +176,7 @@ $(document).ready(function () {
     });
     function maxShowSub(id_sub) {
         var sub_menu_width = 0;
+        var sub_menu_min_width = 0;
         var sub_menu_count = $("#sub_menu"+ id_sub + ".sub_menu").find('ul.ul_sup').data('sub_menu_count');
         $("#sub_menu"+ id_sub + ".sub_menu").find('ul.ul_sup').css("width",function (i, sub) {
             sub_menu_width = parseInt(sub);
@@ -184,7 +185,15 @@ $(document).ready(function () {
         $("#sub_menu"+ id_sub + ".sub_menu").find('li#0.ul_sub_menu').css("width",function (i, li) {
             sub_li_width = parseInt(li);
         });
-        var max_to_show = sub_menu_width/(Number(sub_li_width + between_button_menu));
-        return Math.floor(max_to_show)-1;
+        var max_to_show = Math.floor(sub_menu_width/(Number(sub_li_width + between_button_menu)));
+        console.log('max_to_show :'+max_to_show+' >= '+'sub_menu_count :'+sub_menu_count);
+        if(max_to_show >= sub_menu_count){
+            $("#0.excess_sub_menu").addClass('hide');
+        }
+        else{
+            $("#0.excess_sub_menu").removeClass('hide');
+        }
+
+        return max_to_show;
     }
 });

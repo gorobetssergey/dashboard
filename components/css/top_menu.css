@@ -104,7 +104,7 @@
     height: 32px;
     width: auto;
     display: flex;
-    margin: 25px auto auto auto;
+    margin: 15px auto auto auto;
 }
 ul.ul_style{
     padding-left: 0 !important;
@@ -149,7 +149,7 @@ ul.ul_sup, .ul_more{
     position: absolute;
     border-top: solid 1px darkgoldenrod;
     border-bottom: solid 1px darkgoldenrod;
-    z-index: 2;
+    z-index: 3;
     /* IE10+ */
     background-image: -ms-linear-gradient(top, #B8860B 0%, #FFAF1A 4%, #ffaf1a 96%, #B8860B 100%);
 
