@@ -25,7 +25,7 @@ $(document).ready(function () {
            for_max = max_show - 1;
        }
 
-       logicPointer(id_menu, for_max, pointer_position);
+       logicPointer(id_menu, for_max, pointer_position, current_width);
        },
        function () {
            $(".sub_menu").hover(
@@ -58,7 +58,13 @@ $(document).ready(function () {
     var max_show = 0;
     var width_page = 0;
     var sub_menu_left_style = 0;
-    WindowResize();
+    current_width = WindowResize();
+    console.log(current_width);
+    $("li.ul_menu.menu_right").click(function () {
+        var id = $(this).data("left_right");
+        console.log(id);
+        menuLeftRight(id, current_width);
+    });
     // Hover to button More
     // $("li#-1.ul_menu").hover(
     //     function () {
@@ -86,7 +92,7 @@ $(document).ready(function () {
     //Click on sub menu button left right
     $("span.excess_sub_menu").click(function () {
         var id_status = $(this).attr("id");
-        subMenuLeftRight(id_status);
+        subMenuLeftRight(id_status, current_width);
     });
 
     //library
@@ -108,25 +114,29 @@ $(document).ready(function () {
         //     sub_menu_left_style = (width_page * 0.05) + Number(between_button_menu);
         // });
         // $("div.sub_menu_left_style").css('width', sub_menu_left_style); // set width block he have function hide element with left
-        $("#-1.ul_menu").css("width", function (i, value) {
+        $("li#-1.ul_menu").css("width", function (i, value) {
             li_width_more = parseInt(value);
         });
-        for (var j = 0; j < count_menu; j++) {
-            $("#" + j + ".ul_menu").css("width", function (i, li_w) {
-                current_width += li_width = parseInt(li_w);
-                if (Number(current_width + li_width_more) < width_bloc) {
-                    max_show++;
-                }
-            });
+        for(var j = 0; j < count_menu; j++) {
+            if (Number(current_width + li_width_more) < width_bloc && (j < count_menu-3)) {
+                max_show++;
+                $("#" + j + ".ul_menu").css("width", function (i, li_w) {
+                    current_width += li_width = parseInt(li_w);
+                });
+            }
+            else{
+                break;
+            }
         }
-        $("div.display_menu").removeClass("position_finish");
-        for (var k = count_menu; k >= max_show; k--) {
-            $("#" + k + ".ul_menu").addClass('hide');
-        }
+        // $("div.display_menu").removeClass("position_finish");
+        // for (var k = count_menu; k >= max_show; k--) {
+        //     $("#" + k + ".ul_menu").addClass('hide');
+        // }
         if (max_show >= count_menu) { //hide More if all button is show
             $("#-1.ul_menu").addClass('hide');
         }
-        $("div.display_menu").addClass("position_finish");
+        // $("div.display_menu").addClass("position_finish");
+        return current_width +  (current_width * 0.04) + between_button_menu;
     }
 
     function maxShowSub(id_sub) {
@@ -149,7 +159,8 @@ $(document).ready(function () {
 
         return max_to_show;
     }
-    function logicPointer(id_menu, for_max, pointer_position) {
+    function logicPointer(id_menu, for_max, pointer_position, current_width) {
+        pointer_position += current_width*0.02;
         for(var j=0; j <= for_max; j++){
             $("#"+ j + ".ul_menu").css("width", function (i, li_w) {
                 if(j == id_menu){
@@ -170,9 +181,9 @@ $(document).ready(function () {
             });
             pointer_position += between_button_menu;
             pointer_position += width_more/2;
-
         }
         pointer_position -= pointer_half;
+
         $("div.pointer").css('left', pointer_position+'px');
         $("div.pointer_main").css('left', pointer_position+'px');
         pointer_position = sub_menu_left_style;
@@ -201,6 +212,30 @@ $(document).ready(function () {
                     $("#1.excess_sub_menu").addClass('hide');
                     $("#0.excess_sub_menu").removeClass('hide');
                 });
+        }
+    }
+    function menuLeftRight(id, current_width) {
+       var id_max=0;
+       var max=0;
+        console.log(current_width);
+       $(".display_menu").find("li.menu_count").each(function () {
+          id_max = Number(Math.max(this.id, max)+1); // +1 counting id=0
+       });
+        if(id =='right'){
+            $("div.display_menu").animate({
+                left: '-' + current_width  + 'px'
+            });
+            $("li.menu_right").removeClass('glyphicon-menu-right');
+            $("li.menu_right").addClass('glyphicon-menu-left');
+            $("li.menu_right").data("left_right", "left");
+        }
+        else if(id =='left'){
+            $("div.display_menu").animate({
+                left: '+' + 0  + 'px'
+            });
+            $("li.menu_right").removeClass('glyphicon-menu-left');
+            $("li.menu_right").addClass('glyphicon-menu-right');
+            $("li.menu_right").data("left_right", "right");
         }
     }
 });

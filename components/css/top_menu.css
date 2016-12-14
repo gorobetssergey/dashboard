@@ -25,15 +25,26 @@
     position: relative !important;
 }
 .display_menu{
-    top: 52px;
     /*position: relative !important;*/
-    z-index: 2;
+    z-index: 3;
 
+    margin-left: 2%;
+    margin-right: 2%;
+    overflow: hidden;
+    height: 52px;
+    position: absolute;
+    background: white;
+
+}
+.menu_border{
+    position: relative;
+    top: 52px;
+    height: 54px;
+    width: 100%;
     border-top: solid 1px gray;
     border-bottom: solid 1px gray;
-    /*margin-left: 5%;*/
-    /*margin-right: 5%;*/
-    width: 100%;
+    background: white;
+    z-index: 4;
 }
 .ul_style{
     background: white;
@@ -120,7 +131,7 @@ ul.ul_sup, .ul_more{
 .sub_menu{
     width: 100%;
     /*background: #d3cd53;*/
-    top: 107px;
+    top: 53px;
     position: absolute;
     border-top: solid 1px darkgoldenrod;
     border-bottom: solid 1px darkgoldenrod;
@@ -229,22 +240,27 @@ a:hover{
 }
 .pointer {
     position: absolute;
-    top: 96px;
+    top: 42px;
     width: 0;
     height: 0;
     border-bottom: 18px solid #FFAF1A;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    z-index: 4;
+    z-index: 5;
 }
 .pointer_main{
     position: absolute;
-    top: 92px;
+    top: 38px;
     width: 0;
     height: 0;
     border-bottom: 18px solid #B8860B;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    z-index: 3;
+    z-index: 4;
+}
+.menu_right{
+    position: fixed;
+    top: 55px;
+    right: -6px;
 }
 

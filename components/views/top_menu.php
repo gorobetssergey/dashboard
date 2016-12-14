@@ -9,20 +9,20 @@ use yii\web\View;
  $this->registerCssFile('components/css/top_menu.css', ['depends' => [\yii\web\JqueryAsset::className()]]);
  $this->registerJsFile('components/js/menu.js', ['depends' => [\yii\web\JqueryAsset::className()], 'position' => View::POS_END]);
 ?>
-<div class="">
+<div class="menu_border">
     <div data-count_menus="<?= $count_menus ?>" class="display_menu width_page">
         <ul class="ul_style">
             <!--           Main menu -->
             <?php foreach ($menus as $key => $menu): ?>
             <a href="#">
-                <li id="<?= $key ?>" class="color_menu ul_menu li_style">
+                <li id="<?= $key ?>" class="menu_count color_menu ul_menu li_style">
                     <?= Yii::t('cabinet', 'menu')[$menu->title]?>
                 </li>
             </a>
         <?php endforeach; ?>
 <!--          button to more menu  -->
             <a href="#">
-                <li id="-1" class="color_menu ul_menu li_style glyphicon glyphicon-menu-right">
+                <li id="-1" data-left_right="right" class="color_menu ul_menu li_style glyphicon glyphicon-menu-right menu_right">
 
                 </li>
             </a>
