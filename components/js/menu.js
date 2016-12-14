@@ -7,6 +7,9 @@ $(document).ready(function () {
     var max_show_sub = 0;
    $("li.ul_menu").hover(function () {
        var id_menu = $(this).attr('id');
+       if(id_menu < 0){ //if hover to left right, will be return
+           return false;
+       }
        // var id_menu_store = id_menu;
        var pointer_position = sub_menu_left_style;
        $("div.ul_more").addClass('hide'); //hide all menu
@@ -17,52 +20,22 @@ $(document).ready(function () {
            $("#sub_menu"+ id_menu + ".sub_menu").removeClass('hide');   //show sub_menu
            max_show_sub = maxShowSub(id_menu);
 
-           var j=0;
        var for_max =  id_menu;
        if(id_menu == '-1'){
            for_max = max_show - 1;
        }
-           //logic to pointer
-           for(j=0; j <= for_max; j++){
-               $("#"+ j + ".ul_menu").css("width", function (i, li_w) {
-                   if(j == id_menu){
-                       var x = parseInt(li_w);
-                       pointer_position += x/2;
-                   }
-                   else{
-                       pointer_position += li_width = parseInt(li_w);
-                       pointer_position += between_button_menu;
-                   }
 
-               });
-           }
-           if(id_menu == '-1') {
-               var width_more = 0;
-               $("#-1.ul_menu").css("width", function (i, li_more) {
-                   width_more = parseInt(li_more);
-               });
-               pointer_position += between_button_menu;
-               pointer_position += width_more/2;
-
-           }
-           pointer_position -= pointer_half;
-           $("div.pointer").css('left', pointer_position+'px');
-           $("div.pointer_main").css('left', pointer_position+'px');
-           pointer_position = sub_menu_left_style;
-       $("div.pointer").removeClass('hide');
-       $("div.pointer_main").removeClass('hide');
-   },
+       logicPointer(id_menu, for_max, pointer_position);
+       },
        function () {
            $(".sub_menu").hover(
                function () {
                },
-
                function () {
                    $(".sub_menu").addClass('hide');
                    $("div.pointer").addClass('hide');
                    $("div.pointer_main").addClass('hide');
                });
-
        });
     /**
      * hover to sub li
@@ -71,7 +44,7 @@ $(document).ready(function () {
        $(this).find("img.img_sub").attr('src', '/images/site/menu/sub_menu/laptop2.png');
     },
     function () {
-            $(this).find("img.img_sub").attr('src', '/images/site/menu/sub_menu/laptop.png');
+       $(this).find("img.img_sub").attr('src', '/images/site/menu/sub_menu/laptop.png');
     });
 
     /**
@@ -86,14 +59,45 @@ $(document).ready(function () {
     var width_page = 0;
     var sub_menu_left_style = 0;
     WindowResize();
+    // Hover to button More
+    // $("li#-1.ul_menu").hover(
+    //     function () {
+    //     $(".sub_menu").addClass('hide'); // hide main menu
+    //     //forming more menu
+    //     for(var k = 0; k < max_show; k++){
+    //         $("#-"+ k + ".ul_menu_all").addClass('hide');
+    //     }
+    //     $(".sub_menu_all").removeClass('hide');
+    //     },
+    //     function () {
+    //         $(".sub_menu_all").hover(
+    //         function () {
+    //
+    //         },
+    //
+    //         function () {
+    //             $(".sub_menu_all").addClass('hide');
+    //             $("div.pointer").addClass('hide');
+    //             $("div.pointer_main").addClass('hide');
+    //         });
+    //
+    //     }
+    // );
+    //Click on sub menu button left right
+    $("span.excess_sub_menu").click(function () {
+        var id_status = $(this).attr("id");
+        subMenuLeftRight(id_status);
+    });
+
+    //library
     function WindowResize() {
-         width_bloc = 0;
-         current_width = 0;
-         li_width = 0;
-         li_width_more = 0;
-         max_show = 0;
-         width_page = 0;
-         sub_menu_left_style = 0;
+        width_bloc = 0;
+        current_width = 0;
+        li_width = 0;
+        li_width_more = 0;
+        max_show = 0;
+        width_page = 0;
+        sub_menu_left_style = 0;
         $(".ul_menu").removeClass("hide");
 
         $(".width_page").css("width", function (i, value) {
@@ -124,59 +128,9 @@ $(document).ready(function () {
         }
         $("div.display_menu").addClass("position_finish");
     }
-    // Hover to button More
-    $("li#-1.ul_menu").hover(
-        function () {
-        $(".sub_menu").addClass('hide'); // hide main menu
-        //forming more menu
-        for(var k = 0; k < max_show; k++){
-            $("#-"+ k + ".ul_menu_all").addClass('hide');
-        }
-        $(".sub_menu_all").removeClass('hide');
-        },
-        function () {
-            $(".sub_menu_all").hover(
-            function () {
 
-            },
-
-            function () {
-                $(".sub_menu_all").addClass('hide');
-                $("div.pointer").addClass('hide');
-                $("div.pointer_main").addClass('hide');
-            });
-
-        }
-    );
-    //Click on sub menu button left right
-    $("span.excess_sub_menu").click(function () {
-        var id_status = $(this).attr("id");
-        var width_one_button = 0;
-            $("li#0.ul_sub_menu").css('width',  function (i, one_menu) {
-                width_one_button = parseInt(one_menu);
-        });
-        var width_left = 0;
-        if(id_status == 0) {
-            $("#0.excess_sub_menu").addClass('hide');
-            $("#1.excess_sub_menu").removeClass('hide');
-                 width_left = Number(max_show_sub) * Number(width_one_button + between_button_menu); // 4px width between button
-            $(".ul_sup").animate({
-                left: '-' + width_left + 'px'
-            });
-        }
-        else {
-            $(".ul_sup").animate({
-                left: '+' + width_left + 'px'
-            },
-            function () {
-                $("#1.excess_sub_menu").addClass('hide');
-                $("#0.excess_sub_menu").removeClass('hide');
-            });
-        }
-    });
     function maxShowSub(id_sub) {
         var sub_menu_width = 0;
-        var sub_menu_min_width = 0;
         var sub_menu_count = $("#sub_menu"+ id_sub + ".sub_menu").find('ul.ul_sup').data('sub_menu_count');
         $("#sub_menu"+ id_sub + ".sub_menu").find('ul.ul_sup').css("width",function (i, sub) {
             sub_menu_width = parseInt(sub);
@@ -186,7 +140,6 @@ $(document).ready(function () {
             sub_li_width = parseInt(li);
         });
         var max_to_show = Math.floor(sub_menu_width/(Number(sub_li_width + between_button_menu)));
-        console.log('max_to_show :'+max_to_show+' >= '+'sub_menu_count :'+sub_menu_count);
         if(max_to_show >= sub_menu_count){
             $("#0.excess_sub_menu").addClass('hide');
         }
@@ -195,5 +148,59 @@ $(document).ready(function () {
         }
 
         return max_to_show;
+    }
+    function logicPointer(id_menu, for_max, pointer_position) {
+        for(var j=0; j <= for_max; j++){
+            $("#"+ j + ".ul_menu").css("width", function (i, li_w) {
+                if(j == id_menu){
+                    var x = parseInt(li_w);
+                    pointer_position += x/2;
+                }
+                else{
+                    pointer_position += li_width = parseInt(li_w);
+                    pointer_position += between_button_menu;
+                }
+
+            });
+        }
+        if(id_menu == '-1') {
+            var width_more = 0;
+            $("#-1.ul_menu").css("width", function (i, li_more) {
+                width_more = parseInt(li_more);
+            });
+            pointer_position += between_button_menu;
+            pointer_position += width_more/2;
+
+        }
+        pointer_position -= pointer_half;
+        $("div.pointer").css('left', pointer_position+'px');
+        $("div.pointer_main").css('left', pointer_position+'px');
+        pointer_position = sub_menu_left_style;
+        $("div.pointer").removeClass('hide');
+        $("div.pointer_main").removeClass('hide');
+    }
+    function subMenuLeftRight(id_status) {
+        var width_one_button = 0;
+        $("li#0.ul_sub_menu").css('width',  function (i, one_menu) {
+            width_one_button = parseInt(one_menu);
+        });
+        var width_left = 0;
+        if(id_status == 0) {
+            $("#0.excess_sub_menu").addClass('hide');
+            $("#1.excess_sub_menu").removeClass('hide');
+            width_left = Number(max_show_sub) * Number(width_one_button + between_button_menu); // 4px width between button
+            $(".ul_sup").animate({
+                left: '-' + width_left + 'px'
+            });
+        }
+        else {
+            $(".ul_sup").animate({
+                    left: '+' + width_left + 'px'
+                },
+                function () {
+                    $("#1.excess_sub_menu").addClass('hide');
+                    $("#0.excess_sub_menu").removeClass('hide');
+                });
+        }
     }
 });

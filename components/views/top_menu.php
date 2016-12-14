@@ -22,8 +22,8 @@ use yii\web\View;
         <?php endforeach; ?>
 <!--          button to more menu  -->
             <a href="#">
-                <li id="-1" class="color_menu ul_menu li_style">
-                    <?= Yii::t('cabinet', 'menu')['more']?>
+                <li id="-1" class="color_menu ul_menu li_style glyphicon glyphicon-menu-right">
+
                 </li>
             </a>
         </ul>
@@ -71,16 +71,16 @@ use yii\web\View;
 </div>
 <?php endfor; ?>
 <!-- Menu to button More menu -->
-    <div id="sub_menu<?= '-'.$i ?>" class="sub_menu_all hide">
-        <ul class="ul_more">
-            <?php foreach ($menus as $key => $menu): ?>
-                <a href="#">
-                    <li id="<?= '-'.$key ?>" class="color_menu ul_menu_all li_style_more">
-                        <?= Yii::t('cabinet', 'menu')[$menu->title]?>
-                    </li>
-                </a>
-            <?php endforeach; ?>
-        </ul>
-    </div>
+<!--    <div id="sub_menu--><?//= '-'.$i ?><!--" class="sub_menu_all hide">-->
+<!--        <ul class="ul_more">-->
+<!--            --><?php //foreach ($menus as $key => $menu): ?>
+<!--                <a href="#">-->
+<!--                    <li id="--><?//= '-'.$key ?><!--" class="color_menu ul_menu_all li_style_more">-->
+<!--                        --><?//= Yii::t('cabinet', 'menu')[$menu->title]?>
+<!--                    </li>-->
+<!--                </a>-->
+<!--            --><?php //endforeach; ?>
+<!--        </ul>-->
+<!--    </div>-->
 </div>
 
