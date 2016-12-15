@@ -5,6 +5,7 @@ $(document).ready(function () {
     var between_button_menu = 4;
     var pointer_half = 10; // half width with 20px
     var max_show_sub = 0;
+    var margin_left_rigth = 50; //px
    $("li.ul_menu").hover(function () {
        var id_menu = $(this).attr('id');
        if(id_menu < 0){ //if hover to left right, will be return
@@ -107,7 +108,7 @@ $(document).ready(function () {
         $(".ul_menu").removeClass("hide");
 
         $(".width_page").css("width", function (i, value) {
-            width_bloc = parseInt(value)*0.95;
+            width_bloc = parseInt(value)- margin_left_rigth;
         });
         // $("div.width_page").css('width', function (i, value) {
         //     width_page = parseInt(value);
@@ -118,13 +119,16 @@ $(document).ready(function () {
             li_width_more = parseInt(value);
         });
         for(var j = 0; j < count_menu; j++) {
-            if (Number(current_width + li_width_more) < width_bloc && (j < count_menu-3)) {
+            if (Number(current_width + li_width_more) < width_bloc) {
                 max_show++;
                 $("#" + j + ".ul_menu").css("width", function (i, li_w) {
                     current_width += li_width = parseInt(li_w);
                 });
             }
             else{
+                $("#" + (j-1) + ".ul_menu").css("width", function (i, li_w) {
+                    current_width -= li_width = parseInt(li_w);
+                });
                 break;
             }
         }
@@ -132,11 +136,12 @@ $(document).ready(function () {
         // for (var k = count_menu; k >= max_show; k--) {
         //     $("#" + k + ".ul_menu").addClass('hide');
         // }
+        console.log('max_show :'+ max_show +  '>=' + ' count_menu :' + count_menu);
         if (max_show >= count_menu) { //hide More if all button is show
             $("#-1.ul_menu").addClass('hide');
         }
         // $("div.display_menu").addClass("position_finish");
-        return current_width +  (current_width * 0.04) + between_button_menu;
+        return Number(current_width + margin_left_rigth + between_button_menu);
     }
 
     function maxShowSub(id_sub) {
@@ -160,7 +165,7 @@ $(document).ready(function () {
         return max_to_show;
     }
     function logicPointer(id_menu, for_max, pointer_position, current_width) {
-        pointer_position += current_width*0.02;
+        pointer_position += margin_left_rigth/2;
         for(var j=0; j <= for_max; j++){
             $("#"+ j + ".ul_menu").css("width", function (i, li_w) {
                 if(j == id_menu){
