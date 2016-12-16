@@ -92,7 +92,7 @@ class DbseedController extends Controller
                 ['baby_carriage'],                  //38
                 ['toys'],                           //39
                 ['goods_schoolboys'],               //40
-                //job
+                //(job) old version, do not use them
                 ['retail_sale_purchase'],           //41
                 ['legal_accounting'],               //42
                 ['human_resources_HR'],             //43
@@ -219,6 +219,10 @@ class DbseedController extends Controller
                 ['electronics'],                    //148   //148
                 ['fashion_style'],                  //150   //150
                 ['hobbies_sports'],                 //154
+                //+job
+                ['jobs_category'],                  //159
+                ['jobs_cities'],                    //160
+                ['work_students'],                  //161
             ])->execute();
 
 //            $submenu = (new \yii\db\Query())
@@ -275,32 +279,9 @@ class DbseedController extends Controller
                 [3, 39],
                 [3, 40],
 
-                [4, 41],
-                [4, 42],
-                [4, 43],
-                [4, 44],
-                [4, 45],
-                [4, 46],
-                [4, 47],
-                [4, 48],
-                [4, 49],
-                [4, 50],
-                [4, 51],
-                [4, 52],
-                [4, 53],
-                [4, 54],
-                [4, 55],
-                [4, 56],
-                [4, 57],
-                [4, 58],
-                [4, 59],
-                [4, 60],
-                [4, 61],
-                [4, 62],
-                [4, 63],
-                [4, 64],
-                [4, 65],
-                [4, 66],
+                [4, 159],
+                [4, 160],
+                [4, 161],
 
                 [5, 67],
                 [5, 68],
@@ -397,7 +378,7 @@ class DbseedController extends Controller
                 [13, 149],
                 [13, 148],
                 [13, 150],
-                [13, 154]
+                [13, 158]
                 ])->execute();;
 
             Yii::$app->db->createCommand()->batchInsert('catalog', ['title'], [

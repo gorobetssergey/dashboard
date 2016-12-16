@@ -46,10 +46,10 @@ use yii\web\View;
     <ul class="ul_sup" data-sub_menu_count="<?= $count_title ?>">
     <?php
     for($j=0; $j<$count_title; $j++): ?>
-        <a href="#" >
+        <a href="<?=  Url::toRoute(['/', 'menu' =>$sub_menus[$i][$j]['id_menu'], 'sub' => $sub_menus[$i][$j]['id'] ]) ?>" >
             <li id="<?= $j ?>" class="ul_sub_menu li_sub_style text-center">
                 <img class="img_sub" src="/images/site/menu/sub_menu/laptop.png">
-                    <?= $sub_menus[$i][$j] ?>
+                    <?= $sub_menus[$i][$j]['title'] ?>
             </li>
         </a>
     <?php endfor; ?>

@@ -140,7 +140,7 @@ $(document).ready(function () {
                 $("#-1.ul_menu").addClass('hide');
             }
             // $("div.display_menu").addClass("position_finish");
-            return Number(current_width + margin_left_right + between_button_menu);
+            return Number(current_width + margin_left_right + between_button_menu   );
         }
 
         function maxShowSub(id_sub) {

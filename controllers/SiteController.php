@@ -69,6 +69,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $request = Yii::$app->request;
+        $menu = $request->get('menu');
+        $sub = $request->get('sub');
+        if($menu > 0 && $sub >0){
+            echo 'menu:'.$menu.'  - sub:'.$sub;die();
+        }
         $modelItems = new Items();
         $ItemsStandard = $modelItems->showItems(Items::STATUS_STANDART);
         $ItemsVip = $modelItems->showItems(Items::STATUS_VIP);

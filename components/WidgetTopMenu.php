@@ -31,10 +31,13 @@ class WidgetTopMenu extends Widget
         foreach ($list_sub_categoryes as $key => $item){
             $count_model = $modelTopSubmenu->getListSubMenu($item->id_top);
             foreach ($count_model as $i => $id_title)
-                $model[$key][$i] = Yii::t('cabinet', 'sub_menu')[$id_title->idSub->title];
+                $model[$key][$i] = [
+                    'id'=> $id_title->idSub->id,
+                    'title'=> Yii::t('cabinet', 'sub_menu')[$id_title->idSub->title],
+                    'id_menu' => $id_title->id_top
+                ];
         }
         $count_model = count($model);
-
         return $this->render('top_menu',[
             'menus' => $menus,
             'count_menus' => $count_menus,
