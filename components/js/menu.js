@@ -93,7 +93,9 @@ $(document).ready(function () {
         //Click on sub menu button left right
         $("span.excess_sub_menu").click(function () {
             var id_status = $(this).attr("id");
-            subMenuLeftRight(id_status, current_width);
+            var data_sub = $(this).data("sub");
+            console.log(data_sub);
+            subMenuLeftRight(id_status, current_width, data_sub);
         });
 
         //library
@@ -209,27 +211,27 @@ $(document).ready(function () {
             $("div.pointer").removeClass('hide');
             $("div.pointer_main").removeClass('hide');
         }
-        function subMenuLeftRight(id_status) {
+        function subMenuLeftRight(id_status, current_width, data_sub) {
             var width_one_button = 0;
             $("li#0.ul_sub_menu").css('width',  function (i, one_menu) {
                 width_one_button = parseInt(one_menu);
             });
             var width_left = 0;
             if(id_status == 0) {
-                $("#0.excess_sub_menu").addClass('hide');
-                $("#1.excess_sub_menu").removeClass('hide');
+                $("#0.excess_sub_menu[data-sub="+data_sub+"]").addClass('hide');
+                $("#1.excess_sub_menu[data-sub="+data_sub+"]").removeClass('hide');
                 width_left = Number(max_show_sub) * Number(width_one_button + between_button_menu); // 4px width between button
-                $(".ul_sup").animate({
+                $("#ul_sub"+ data_sub +".ul_sup").animate({
                     left: '-' + width_left + 'px'
                 });
             }
             else {
-                $(".ul_sup").animate({
+                $("#ul_sub"+ data_sub +".ul_sup").animate({
                         left: '+' + width_left + 'px'
                     },
                     function () {
-                        $("#1.excess_sub_menu").addClass('hide');
-                        $("#0.excess_sub_menu").removeClass('hide');
+                        $("#1.excess_sub_menu[data-sub="+data_sub+"]").addClass('hide');
+                        $("#0.excess_sub_menu[data-sub="+data_sub+"]").removeClass('hide');
                     });
             }
         }

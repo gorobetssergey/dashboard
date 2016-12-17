@@ -43,7 +43,7 @@ use yii\web\View;
         <div class="sub_menu_left_style">
         </div>
     </li>
-    <ul class="ul_sup" data-sub_menu_count="<?= $count_title ?>">
+    <ul id="<?='ul_sub'.$i ?>" class="ul_sup" data-sub_menu_count="<?= $count_title ?>">
     <?php
     for($j=0; $j<$count_title; $j++): ?>
         <a href="<?=  Url::toRoute(['/', 'menu' =>$sub_menus[$i][$j]['id_menu'], 'sub' => $sub_menus[$i][$j]['id'] ]) ?>" >
@@ -56,7 +56,7 @@ use yii\web\View;
         <a href="#" >
             <li class="ul_sub_menu sub_menu_right text-center">
                 <div>
-                    <span id="0" class="excess_sub_menu glyphicon glyphicon-menu-right menu_left_right"></span>
+                    <span id="0" data-sub="<?= $i ?>" class="excess_sub_menu glyphicon glyphicon-menu-right menu_left_right"></span>
                 </div>
             </li>
         </a>
@@ -64,7 +64,7 @@ use yii\web\View;
     <a href="#" >
         <li class="ul_sub_menu sub_menu_right text-center">
             <div>
-                <span id="1" class="excess_sub_menu glyphicon glyphicon-menu-left menu_left_right hide"></span>
+                <span id="1" data-sub="<?= $i ?>" class="excess_sub_menu glyphicon glyphicon-menu-left menu_left_right hide"></span>
             </div>
         </li>
     </a>
