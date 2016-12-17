@@ -119,28 +119,36 @@ $(document).ready(function () {
                 li_width_more = parseInt(value);
             });
             for(var j = 0; j < count_menu; j++) {
-                if (Number(current_width + li_width_more) < width_bloc) {
+                if (Number(current_width + margin_left_right/2 - 1) < width_bloc) {
                     max_show++;
                     $("#" + j + ".ul_menu").css("width", function (i, li_w) {
                         current_width += li_width = parseInt(li_w);
+                        current_width += between_button_menu;
                     });
                 }
                 else{
                     $("#" + (j-1) + ".ul_menu").css("width", function (i, li_w) {
                         current_width -= li_width = parseInt(li_w);
                     });
+                    // max_show++;
                     break;
                 }
             }
+            current_width += margin_left_right/2;
             // $("div.display_menu").removeClass("position_finish");
             // for (var k = count_menu; k >= max_show; k--) {
             //     $("#" + k + ".ul_menu").addClass('hide');
             // }
+            console.log('max_show >= count_menu'+max_show + '-' + count_menu)
             if (max_show >= count_menu) { //hide More if all button is show
                 $("#-1.ul_menu").addClass('hide');
             }
+            else{
+                $("#-1.ul_menu").removeClass('hide');
+
+            }
             // $("div.display_menu").addClass("position_finish");
-            return Number(current_width + margin_left_right + between_button_menu   );
+            return Number(current_width);
         }
 
         function maxShowSub(id_sub) {
